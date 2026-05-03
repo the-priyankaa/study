@@ -1,0 +1,1912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ML Exam Question Bank</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap');
+
+  :root {
+    --bg: #0d0f14;
+    --surface: #13161e;
+    --surface2: #1a1e2a;
+    --border: #252b3b;
+    --accent1: #6ee7b7;
+    --accent2: #f59e0b;
+    --accent3: #818cf8;
+    --text: #e2e8f0;
+    --text-dim: #64748b;
+    --text-mid: #94a3b8;
+    --mcq-color: #34d399;
+    --saq-color: #fbbf24;
+    --long-color: #a78bfa;
+    --correct: #10b981;
+    --mcq-color: #34d399;
+    --saq-color: #fbbf24;
+    --long-color: #a78bfa;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Lora', Georgia, serif;
+    min-height: 100vh;
+    line-height: 1.7;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 2.5rem 2rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -60px; left: 50%; transform: translateX(-50%);
+    width: 600px; height: 200px;
+    background: radial-gradient(ellipse, rgba(110,231,183,0.08) 0%, transparent 70%);
+  }
+  header h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--accent1);
+  }
+  header p {
+    color: var(--text-mid);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+    letter-spacing: 0.1em;
+  }
+  .home-link {
+    position: absolute;
+    left: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-dim);
+    text-decoration: none;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+  .home-link:hover { color: var(--accent1); }
+
+  /* NAV TABS */
+  nav {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  nav button {
+    padding: 1rem 2.5rem;
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    color: var(--text-dim);
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  nav button:hover { color: var(--text); }
+  nav button.active-mcq { color: var(--mcq-color); border-bottom-color: var(--mcq-color); }
+  nav button.active-saq { color: var(--saq-color); border-bottom-color: var(--saq-color); }
+  nav button.active-long { color: var(--long-color); border-bottom-color: var(--long-color); }
+
+  /* SECTIONS */
+  section { display: none; padding: 2rem; max-width: 900px; margin: 0 auto; }
+  section.active { display: block; }
+
+  .section-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-header h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+  }
+  .section-header p {
+    color: var(--text-mid);
+    font-size: 0.9rem;
+    margin-top: 0.3rem;
+  }
+  .mcq-tag { color: var(--mcq-color); }
+  .saq-tag { color: var(--saq-color); }
+  .long-tag { color: var(--long-color); }
+
+  /* QUESTION CARD */
+  .q-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 1.2rem;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .q-card:hover { border-color: #333d52; }
+
+  .q-header {
+    padding: 1.1rem 1.4rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    cursor: pointer;
+    user-select: none;
+  }
+  .q-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.2rem 0.55rem;
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+  }
+  .mcq-num { background: rgba(52,211,153,0.12); color: var(--mcq-color); }
+  .saq-num { background: rgba(251,191,36,0.12); color: var(--saq-color); }
+  .long-num { background: rgba(167,139,250,0.12); color: var(--long-color); }
+
+  .q-text {
+    flex: 1;
+    font-size: 0.97rem;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .q-toggle {
+    font-size: 1.1rem;
+    color: var(--text-dim);
+    flex-shrink: 0;
+    transition: transform 0.25s;
+    margin-top: 0.1rem;
+  }
+  .q-card.open .q-toggle { transform: rotate(180deg); }
+
+  /* OPTIONS (MCQ) */
+  .q-options {
+    padding: 0 1.4rem 0.5rem 3.8rem;
+  }
+  .option {
+    padding: 0.4rem 0.8rem;
+    margin: 0.25rem 0;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    color: var(--text-mid);
+    border: 1px solid transparent;
+  }
+  .option.correct {
+    background: rgba(16,185,129,0.1);
+    border-color: rgba(16,185,129,0.3);
+    color: var(--correct);
+    font-weight: 500;
+  }
+
+  /* ANSWER PANEL */
+  .q-answer {
+    display: none;
+    border-top: 1px solid var(--border);
+    padding: 1.2rem 1.4rem 1.2rem 3.8rem;
+    background: var(--surface2);
+  }
+  .q-card.open .q-answer { display: block; }
+
+  .ans-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    color: var(--text-dim);
+    margin-bottom: 0.6rem;
+  }
+  .ans-label.mcq-lbl { color: var(--mcq-color); }
+  .ans-label.saq-lbl { color: var(--saq-color); }
+  .ans-label.long-lbl { color: var(--long-color); }
+
+  .ans-text {
+    font-size: 0.92rem;
+    color: var(--text-mid);
+    line-height: 1.75;
+  }
+  .ans-text strong { color: var(--text); font-style: normal; }
+  .ans-text ul { padding-left: 1.2rem; margin-top: 0.4rem; }
+  .ans-text ul li { margin-bottom: 0.3rem; }
+  .ans-text .formula {
+    font-family: 'IBM Plex Mono', monospace;
+    background: rgba(255,255,255,0.05);
+    padding: 0.6rem 1rem;
+    border-radius: 5px;
+    border-left: 3px solid var(--accent3);
+    margin: 0.6rem 0;
+    font-size: 0.85rem;
+    color: #c4b5fd;
+  }
+  .ans-text .highlight {
+    background: rgba(110,231,183,0.08);
+    border-left: 3px solid var(--accent1);
+    padding: 0.6rem 1rem;
+    border-radius: 0 5px 5px 0;
+    margin: 0.6rem 0;
+    color: var(--text);
+  }
+  table { border-collapse: collapse; width: 100%; margin: 0.6rem 0; font-size: 0.85rem; }
+  th { background: rgba(255,255,255,0.05); padding: 0.5rem 0.8rem; text-align: left; color: var(--text); font-family: 'Syne', sans-serif; font-size: 0.8rem; border: 1px solid var(--border); }
+  td { padding: 0.45rem 0.8rem; border: 1px solid var(--border); color: var(--text-mid); }
+
+  /* TOPIC DIVIDER */
+  .topic-divider {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--text-dim);
+    padding: 0.5rem 0;
+    margin: 1.5rem 0 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .topic-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-dim);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    border-top: 1px solid var(--border);
+    margin-top: 2rem;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="home-link">← HOME</a>
+  <h1>ML Exam Question Bank</h1>
+  <p>MCQ · SAQ · LONG QUESTIONS — WITH FULL ANSWERS</p>
+</header>
+
+<nav>
+  <button class="active-mcq" onclick="switchTab('mcq')">▣ MCQ SET</button>
+  <button onclick="switchTab('saq')">▤ SHORT ANSWER</button>
+  <button onclick="switchTab('long')">▦ LONG QUESTIONS</button>
+</nav>
+
+<!-- ========================= MCQ SECTION ========================= -->
+<section id="mcq" class="active">
+  <div class="section-header">
+    <h2><span class="mcq-tag">▣</span> Multiple Choice Questions</h2>
+    <p>30 questions — Click any question to reveal the answer and explanation</p>
+  </div>
+
+  <div class="topic-divider">INTRODUCTION TO ML</div>
+
+  <!-- Q1 -->
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q1</span>
+      <span class="q-text">Machine Learning is a subset of which of the following?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Data Science</div>
+      <div class="option correct">b) Artificial Intelligence</div>
+      <div class="option">c) Database Management</div>
+      <div class="option">d) Operating Systems</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text">Machine Learning is a subset of Artificial Intelligence (AI). It focuses on building systems that learn from data and make predictions or decisions. Deep Learning is further a subset of ML.</div>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q2</span>
+      <span class="q-text">Which type of ML uses labeled data for training?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Unsupervised Learning</div>
+      <div class="option correct">b) Supervised Learning</div>
+      <div class="option">c) Reinforcement Learning</div>
+      <div class="option">d) Self-supervised Learning</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text"><strong>Supervised Learning</strong> uses labeled datasets — the data comes with both inputs and their corresponding outputs. The model learns to map inputs to correct outputs. Examples: spam detection, price prediction.</div>
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q3</span>
+      <span class="q-text">Which of the following is an example of a Regression problem?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Classifying email as spam or not</div>
+      <div class="option correct">b) Predicting house price from its area</div>
+      <div class="option">c) Grouping customers into segments</div>
+      <div class="option">d) Detecting fraud — yes or no</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text"><strong>Regression</strong> predicts a continuous numeric value. House price prediction is a classic regression example. Spam detection is classification; customer grouping is clustering.</div>
+    </div>
+  </div>
+
+  <div class="topic-divider">NAIVE BAYES & K-NN</div>
+
+  <!-- Q4 -->
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q4</span>
+      <span class="q-text">Why is Naive Bayes called "Naive"?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) It gives inaccurate results</div>
+      <div class="option correct">b) It assumes all features are independent of each other</div>
+      <div class="option">c) It requires very little data</div>
+      <div class="option">d) It was invented by a naive scientist</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text">The "naive" assumption is that all features are <strong>conditionally independent</strong> given the class label. This is often not true in real life, but the algorithm still works well in many applications like spam filtering and text classification.</div>
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q5</span>
+      <span class="q-text">Which Naive Bayes type is used when features follow a Normal distribution?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option correct">a) Gaussian Naive Bayes</div>
+      <div class="option">b) Bernoulli Naive Bayes</div>
+      <div class="option">c) Multinomial Naive Bayes</div>
+      <div class="option">d) Laplace Naive Bayes</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: A</div>
+      <div class="ans-text"><strong>Gaussian Naive Bayes</strong> is used when features are continuous and assumed to follow a Gaussian (Normal) distribution — a symmetric bell-shaped curve. Bernoulli is for binary features; Multinomial is for word counts.</div>
+    </div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q6</span>
+      <span class="q-text">In k-NN, what happens when k=1?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Model underfits</div>
+      <div class="option correct">b) Model may overfit — very sensitive to noise</div>
+      <div class="option">c) Model becomes more generalized</div>
+      <div class="option">d) No prediction is made</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text">When k=1, the model assigns the class of the single nearest neighbor. This makes it extremely sensitive to noise and outliers, leading to overfitting. Larger k values give smoother decision boundaries.</div>
+    </div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q7</span>
+      <span class="q-text">Which distance measure is most commonly used in k-NN?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Manhattan Distance</div>
+      <div class="option correct">b) Euclidean Distance</div>
+      <div class="option">c) Cosine Similarity</div>
+      <div class="option">d) Hamming Distance</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text"><strong>Euclidean Distance</strong> is the straight-line distance between two points and is the most commonly used metric in k-NN. Manhattan distance is also used, especially when data has many dimensions.</div>
+    </div>
+  </div>
+
+  <div class="topic-divider">DECISION TREES & SVM</div>
+
+  <!-- Q8 -->
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q8</span>
+      <span class="q-text">What metric is used in Decision Trees to select the best attribute?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Mean Squared Error</div>
+      <div class="option">b) Euclidean Distance</div>
+      <div class="option correct">c) Information Gain / Entropy</div>
+      <div class="option">d) Sigmoid value</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: C</div>
+      <div class="ans-text"><strong>Information Gain</strong> (based on Entropy) is used to select the best splitting attribute in a Decision Tree. The attribute that gives the highest information gain (or lowest entropy) becomes the root/split node.</div>
+    </div>
+  </div>
+
+  <!-- Q9 -->
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q9</span>
+      <span class="q-text">In SVM, the data points closest to the hyperplane are called:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Centroids</div>
+      <div class="option">b) Pivots</div>
+      <div class="option correct">c) Support Vectors</div>
+      <div class="option">d) Kernel points</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: C</div>
+      <div class="ans-text"><strong>Support Vectors</strong> are the data points closest to the decision boundary (hyperplane). They define the position and orientation of the hyperplane. Moving a support vector changes the hyperplane itself.</div>
+    </div>
+  </div>
+
+  <!-- Q10 -->
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q10</span>
+      <span class="q-text">Which SVM allows misclassification of some data points?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Hard Margin SVM</div>
+      <div class="option correct">b) Soft Margin SVM</div>
+      <div class="option">c) Linear SVM</div>
+      <div class="option">d) Kernel SVM</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text"><strong>Soft Margin SVM</strong> uses slack variables (ξi) to allow some misclassification of difficult or noisy data points. It is used when data is not perfectly linearly separable — which is the case in most real-world datasets.</div>
+    </div>
+  </div>
+
+  <!-- Q11 -->
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q11</span>
+      <span class="q-text">The RBF (Radial Basis Function) kernel is also called:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option correct">a) Gaussian Kernel</div>
+      <div class="option">b) Linear Kernel</div>
+      <div class="option">c) Sigmoid Kernel</div>
+      <div class="option">d) Polynomial Kernel</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: A</div>
+      <div class="ans-text">The <strong>Gaussian Kernel</strong> (also called RBF) is the most popular kernel in SVM. It handles complex, circular, and scattered data by mapping it to an infinite-dimensional space.</div>
+    </div>
+  </div>
+
+  <div class="topic-divider">REGRESSION & LOGISTIC REGRESSION</div>
+
+  <!-- Q12 -->
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q12</span>
+      <span class="q-text">The equation Y = mX + c represents which model?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option correct">a) Simple Linear Regression</div>
+      <div class="option">b) Logistic Regression</div>
+      <div class="option">c) Polynomial Regression</div>
+      <div class="option">d) Ridge Regression</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: A</div>
+      <div class="ans-text"><strong>Simple Linear Regression</strong>: Y = mX + c, where m is the slope and c is the intercept (value of Y when X=0). It uses one input (X) to predict one output (Y).</div>
+    </div>
+  </div>
+
+  <!-- Q13 -->
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q13</span>
+      <span class="q-text">The Sigmoid function output is always between:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) -1 and 1</div>
+      <div class="option correct">b) 0 and 1</div>
+      <div class="option">c) 0 and infinity</div>
+      <div class="option">d) -infinity and +infinity</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text">The Sigmoid function σ(z) = 1/(1+e⁻ᶻ) always outputs a value between <strong>0 and 1</strong>. This makes it ideal for Logistic Regression to output probabilities. The default decision threshold is 0.5.</div>
+    </div>
+  </div>
+
+  <!-- Q14 -->
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q14</span>
+      <span class="q-text">Which regression is used when the output is binary (0 or 1)?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Linear Regression</div>
+      <div class="option">b) Ridge Regression</div>
+      <div class="option correct">c) Logistic Regression</div>
+      <div class="option">d) Lasso Regression</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: C</div>
+      <div class="ans-text"><strong>Logistic Regression</strong> is used for binary classification (0 or 1). Examples: spam/not-spam, pass/fail, disease/no-disease. It uses the Sigmoid function to convert continuous values into probabilities.</div>
+    </div>
+  </div>
+
+  <!-- Q15 -->
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q15</span>
+      <span class="q-text">Which regression technique reduces overfitting by penalizing large coefficients and can remove some features entirely?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Ridge Regression</div>
+      <div class="option correct">b) Lasso Regression</div>
+      <div class="option">c) Linear Regression</div>
+      <div class="option">d) Logistic Regression</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text"><strong>Lasso Regression</strong> (L1 regularization) can shrink coefficients to exactly zero, effectively removing unimportant features. Ridge (L2) reduces coefficients but rarely sets them to zero. Elastic Net combines both.</div>
+    </div>
+  </div>
+
+  <div class="topic-divider">UNSUPERVISED LEARNING & CLUSTERING</div>
+
+  <!-- Q16 -->
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q16</span>
+      <span class="q-text">In K-Means clustering, what does 'K' represent?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Number of data points</div>
+      <div class="option">b) Number of features</div>
+      <div class="option correct">c) Number of clusters</div>
+      <div class="option">d) Number of iterations</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: C</div>
+      <div class="ans-text"><strong>K</strong> in K-Means defines the number of pre-defined clusters to be created. If K=2, there will be 2 clusters; K=3 gives 3 clusters, etc. The value of K must be decided before running the algorithm.</div>
+    </div>
+  </div>
+
+  <!-- Q17 -->
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q17</span>
+      <span class="q-text">DBSCAN is based on which concept?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Distance from centroids</div>
+      <div class="option correct">b) Density of data points in a neighborhood</div>
+      <div class="option">c) Probability distributions</div>
+      <div class="option">d) Tree structure</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text"><strong>DBSCAN</strong> (Density-Based Spatial Clustering of Applications with Noise) groups together points that are close in density. For each point, the neighborhood of a given radius must contain at least a minimum number of points to be considered a cluster.</div>
+    </div>
+  </div>
+
+  <!-- Q18 -->
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q18</span>
+      <span class="q-text">PCA (Principal Component Analysis) is mainly used for:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Classification</div>
+      <div class="option">b) Clustering</div>
+      <div class="option correct">c) Dimensionality Reduction</div>
+      <div class="option">d) Regression</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: C</div>
+      <div class="ans-text"><strong>PCA</strong> is a dimensionality reduction technique that converts n correlated variables into a smaller set of uncorrelated variables called Principal Components, while maximizing the variance preserved.</div>
+    </div>
+  </div>
+
+  <div class="topic-divider">EVALUATION & ENSEMBLE METHODS</div>
+
+  <!-- Q19 -->
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q19</span>
+      <span class="q-text">Which metric is best when the dataset is highly imbalanced?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Accuracy</div>
+      <div class="option">b) MSE</div>
+      <div class="option correct">c) F1-Score</div>
+      <div class="option">d) R² Score</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: C</div>
+      <div class="ans-text"><strong>F1-Score</strong> is the harmonic mean of Precision and Recall. It is the best metric for imbalanced datasets because Accuracy can be misleading (a model that always predicts the majority class may have high accuracy but is useless).</div>
+    </div>
+  </div>
+
+  <!-- Q20 -->
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q20</span>
+      <span class="q-text">In k-Fold Cross-Validation with k=5, how many times is the model trained?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) 1</div>
+      <div class="option">b) 4</div>
+      <div class="option correct">c) 5</div>
+      <div class="option">d) 10</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: C</div>
+      <div class="ans-text">In k-Fold Cross-Validation, the data is divided into k equal folds. The model is trained and tested k times — each time using a different fold as the test set. With k=5, the model is trained <strong>5 times</strong>.</div>
+    </div>
+  </div>
+
+  <!-- Q21 -->
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q21</span>
+      <span class="q-text">Random Forest is based on which ensemble technique?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Boosting</div>
+      <div class="option correct">b) Bagging (Bootstrap Aggregation)</div>
+      <div class="option">c) Stacking</div>
+      <div class="option">d) Voting only</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text"><strong>Random Forest</strong> uses Bagging: it creates multiple bootstrap datasets from the original data (sampling with replacement), trains a Decision Tree on each, and combines results via majority voting (classification) or averaging (regression).</div>
+    </div>
+  </div>
+
+  <!-- Q22 -->
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q22</span>
+      <span class="q-text">In Boosting, how are subsequent models trained?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Independently on the full dataset</div>
+      <div class="option correct">b) Sequentially, focusing on errors of previous model</div>
+      <div class="option">c) In parallel on random subsets</div>
+      <div class="option">d) On different features only</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text">In <strong>Boosting</strong>, each model is trained sequentially. Each new model tries to correct the mistakes of its predecessor by giving higher weight to misclassified examples. This turns weak learners into a strong predictor.</div>
+    </div>
+  </div>
+
+  <div class="topic-divider">DEEP LEARNING & ADVANCED TOPICS</div>
+
+  <!-- Q23 -->
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q23</span>
+      <span class="q-text">CNNs are primarily used for which type of data?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Sequential/Time-series data</div>
+      <div class="option correct">b) Image/Visual data</div>
+      <div class="option">c) Tabular structured data</div>
+      <div class="option">d) Audio waveforms only</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text"><strong>CNNs</strong> (Convolutional Neural Networks) excel at image-related tasks: object detection, image classification, image segmentation. They use filters/kernels to detect local patterns (edges, shapes, objects).</div>
+    </div>
+  </div>
+
+  <!-- Q24 -->
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q24</span>
+      <span class="q-text">Which neural network architecture has an internal "memory" to handle sequential data?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) CNN</div>
+      <div class="option correct">b) RNN</div>
+      <div class="option">c) GAN</div>
+      <div class="option">d) Autoencoder</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text"><strong>RNN</strong> (Recurrent Neural Network) maintains a hidden state that acts as "memory" of past inputs. It processes sequences by using the output of one step as input to the next — making it ideal for NLP, time-series, and speech recognition.</div>
+    </div>
+  </div>
+
+  <!-- Q25 -->
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q25</span>
+      <span class="q-text">LSTM is an improved version of:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) CNN</div>
+      <div class="option">b) Decision Tree</div>
+      <div class="option correct">c) RNN</div>
+      <div class="option">d) SVM</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: C</div>
+      <div class="ans-text"><strong>LSTM</strong> (Long Short-Term Memory) is an improved version of RNN that solves the vanishing gradient problem. It can remember long-term patterns, making it better for tasks like weather forecasting and speech recognition.</div>
+    </div>
+  </div>
+
+  <!-- Q26 -->
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q26</span>
+      <span class="q-text">VC Dimension measures:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Accuracy of a model</div>
+      <div class="option correct">b) The complexity/capacity of a model</div>
+      <div class="option">c) Speed of training</div>
+      <div class="option">d) Number of layers in a neural network</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text"><strong>VC Dimension</strong> (Vapnik-Chervonenkis Dimension) measures model complexity — specifically, the maximum number of points a model can classify correctly in all possible arrangements. Higher VC dimension = higher capacity.</div>
+    </div>
+  </div>
+
+  <!-- Q27 -->
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q27</span>
+      <span class="q-text">What does LASSO do in Sparse Modeling?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Increases all coefficients</div>
+      <div class="option correct">b) Sets some coefficients to exactly zero, removing unimportant features</div>
+      <div class="option">c) Adds more features to the model</div>
+      <div class="option">d) Scales the data</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text"><strong>LASSO</strong> (Least Absolute Shrinkage and Selection Operator) performs both regularization and feature selection by setting some coefficients to exactly zero. This makes the model sparse — only important features remain.</div>
+    </div>
+  </div>
+
+  <!-- Q28 -->
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q28</span>
+      <span class="q-text">In the Bias-Variance tradeoff, a very complex model leads to:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) High Bias, Low Variance</div>
+      <div class="option correct">b) Low Bias, High Variance (Overfitting)</div>
+      <div class="option">c) High Bias, High Variance</div>
+      <div class="option">d) Low Bias, Low Variance</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text">A very complex model fits the training data too well (low bias/low training error) but performs poorly on new data (high variance). This is called <strong>overfitting</strong>. A simple model has high bias and underfits.</div>
+    </div>
+  </div>
+
+  <!-- Q29 -->
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q29</span>
+      <span class="q-text">The Softmax function is used in:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Binary Classification</div>
+      <div class="option correct">b) Multiclass Classification</div>
+      <div class="option">c) Regression only</div>
+      <div class="option">d) Clustering</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text"><strong>Softmax</strong> converts raw logits into probability distributions across multiple classes, ensuring all probabilities sum to 1. Sigmoid is used for binary classification; Softmax generalizes it to multiclass problems.</div>
+    </div>
+  </div>
+
+  <!-- Q30 -->
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q30</span>
+      <span class="q-text">Feature Representation Learning in Deep Learning means:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Manually designing features from domain knowledge</div>
+      <div class="option correct">b) Automatically learning useful features from raw data</div>
+      <div class="option">c) Removing all features from data</div>
+      <div class="option">d) Only using PCA for feature selection</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text"><strong>Feature Representation Learning</strong> means the model automatically discovers useful features from raw data (images, text, audio) without human feature engineering. Deep Learning models like CNNs learn edges → shapes → objects hierarchically.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= SAQ SECTION ========================= -->
+<section id="saq">
+  <div class="section-header">
+    <h2><span class="saq-tag">▤</span> Short Answer Questions</h2>
+    <p>20 questions — 3–5 marks each. Click to reveal full answer.</p>
+  </div>
+
+  <div class="topic-divider">CORE CONCEPTS</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S1</span>
+      <span class="q-text">What are the 4 types of Machine Learning? Give one example of each.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <ul>
+          <li><strong>Supervised Learning:</strong> Uses labeled data. Example: Email spam detection (spam/not-spam).</li>
+          <li><strong>Unsupervised Learning:</strong> No labels; finds hidden patterns. Example: Customer segmentation using clustering.</li>
+          <li><strong>Semi-supervised Learning:</strong> Uses both labeled and unlabeled data. Example: Image classification with few labeled samples.</li>
+          <li><strong>Reinforcement Learning:</strong> Agent learns by reward/penalty. Example: Training a robot to walk, or AlphaGo playing chess.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S2</span>
+      <span class="q-text">Differentiate between Classification and Regression with 2 examples each.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <table>
+          <tr><th>Feature</th><th>Classification</th><th>Regression</th></tr>
+          <tr><td>Output type</td><td>Discrete labels/categories</td><td>Continuous numeric value</td></tr>
+          <tr><td>Label type</td><td>Discrete variable</td><td>Continuous variable (Y ∈ ℝ)</td></tr>
+          <tr><td>Example 1</td><td>Email is spam or not</td><td>Predicting house price</td></tr>
+          <tr><td>Example 2</td><td>Classifying image as cat/dog</td><td>Predicting tomorrow's temperature</td></tr>
+          <tr><td>Algorithm</td><td>Logistic Regression, SVM</td><td>Linear Regression, Ridge</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S3</span>
+      <span class="q-text">Explain the steps of the Naive Bayes classification algorithm.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        Naive Bayes uses Bayes' Theorem: <span class="formula">P(A|B) = P(B|A) × P(A) / P(B)</span>
+        <strong>Steps:</strong>
+        <ul>
+          <li><strong>Step 1:</strong> Calculate Prior probability — P(class) for each class label from the training data.</li>
+          <li><strong>Step 2:</strong> Calculate Likelihood — P(feature | class) for each feature-class combination.</li>
+          <li><strong>Step 3:</strong> Apply Bayes' Formula — compute Posterior probability P(class | features).</li>
+          <li><strong>Step 4:</strong> Predict the class with the highest posterior probability.</li>
+        </ul>
+        <div class="highlight">The word "Naive" means it assumes all features are independent, even when they are not. Despite this, it works well in spam filtering, text classification, and medical diagnosis.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S4</span>
+      <span class="q-text">What is k-NN? Write the steps of the k-NN algorithm for classification.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <strong>k-NN</strong> (k-Nearest Neighbors) classifies a new data point based on the majority class of its k nearest neighbors. It does not build an explicit model — it stores all training data.
+        <br><br><strong>Steps:</strong>
+        <ul>
+          <li>Choose the value of k (e.g., k=3 or k=5). Odd values preferred to avoid ties.</li>
+          <li>Calculate distance (usually Euclidean) between the new point and all training points.</li>
+          <li>Select the k points with the smallest distances.</li>
+          <li>Perform majority voting — the class that appears most among k neighbors is the prediction.</li>
+        </ul>
+        <strong>Applications:</strong> Recommendation systems, healthcare (disease prediction), fraud detection.
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">DECISION TREES & SVM</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S5</span>
+      <span class="q-text">What are the advantages and disadvantages of Decision Trees?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <strong>Advantages:</strong>
+        <ul>
+          <li>Easy to understand and visualize — generates readable rules.</li>
+          <li>Handles both numerical and categorical data.</li>
+          <li>Non-parametric — no assumptions about data distribution.</li>
+          <li>Robust — not affected by outliers or missing values.</li>
+          <li>Fast prediction — cost is logarithmic in number of data points.</li>
+        </ul>
+        <strong>Disadvantages:</strong>
+        <ul>
+          <li><strong>Overfitting</strong> — complex trees memorize training data. Fix: pruning, min samples per leaf.</li>
+          <li><strong>Instability</strong> — small changes in data can produce a completely different tree.</li>
+          <li><strong>Bias</strong> — if classes are imbalanced, biased trees result.</li>
+          <li>Learning the optimal tree is NP-complete.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S6</span>
+      <span class="q-text">Explain the concept of Hyperplane, Margin, and Support Vectors in SVM.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <ul>
+          <li><strong>Hyperplane:</strong> A decision boundary that separates data points of different classes. Equation: W·X + b = 0. For 2 features it's a line; for 3 features it's a plane; for n features it's an n-1 dimensional plane.</li>
+          <li><strong>Margin:</strong> The distance between the hyperplane and the nearest data points from each class. SVM maximizes this margin for better, more reliable classification. A wider margin = safer predictions.</li>
+          <li><strong>Support Vectors:</strong> The data points closest to the hyperplane. They are the most important points — they decide where and how the hyperplane is drawn. Moving a support vector changes the hyperplane.</li>
+        </ul>
+        <div class="highlight">SVM goal: Find the hyperplane that maximizes the margin between classes.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S7</span>
+      <span class="q-text">What is the Kernel Trick in SVM? Name 4 types of kernels.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        When data cannot be separated by a straight line in the original space (non-linear data), the <strong>Kernel Trick</strong> maps the data to a higher-dimensional space where it becomes linearly separable — without actually computing the transformation (saving computation).
+        <div class="formula">K(xi, xj) = φ(xi)ᵀ φ(xj)</div>
+        <strong>4 Types of Kernels:</strong>
+        <ul>
+          <li><strong>Linear Kernel:</strong> For linearly separable data. K(x,z) = xᵀz</li>
+          <li><strong>Polynomial Kernel:</strong> For curved boundaries. K(x,z) = (1 + xᵀz)^d</li>
+          <li><strong>RBF / Gaussian Kernel:</strong> Most popular. Handles complex, circular data.</li>
+          <li><strong>Sigmoid Kernel:</strong> Similar to neural network activation functions.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">REGRESSION</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S8</span>
+      <span class="q-text">Write the Linear Regression equation and explain each term. What is the LMS update rule?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <div class="formula">Y = mX + c (Simple Linear Regression)</div>
+        <ul>
+          <li><strong>Y</strong> = Dependent variable (what we predict: salary, marks, price)</li>
+          <li><strong>X</strong> = Independent variable (input: experience, hours, area)</li>
+          <li><strong>m</strong> = Slope — how much Y changes when X increases by 1</li>
+          <li><strong>c</strong> = Intercept — value of Y when X = 0</li>
+        </ul>
+        <strong>LMS (Least Mean Squares) Update Rule:</strong>
+        <div class="formula">θj := θj + α × (y⁽ⁱ⁾ - hθ(x⁽ⁱ⁾)) × xj⁽ⁱ⁾</div>
+        where α is the learning rate. The update is proportional to the prediction error — if prediction is close to actual, little update occurs; if error is large, bigger update happens.
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S9</span>
+      <span class="q-text">What is Logistic Regression? Explain the Sigmoid function and the decision boundary.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <strong>Logistic Regression</strong> is a supervised classification algorithm used when output is categorical (0 or 1). It predicts the probability of an event.
+        <br><br>
+        <strong>Sigmoid Function:</strong>
+        <div class="formula">σ(z) = 1 / (1 + e⁻ᶻ)   where z = a₀ + a₁x</div>
+        <ul>
+          <li>Output is always between 0 and 1</li>
+          <li>If σ(z) ≥ 0.5 → predict class 1 (Pass, Spam)</li>
+          <li>If σ(z) < 0.5 → predict class 0 (Fail, Not Spam)</li>
+        </ul>
+        <strong>Decision Boundary:</strong> The threshold (usually 0.5) where the model is equally likely to predict either class. At z=0, σ(z) = 0.5 exactly — the model is undecided.
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S10</span>
+      <span class="q-text">Compare Linear Regression and Logistic Regression.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <table>
+          <tr><th>Feature</th><th>Linear Regression</th><th>Logistic Regression</th></tr>
+          <tr><td>Type</td><td>Supervised Regression</td><td>Supervised Classification</td></tr>
+          <tr><td>Output type</td><td>Continuous value</td><td>Categorical (0 or 1)</td></tr>
+          <tr><td>Output range</td><td>(-∞) to (+∞)</td><td>0 to 1 (probability)</td></tr>
+          <tr><td>Function used</td><td>Y = mX + c</td><td>Sigmoid σ(z)</td></tr>
+          <tr><td>Decision boundary</td><td>Not used</td><td>Used (0.5 threshold)</td></tr>
+          <tr><td>Example</td><td>Predict salary from experience</td><td>Predict pass/fail from study hours</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">UNSUPERVISED LEARNING</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S11</span>
+      <span class="q-text">Write the steps of the K-Means Clustering Algorithm.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        K-Means is an unsupervised, centroid-based clustering algorithm:
+        <ul>
+          <li><strong>Step 1:</strong> Select K — choose the number of clusters to create.</li>
+          <li><strong>Step 2:</strong> Initialize — randomly select K data points as initial centroids.</li>
+          <li><strong>Step 3:</strong> Assignment — assign each data point to the nearest centroid to form K clusters.</li>
+          <li><strong>Step 4:</strong> Update — calculate the mean of each cluster and move the centroid to that mean.</li>
+          <li><strong>Step 5:</strong> Repeat Steps 3–4 until no data point changes its cluster assignment (convergence).</li>
+          <li><strong>Step 6:</strong> Model is ready.</li>
+        </ul>
+        <div class="highlight">Goal: Minimize the sum of distances between each data point and its cluster centroid.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S12</span>
+      <span class="q-text">What is PCA? What is the Curse of Dimensionality?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <strong>PCA (Principal Component Analysis):</strong> A dimensionality reduction technique that converts n correlated variables into a smaller set of uncorrelated variables called <em>Principal Components</em> while maximizing variance preserved.
+        <ul>
+          <li>PC1 = the direction of maximum variance</li>
+          <li>PC2 = second highest variance, orthogonal to PC1</li>
+          <li>Each component is orthogonal (uncorrelated) to others</li>
+          <li>Limitation: Loses interpretability of original features</li>
+        </ul>
+        <strong>Curse of Dimensionality:</strong> As the number of features (dimensions) increases in a dataset:
+        <ul>
+          <li>Data becomes increasingly sparse</li>
+          <li>Distance measures lose meaning (distance concentration)</li>
+          <li>ML models require exponentially more data to train well</li>
+          <li>Computation time increases drastically</li>
+        </ul>
+        <div class="highlight">Solution: Apply dimensionality reduction (PCA, LDA, feature selection) before training.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">EVALUATION & ENSEMBLE</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S13</span>
+      <span class="q-text">Define Accuracy, Precision, Recall, and F1-Score with formulas.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        Let TP=True Positive, TN=True Negative, FP=False Positive, FN=False Negative.
+        <div class="formula">Accuracy = (TP + TN) / (TP + TN + FP + FN)</div>
+        Good when dataset is balanced.
+        <div class="formula">Precision = TP / (TP + FP)</div>
+        Important when False Positives are costly (e.g., spam filter — don't block real emails).
+        <div class="formula">Recall = TP / (TP + FN)</div>
+        Important when False Negatives are costly (e.g., cancer detection — don't miss a patient).
+        <div class="formula">F1-Score = 2 × (Precision × Recall) / (Precision + Recall)</div>
+        Best metric for imbalanced datasets — balances Precision and Recall.
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S14</span>
+      <span class="q-text">What is the Bias-Variance Tradeoff? How does it relate to overfitting and underfitting?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <ul>
+          <li><strong>Bias:</strong> Error from overly simple model — it misses patterns. High bias = underfitting.</li>
+          <li><strong>Variance:</strong> Error from overly complex model — it memorizes noise. High variance = overfitting.</li>
+        </ul>
+        <table>
+          <tr><th>Condition</th><th>Bias</th><th>Variance</th><th>Result</th></tr>
+          <tr><td>Underfitting</td><td>High</td><td>Low</td><td>Poor performance on both train & test</td></tr>
+          <tr><td>Overfitting</td><td>Low</td><td>High</td><td>Great on train, poor on test</td></tr>
+          <tr><td>Good Model</td><td>Balanced</td><td>Balanced</td><td>Best generalization</td></tr>
+        </table>
+        <div class="highlight">Goal: Find the sweet spot — low bias AND low variance — for the best generalization.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S15</span>
+      <span class="q-text">What is Bagging? How does Random Forest use it?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <strong>Bagging (Bootstrap Aggregation):</strong> An ensemble technique that reduces variance by training multiple models on different bootstrap samples of the original data (random sampling with replacement).
+        <br><br>
+        <strong>Random Forest uses Bagging as follows:</strong>
+        <ul>
+          <li><strong>Step 1:</strong> Create multiple Bootstrap Datasets from original data (sampling with replacement).</li>
+          <li><strong>Step 2:</strong> Train a randomized Decision Tree on each bootstrap dataset — each tree also uses a random subset of features at each split.</li>
+          <li><strong>Step 3:</strong> Combine predictions — majority voting for classification, averaging for regression.</li>
+        </ul>
+        <div class="highlight">Random Forest reduces overfitting (compared to a single Decision Tree) while maintaining high accuracy.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">DEEP LEARNING</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S16</span>
+      <span class="q-text">What is Deep Learning? How does it differ from Machine Learning?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <strong>Deep Learning</strong> is a subset of ML that uses multi-layered neural networks (inspired by the human brain) to learn patterns from large amounts of data.
+        <table>
+          <tr><th>Feature</th><th>Machine Learning</th><th>Deep Learning</th></tr>
+          <tr><td>Data type</td><td>Structured/Semi-structured</td><td>Structured + Unstructured</td></tr>
+          <tr><td>Feature engineering</td><td>Manual (human defines features)</td><td>Automatic (learns features)</td></tr>
+          <tr><td>Performance with big data</td><td>Plateaus/decreases</td><td>Improves with more data</td></tr>
+          <tr><td>Model structure</td><td>Fixed algorithms</td><td>Multi-layered neural networks</td></tr>
+          <tr><td>Examples</td><td>SVM, Random Forest</td><td>CNN, RNN, Transformers</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S17</span>
+      <span class="q-text">Explain Time-Series data and any two ML models used for it.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <strong>Time-Series Data:</strong> Data collected in order over time, where the order matters. Examples: daily temperature, stock prices, monthly shop sales, ECG signals.
+        <br><br>
+        <strong>Key characteristics:</strong>
+        <ul>
+          <li>Trend — long-term increase or decrease</li>
+          <li>Seasonality — repeating patterns (e.g., ice cream sales spike every summer)</li>
+          <li>Noise — random variation</li>
+        </ul>
+        <strong>Two ML Models:</strong>
+        <ul>
+          <li><strong>RNN (Recurrent Neural Network):</strong> Designed to remember previous inputs in a sequence using a hidden state. Used for stock prediction, NLP. Limitation: forgets long-term dependencies.</li>
+          <li><strong>LSTM (Long Short-Term Memory):</strong> Improved RNN that can remember long-term patterns using gates. Used for weather forecasting, speech recognition.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S18</span>
+      <span class="q-text">What is MLE (Maximum Likelihood Estimation)? Why is Log-Likelihood used instead of Likelihood?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <strong>MLE:</strong> A method to estimate parameters of a model by finding parameter values that make the observed data most probable.
+        <div class="formula">L(θ) = P(data | θ) → maximize this</div>
+        <strong>Why Log-Likelihood instead of Likelihood:</strong>
+        <ul>
+          <li>Likelihood requires multiplying many probabilities (each between 0 and 1)</li>
+          <li>Product of many small numbers → <strong>underflow</strong> (too small for computers to store)</li>
+          <li>Log converts multiplication into addition: log(a×b) = log(a) + log(b)</li>
+          <li>Since log of probability is always negative → take the negative → minimize negative log-likelihood</li>
+        </ul>
+        <div class="formula">Log Loss = -(1/n) Σ [y·log(ŷ) + (1-y)·log(1-ŷ)]</div>
+        This is the standard loss function for Logistic Regression.
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S19</span>
+      <span class="q-text">What is Structural Risk Minimization? What is VC Dimension?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <strong>VC Dimension:</strong> (Vapnik-Chervonenkis Dimension) — measures the complexity/capacity of a model. It is the maximum number of points a model can classify correctly in all possible arrangements (shatter). Example: A line in 2D has VC dimension = 3.
+        <br><br>
+        <strong>Structural Risk Minimization (SRM):</strong> To avoid overfitting, instead of minimizing only training error, SRM minimizes:
+        <div class="formula">Total Risk = Empirical Risk + Model Complexity penalty</div>
+        <ul>
+          <li><strong>Empirical Risk:</strong> Training error</li>
+          <li><strong>Model Complexity:</strong> Related to VC Dimension</li>
+        </ul>
+        <div class="highlight">SVM is based on the SRM principle — it finds the hyperplane that maximizes margin (minimizes complexity) while minimizing training error.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S20</span>
+      <span class="q-text">What is Sparse Modeling and Estimation? What is LASSO?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <strong>Sparse Modeling:</strong> Using only the most important features (few non-zero values) and ignoring/zeroing out the rest. From many variables, select only the ones that actually matter.
+        <br><br>
+        <strong>Estimation:</strong> Finding or predicting unknown model parameters using data. Example: finding the best m and c in Y = mX + c.
+        <br><br>
+        <strong>Sparse Estimation:</strong> Estimating model parameters while forcing many of them to zero — only important features remain.
+        <br><br>
+        <strong>LASSO (Least Absolute Shrinkage and Selection Operator):</strong>
+        <ul>
+          <li>Adds an L1 penalty to the loss function</li>
+          <li>Shrinks some coefficients to <strong>exactly zero</strong> — removes those features</li>
+          <li>Performs both regularization AND feature selection automatically</li>
+          <li>Example: From 20 house features, LASSO keeps only 3–4 important ones</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= LONG SECTION ========================= -->
+<section id="long">
+  <div class="section-header">
+    <h2><span class="long-tag">▦</span> Long Questions</h2>
+    <p>10 questions — 10–15 marks each. Detailed answers. Click to expand.</p>
+  </div>
+
+  <div class="topic-divider">SUPERVISED LEARNING ALGORITHMS</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num long-num">L1</span>
+      <span class="q-text">Explain the Decision Tree algorithm in detail. How is the best attribute selected? What is Entropy and Information Gain? Give a numerical example.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label long-lbl">DETAILED ANSWER</div>
+      <div class="ans-text">
+        <strong>Decision Tree:</strong> A non-parametric supervised learning algorithm used for classification and regression. It has a tree-like structure with:
+        <ul>
+          <li><strong>Root Node:</strong> Best attribute (most information gain)</li>
+          <li><strong>Internal Nodes:</strong> Attributes/features tested</li>
+          <li><strong>Leaf Nodes:</strong> Final class labels</li>
+          <li><strong>Branches:</strong> Outcomes of attribute tests</li>
+        </ul>
+
+        <strong>Entropy (Measure of impurity/disorder):</strong>
+        <div class="formula">Entropy(S) = -Σ pᵢ log₂(pᵢ)</div>
+        where pᵢ = proportion of class i. Entropy = 0 means pure (all same class). Entropy = 1 means maximum disorder (50-50 split in binary).
+
+        <strong>Information Gain:</strong>
+        <div class="formula">IG(S, A) = Entropy(S) - Σ (|Sv|/|S|) × Entropy(Sv)</div>
+        where Sv = subset of S when attribute A takes value v. We choose the attribute with the <strong>highest Information Gain</strong> as the split.
+
+        <strong>Numerical Example (Tennis):</strong><br>
+        Suppose we have 14 examples: 9 Play=Yes, 5 Play=No.
+        <div class="formula">Entropy(S) = -(9/14)log₂(9/14) - (5/14)log₂(5/14) = 0.940</div>
+
+        For attribute "Outlook" (Sunny:5, Overcast:4, Rain:5):
+        <ul>
+          <li>Sunny: 2Yes, 3No → Entropy = 0.971</li>
+          <li>Overcast: 4Yes, 0No → Entropy = 0 (pure!)</li>
+          <li>Rain: 3Yes, 2No → Entropy = 0.971</li>
+        </ul>
+        <div class="formula">IG(S, Outlook) = 0.940 - [(5/14)×0.971 + (4/14)×0 + (5/14)×0.971] = 0.246</div>
+        Outlook gives the highest IG → it becomes the root node.
+
+        <strong>Advantages:</strong> Simple, interpretable, handles missing values, non-parametric.
+        <strong>Disadvantages:</strong> Overfitting (fix with pruning), sensitive to noisy data, unstable.
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num long-num">L2</span>
+      <span class="q-text">Explain Support Vector Machines (SVM) in detail. Discuss Linear SVM, Non-linear SVM, Kernel Trick, and types of kernels.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label long-lbl">DETAILED ANSWER</div>
+      <div class="ans-text">
+        <strong>SVM:</strong> A supervised ML algorithm for classification and regression that finds the best hyperplane to separate data classes by maximizing the margin.
+
+        <strong>Key Concepts:</strong>
+        <ul>
+          <li><strong>Hyperplane:</strong> W·X + b = 0 — decision boundary that separates classes. Shape depends on number of features: 2 features → line; 3 features → plane.</li>
+          <li><strong>Margin:</strong> Distance between the hyperplane and the nearest points from each class. SVM maximizes this.</li>
+          <li><strong>Support Vectors:</strong> Data points closest to the hyperplane. They determine the position of the hyperplane.</li>
+        </ul>
+
+        <strong>1. Linear SVM:</strong> Used when data is linearly separable (a straight line can separate classes). Two subtypes:
+        <ul>
+          <li><strong>Hard Margin SVM:</strong> No point inside the margin allowed — works only for perfectly separable data.</li>
+          <li><strong>Soft Margin SVM:</strong> Introduces slack variables (ξᵢ) to allow some misclassification — works for real-world messy data.</li>
+        </ul>
+
+        <strong>2. Non-linear SVM:</strong> When data cannot be separated by a straight line. Solution: the Kernel Trick.
+
+        <strong>Kernel Trick:</strong> Maps data from input space to a higher-dimensional feature space where linear separation becomes possible. Avoids the actual transformation by computing an equivalent inner product:
+        <div class="formula">K(xi, xj) = φ(xi)ᵀ φ(xj)</div>
+        This avoids the computational cost of explicit transformation.
+
+        <strong>Types of Kernels:</strong>
+        <table>
+          <tr><th>Kernel</th><th>Formula</th><th>Use Case</th></tr>
+          <tr><td>Linear</td><td>K(x,z) = xᵀz</td><td>Linearly separable data</td></tr>
+          <tr><td>Polynomial</td><td>K(x,z) = (1 + xᵀz)^d</td><td>Curved boundaries</td></tr>
+          <tr><td>RBF/Gaussian</td><td>K(x,z) = exp(-||x-z||²/2σ²)</td><td>Complex, scattered data (most popular)</td></tr>
+          <tr><td>Sigmoid</td><td>K(x,z) = tanh(αxᵀz + c)</td><td>Similar to neural networks</td></tr>
+        </table>
+
+        <strong>φ (phi) function:</strong> Maps input space (non-linear) → feature space (linear). Kernels compute the dot product in feature space without explicit mapping.
+
+        <strong>Advantages of SVM:</strong> Works well in high dimensions, effective for non-linear data, memory efficient (only support vectors matter).
+        <strong>Disadvantages:</strong> Slow with large datasets, sensitive to choice of kernel and hyperparameters.
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num long-num">L3</span>
+      <span class="q-text">Explain Logistic Regression in detail. Discuss the Sigmoid function, Log Loss, MLE, multiclass classification (OvR and Softmax), and assumptions.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label long-lbl">DETAILED ANSWER</div>
+      <div class="ans-text">
+        <strong>Logistic Regression:</strong> A supervised classification algorithm that predicts the probability of a binary class outcome (0 or 1) using the Sigmoid function.
+
+        <strong>1. Sigmoid Function:</strong>
+        <div class="formula">σ(z) = 1 / (1 + e⁻ᶻ)    where z = a₀ + a₁x</div>
+        Always outputs a value between 0 and 1. Decision: if σ(z) ≥ 0.5 → class 1; else → class 0.
+
+        <strong>Derivative of Sigmoid:</strong>
+        <div class="formula">σ'(z) = σ(z) · (1 - σ(z))</div>
+        Used in backpropagation/gradient descent.
+
+        <strong>2. Log Loss (Binary Cross-Entropy):</strong>
+        <div class="formula">Log Loss = -(1/n) Σ [yᵢ·log(ŷᵢ) + (1-yᵢ)·log(1-ŷᵢ)]</div>
+        <ul>
+          <li>If true label y=1: use -log(ŷ)</li>
+          <li>If true label y=0: use -log(1-ŷ)</li>
+        </ul>
+
+        <strong>3. Maximum Likelihood Estimation (MLE):</strong> Find parameters that maximize the probability of observed data. Multiplying probabilities → underflow → use log-likelihood → minimize negative log-likelihood = minimize log loss.
+
+        <strong>4. Multiclass Classification:</strong>
+        <br><strong>One-vs-Rest (OvR):</strong> For K classes, build K binary classifiers. Each classifies one class vs. all others. At prediction: pick class with highest confidence.
+        <br><strong>Softmax Regression:</strong> Uses Softmax function:
+        <div class="formula">σ(zᵢ) = e^zᵢ / Σ e^zⱼ</div>
+        Converts K logits to probability distribution. All probabilities sum to 1. Used when classes are mutually exclusive.
+
+        <strong>5. Assumptions of Logistic Regression:</strong>
+        <ul>
+          <li>Dependent variable is binary</li>
+          <li>Observations are independent</li>
+          <li>Linear relationship between independent variables and log-odds</li>
+          <li>No multicollinearity among predictors</li>
+          <li>Requires large sample size</li>
+        </ul>
+
+        <strong>Limitations:</strong> Assumes linear decision boundary, sensitive to outliers, poor with multicollinearity, struggles with high-dimensional data.
+
+        <strong>Why called Logistic Regression?</strong> It first forms a linear equation z = w₁x₁ + ... + wₙxₙ + b (regression), then applies the logistic/sigmoid function. Despite classifying, it starts as regression — hence the name.
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">UNSUPERVISED LEARNING</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num long-num">L4</span>
+      <span class="q-text">Explain K-Means Clustering in detail with algorithm steps. How is it used in Image Segmentation? What are the stages of data preprocessing for K-Means?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label long-lbl">DETAILED ANSWER</div>
+      <div class="ans-text">
+        <strong>K-Means Clustering:</strong> An unsupervised, centroid-based iterative algorithm that groups unlabeled data into K clusters such that each data point belongs to the cluster with the nearest centroid.
+
+        <strong>Algorithm Steps:</strong>
+        <ul>
+          <li><strong>Step 1:</strong> Select K — choose the number of clusters (e.g., K=3).</li>
+          <li><strong>Step 2:</strong> Initialization — randomly select K data points as initial centroids.</li>
+          <li><strong>Step 3:</strong> Assignment — assign each data point to the nearest centroid using Euclidean distance.</li>
+          <li><strong>Step 4:</strong> Update — recalculate centroid as the mean of all points in its cluster.</li>
+          <li><strong>Step 5:</strong> Repeat Steps 3–4 until no reassignment occurs (convergence).</li>
+          <li><strong>Step 6:</strong> Model ready — each cluster is labeled with a cluster ID.</li>
+        </ul>
+        <div class="highlight">Objective: Minimize the Within-Cluster Sum of Squares (WCSS) — the total distance between each point and its centroid.</div>
+
+        <strong>Image Segmentation using K-Means:</strong>
+        <ul>
+          <li>An image is treated as a set of pixels, each with color values (RGB).</li>
+          <li>K-Means groups pixels with similar colors into K segments.</li>
+          <li>Each segment gets a cluster ID — pixels in the same segment are colored uniformly.</li>
+          <li>Applications: Autonomous driving, medical imaging (tumor segmentation), satellite image analysis.</li>
+        </ul>
+
+        <strong>Data Preprocessing Stages for K-Means:</strong>
+        <ul>
+          <li><strong>1. Data Cleaning:</strong> Remove duplicates, handle errors, handle outliers and noise, remove unnecessary columns.</li>
+          <li><strong>2. Handle Missing Data:</strong> Impute or drop missing values.</li>
+          <li><strong>3. Data Integration:</strong> Merge data from multiple sources.</li>
+          <li><strong>4. Data Transformation:</strong> Feature construction, handle skewness, <strong>data scaling</strong> (important — K-Means is distance-based, so scale matters).</li>
+          <li><strong>5. Data Reduction:</strong> Remove correlated variables, feature selection, PCA.</li>
+        </ul>
+
+        <strong>Semi-supervised Clustering:</strong> Uses pair-wise constraints (must-link/cannot-link) to guide clustering. Two types:
+        <ul>
+          <li><strong>Constraint-based:</strong> Uses labels/constraints to guide partitioning.</li>
+          <li><strong>Distance-based:</strong> Adapts distance measure to satisfy constraints.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num long-num">L5</span>
+      <span class="q-text">Explain PCA in detail. What is Kernel PCA? Discuss other dimensionality reduction techniques (LDA, NMF, Low Variance Filter, Backward Feature Elimination).</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label long-lbl">DETAILED ANSWER</div>
+      <div class="ans-text">
+        <strong>PCA (Principal Component Analysis):</strong> A linear dimensionality reduction technique that transforms n correlated features into k uncorrelated principal components while maximizing variance preserved.
+
+        <strong>How PCA works:</strong>
+        <ul>
+          <li>Compute covariance matrix of the data</li>
+          <li>Find eigenvectors and eigenvalues</li>
+          <li>Sort eigenvectors by eigenvalue (descending) — each eigenvector is a principal component</li>
+          <li>PC1 = direction of maximum variance; PC2 = second highest variance, orthogonal to PC1</li>
+          <li>Project data onto top k components</li>
+        </ul>
+        <strong>Limitation:</strong> PCA is linear — cannot capture non-linear patterns. Loses interpretability of original features. Sensitive to data scaling — must normalize first.
+
+        <strong>Kernel PCA:</strong> Extends PCA to non-linear data by using a kernel function to first map data to a higher-dimensional space, then apply PCA in that space. Kernel types: Linear, Polynomial, Gaussian (RBF).
+        <ul>
+          <li><strong>Advantages:</strong> Captures non-linear patterns, robust to outliers, versatile</li>
+          <li><strong>Disadvantages:</strong> Computationally expensive, kernel selection is tricky</li>
+        </ul>
+
+        <strong>Other Techniques:</strong>
+        <table>
+          <tr><th>Technique</th><th>Description</th><th>When to Use</th></tr>
+          <tr><td>LDA</td><td>Maximizes class separability; finds features that separate classes best</td><td>Supervised; classification problems</td></tr>
+          <tr><td>NMF</td><td>Breaks non-negative matrix into product of two non-negative matrices</td><td>Non-negative data (images, text)</td></tr>
+          <tr><td>Low Variance Filter</td><td>Remove features with variance below threshold (constant features useless)</td><td>Quick cleanup; requires normalization</td></tr>
+          <tr><td>High Correlation Filter</td><td>Remove one of two highly correlated features (Pearson's r)</td><td>Redundant features removal</td></tr>
+          <tr><td>Backward Feature Elimination</td><td>Start with all n features; remove one at a time that increases error least</td><td>Small datasets; computationally intensive</td></tr>
+          <tr><td>Forward Feature Construction</td><td>Start with 1 feature; add best feature at each step</td><td>Opposite of backward elimination</td></tr>
+          <tr><td>Random Forests</td><td>Build many trees; rank features by usage frequency = importance score</td><td>Feature importance ranking</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">EVALUATION & MODEL SELECTION</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num long-num">L6</span>
+      <span class="q-text">Explain the evaluation methods and metrics for ML models. Discuss Train-Test Split, k-Fold Cross-Validation, all classification and regression metrics, and the Bias-Variance Tradeoff.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label long-lbl">DETAILED ANSWER</div>
+      <div class="ans-text">
+        <strong>Evaluation Methods:</strong>
+
+        <strong>1. Train-Test Split:</strong> Divide data into training set (70–80%) and testing set (20–30%). Model learns from training; evaluated on unseen test data. Limitation: performance depends on the random split.
+
+        <strong>2. k-Fold Cross-Validation:</strong>
+        <ul>
+          <li>Divide data into k equal folds</li>
+          <li>Train on k-1 folds; test on remaining fold</li>
+          <li>Repeat k times — each fold serves as test set once</li>
+          <li>Final result = average of all k results</li>
+          <li>Most common: k=5 or k=10</li>
+          <li>More reliable than single train-test split; uses entire dataset</li>
+        </ul>
+
+        <strong>3. Stratified k-Fold:</strong> Used in classification — ensures each fold has the same class distribution as the original dataset. Important for imbalanced datasets.
+
+        <strong>Classification Metrics:</strong>
+        <div class="formula">Accuracy = (TP + TN) / (TP + TN + FP + FN)</div>
+        <div class="formula">Precision = TP / (TP + FP)   — when FP is costly</div>
+        <div class="formula">Recall = TP / (TP + FN)   — when FN is costly</div>
+        <div class="formula">F1-Score = 2 × (Precision × Recall) / (Precision + Recall)</div>
+
+        <strong>Regression Metrics:</strong>
+        <div class="formula">MAE = (1/n) Σ |yᵢ - ŷᵢ|   — average absolute error</div>
+        <div class="formula">MSE = (1/n) Σ (yᵢ - ŷᵢ)²   — penalizes large errors more</div>
+        <div class="formula">RMSE = √MSE   — same unit as target variable</div>
+        <div class="formula">R² = 1 - SSres/SStot   — how well model explains variance (1 = perfect)</div>
+
+        <strong>Bias-Variance Tradeoff:</strong>
+        <ul>
+          <li>Bias = error from oversimplified model (underfitting)</li>
+          <li>Variance = error from overcomplex model (overfitting)</li>
+          <li>As model complexity increases: bias decreases, variance increases</li>
+          <li>Goal: balanced model — low bias AND low variance</li>
+        </ul>
+
+        <strong>Macroaveraging vs Microaveraging (Multiclass):</strong>
+        <ul>
+          <li><strong>Microaveraging:</strong> Average over all individual examples.</li>
+          <li><strong>Macroaveraging:</strong> Calculate metric for each class separately, then average over classes. Better for imbalanced datasets.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">ENSEMBLE & DEEP LEARNING</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num long-num">L7</span>
+      <span class="q-text">Explain Ensemble Learning. Compare Bagging and Boosting. Explain Random Forest algorithm with advantages and disadvantages.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label long-lbl">DETAILED ANSWER</div>
+      <div class="ans-text">
+        <strong>Ensemble Learning:</strong> A technique that combines multiple models (learners) to improve prediction accuracy, robustness, and generalization compared to individual models.
+
+        <strong>Bagging (Bootstrap Aggregation):</strong>
+        <ul>
+          <li>Random samples drawn <strong>with replacement</strong> (bootstrap samples)</li>
+          <li>Models trained <strong>independently and in parallel</strong></li>
+          <li>Results combined: majority voting (classification) or averaging (regression)</li>
+          <li>Goal: Reduce <strong>variance</strong> — prevents overfitting</li>
+          <li>Example: Random Forest</li>
+        </ul>
+
+        <strong>Boosting:</strong>
+        <ul>
+          <li>Models trained <strong>sequentially</strong></li>
+          <li>Each model focuses on errors of the previous one — misclassified examples get higher weight</li>
+          <li>Combines weak learners into a strong learner</li>
+          <li>Goal: Reduce <strong>bias</strong></li>
+          <li>Examples: AdaBoost, Gradient Boosting, XGBoost</li>
+        </ul>
+
+        <table>
+          <tr><th>Feature</th><th>Bagging</th><th>Boosting</th></tr>
+          <tr><td>Training</td><td>Parallel</td><td>Sequential</td></tr>
+          <tr><td>Sampling</td><td>With replacement</td><td>Weighted samples</td></tr>
+          <tr><td>Focus</td><td>Reduces Variance</td><td>Reduces Bias</td></tr>
+          <tr><td>Risk</td><td>May still underfit</td><td>Can overfit noisy data</td></tr>
+          <tr><td>Example</td><td>Random Forest</td><td>XGBoost, AdaBoost</td></tr>
+        </table>
+
+        <strong>Random Forest Algorithm:</strong>
+        <ul>
+          <li><strong>Step 1:</strong> Create Bootstrap Datasets — randomly sample from original data (with replacement).</li>
+          <li><strong>Step 2:</strong> Build Decision Trees — for each bootstrap dataset, build a Decision Tree using a random subset of features at each node split.</li>
+          <li><strong>Step 3:</strong> Combine predictions — majority vote (classification) or average (regression).</li>
+        </ul>
+
+        <strong>Advantages:</strong> High accuracy, reduces overfitting vs single tree, handles large datasets, provides feature importance scores, works for both classification and regression.
+        <br>
+        <strong>Disadvantages:</strong> High computational cost, large memory usage, less interpretable than single Decision Tree, slower prediction in large forests.
+
+        <strong>Applications:</strong> Disease prediction, fraud detection, spam detection, stock price prediction, gene classification.
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num long-num">L8</span>
+      <span class="q-text">What is Deep Learning? Explain CNN, RNN, and LSTM in detail with their applications.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label long-lbl">DETAILED ANSWER</div>
+      <div class="ans-text">
+        <strong>Deep Learning:</strong> A subset of ML using multi-layered neural networks inspired by the human brain. It automatically learns hierarchical feature representations from raw data.
+
+        <strong>Key Neural Network Components:</strong>
+        <ul>
+          <li><strong>Weights:</strong> Parameters controlling strength of connections</li>
+          <li><strong>Bias:</strong> Adjusts output of neurons</li>
+          <li><strong>Activation Function:</strong> Introduces non-linearity (ReLU, Sigmoid, Tanh)</li>
+          <li><strong>Backpropagation:</strong> Algorithm for learning by adjusting weights</li>
+        </ul>
+
+        <strong>1. CNN (Convolutional Neural Network):</strong>
+        <ul>
+          <li>Designed for image/visual data — excels at local pattern recognition</li>
+          <li>Uses filters/kernels (small 2D arrays) that slide over the image</li>
+          <li>Each filter detects specific features: edges → shapes → objects (hierarchical learning)</li>
+          <li>Convolution: filter × image patch = dot product → large if pattern matches, small if not</li>
+          <li>Layers: Convolutional → Pooling → Fully Connected</li>
+          <li><strong>Applications:</strong> Image classification, object detection, face recognition, medical imaging</li>
+          <li>Why not standard NN? Full connections for images = too many parameters → overfitting + slow</li>
+        </ul>
+
+        <strong>2. RNN (Recurrent Neural Network):</strong>
+        <ul>
+          <li>Designed for sequential/time-series data</li>
+          <li>Has a hidden state — acts as "memory" of past inputs</li>
+          <li>Output at each step serves as input to the next step</li>
+          <li><strong>Applications:</strong> NLP, speech recognition, time-series forecasting, machine translation</li>
+          <li><strong>Limitation:</strong> Vanishing gradient problem — forgets long-term dependencies</li>
+        </ul>
+
+        <strong>3. LSTM (Long Short-Term Memory):</strong>
+        <ul>
+          <li>Improved version of RNN — solves the vanishing gradient problem</li>
+          <li>Uses gates (input, forget, output gates) to control what information to keep or discard</li>
+          <li>Can remember patterns over long sequences</li>
+          <li><strong>Applications:</strong> Weather forecasting, speech recognition, language translation, stock prediction</li>
+        </ul>
+
+        <strong>4. GAN (Generative Adversarial Network):</strong> Two networks (Generator + Discriminator) competing — Generator creates fake data; Discriminator tries to detect it. Used for image generation, data augmentation.
+
+        <strong>Deep Learning vs ML:</strong>
+        <table>
+          <tr><th></th><th>ML</th><th>Deep Learning</th></tr>
+          <tr><td>Data</td><td>Structured only</td><td>Structured + Unstructured</td></tr>
+          <tr><td>Features</td><td>Manual engineering</td><td>Automatic learning</td></tr>
+          <tr><td>Performance</td><td>Plateaus with more data</td><td>Improves with more data</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num long-num">L9</span>
+      <span class="q-text">Explain Statistical Learning Theory. Define Empirical Risk Minimization, VC Dimension, and Structural Risk Minimization. How does it relate to SVM?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label long-lbl">DETAILED ANSWER</div>
+      <div class="ans-text">
+        <strong>Statistical Learning Theory (SLT):</strong> A theoretical framework that provides mathematical foundations for understanding how ML algorithms learn from data and generalize to unseen examples.
+
+        <strong>Main Question:</strong> How can we ensure a model performs well on unseen data? This is called <strong>generalization</strong>.
+
+        <strong>1. Types of Risk:</strong>
+        <ul>
+          <li><strong>Empirical Risk (Training Error):</strong> Error calculated on training data.
+            <div class="formula">R_emp = (1/n) Σ L(y, f(x))</div></li>
+          <li><strong>True Risk (Expected Risk):</strong> Error on the entire real-world data distribution — cannot be calculated directly as we don't have all possible data.
+            <div class="formula">R_true = E[L(y, f(x))]</div></li>
+        </ul>
+
+        <strong>2. Empirical Risk Minimization (ERM):</strong> The principle of minimizing true risk by minimizing empirical risk on training data. Core idea: if training error is low and model is not too complex → test error should also be low.
+
+        <strong>3. Overfitting and Underfitting in SLT:</strong>
+        <ul>
+          <li><strong>Overfitting:</strong> Very low training error but high test error — model too complex, memorized noise.</li>
+          <li><strong>Underfitting:</strong> High training AND test error — model too simple, missed patterns.</li>
+          <li><strong>Good Model:</strong> Balanced complexity → good generalization.</li>
+        </ul>
+
+        <strong>4. Model Capacity:</strong> Ability of model to fit different functions.
+        <ul>
+          <li>Linear model → low capacity</li>
+          <li>Neural network → high capacity</li>
+          <li>Too high → overfitting; too low → underfitting</li>
+        </ul>
+
+        <strong>5. VC Dimension:</strong> (Vapnik-Chervonenkis Dimension) — the maximum number of points a model can classify perfectly in all possible labeling arrangements (shatter). Example: A line in 2D can shatter 3 points → VC dim = 3. Higher VC dim = higher model capacity.
+
+        <strong>6. Structural Risk Minimization (SRM):</strong> Instead of minimizing only training error, minimize:
+        <div class="formula">Total Risk = Empirical Risk + Model Complexity (VC-based penalty)</div>
+        This balances training error and model complexity — avoiding overfitting.
+
+        <strong>Connection to SVM:</strong> SVM is directly based on SRM. By maximizing the margin (keeping the classifier simple), SVM minimizes model complexity while minimizing training error. This gives SVM strong generalization guarantees.
+
+        <strong>Importance of SLT:</strong> Provides mathematical tools to analyze generalization, design SVM, control overfitting, and choose appropriate model complexity. It forms the theoretical foundation of modern ML.
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num long-num">L10</span>
+      <span class="q-text">Explain Time-Series modeling in ML. Discuss Moving Average, Exponential Smoothing with numerical examples, and the MSE evaluation metric.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label long-lbl">DETAILED ANSWER</div>
+      <div class="ans-text">
+        <strong>Time-Series Data:</strong> Data collected in order over time where sequence matters. Examples: stock prices, daily temperature, monthly sales, ECG signals.
+
+        <strong>Key Characteristics:</strong>
+        <ul>
+          <li><strong>Trend:</strong> Long-term increase or decrease (e.g., sales grow every year)</li>
+          <li><strong>Seasonality:</strong> Repeating pattern (e.g., ice cream sales spike every summer)</li>
+          <li><strong>Noise:</strong> Random variation from unpredictable factors</li>
+        </ul>
+
+        <strong>1. Moving Average (MA):</strong> Predicts next value as the average of last n values.
+        <div class="formula">MA = (x_{t-1} + x_{t-2} + x_{t-3}) / 3   (for 3-day moving average)</div>
+        <strong>Numerical Example:</strong> Shop sales — Day 1:100, Day 2:120, Day 3:130, Day 4:150, Day 5:170
+        <br>Predict Day 6 using 3-day MA:
+        <div class="formula">MA = (150 + 130 + 170) / 3 = 450/3 = 150</div>
+
+        <strong>2. Exponential Smoothing:</strong> Weighs recent data more than older data.
+        <div class="formula">F_{t+1} = α·Y_t + (1-α)·F_t</div>
+        where α = smoothing constant (0 < α < 1). Small α → slow, smooth response. Large α → fast response to changes.
+
+        <strong>Numerical Example:</strong> α = 0.3, Actual demand = 200, Previous forecast = 180
+        <div class="formula">F_{t+1} = 0.3 × 200 + 0.7 × 180 = 60 + 126 = 186</div>
+        Next forecast = 186
+
+        <strong>3. MSE (Mean Squared Error) — Model Evaluation:</strong>
+        <div class="formula">MSE = (1/n) Σ (yᵢ - ŷᵢ)²</div>
+        <strong>Numerical Example:</strong>
+        Actual: 100, 120, 130 | Predicted: 110, 115, 125
+        <table>
+          <tr><th>Actual (y)</th><th>Predicted (ŷ)</th><th>Error (y-ŷ)</th><th>Error²</th></tr>
+          <tr><td>100</td><td>110</td><td>-10</td><td>100</td></tr>
+          <tr><td>120</td><td>115</td><td>5</td><td>25</td></tr>
+          <tr><td>130</td><td>125</td><td>5</td><td>25</td></tr>
+        </table>
+        <div class="formula">MSE = (100 + 25 + 25) / 3 = 150/3 = 50</div>
+
+        <strong>Common ML Models for Time-Series:</strong>
+        <ul>
+          <li><strong>ARIMA:</strong> Traditional statistical model for forecasting. Captures trend, seasonality, autocorrelation.</li>
+          <li><strong>RNN:</strong> Remembers previous inputs in a sequence. Good for non-linear patterns.</li>
+          <li><strong>LSTM:</strong> Long-term pattern retention. Best for complex temporal dependencies.</li>
+          <li><strong>GRU (Gated Recurrent Unit):</strong> Simpler and faster version of LSTM.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Machine Learning Exam Question Bank · BCA · All questions sourced from course PDF
+</footer>
+
+<script>
+  function toggle(card) {
+    card.classList.toggle('open');
+  }
+
+  function switchTab(tab) {
+    document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('nav button').forEach(b => {
+      b.className = '';
+    });
+    document.getElementById(tab).classList.add('active');
+    const btns = document.querySelectorAll('nav button');
+    if (tab === 'mcq') btns[0].className = 'active-mcq';
+    else if (tab === 'saq') btns[1].className = 'active-saq';
+    else btns[2].className = 'active-long';
+  }
+</script>
+</body>
+</html>

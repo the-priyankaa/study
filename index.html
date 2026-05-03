@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exam Question Bank — Home</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap');
+
+  :root {
+    --bg: #0d0f14;
+    --surface: #13161e;
+    --surface2: #1a1e2a;
+    --border: #252b3b;
+    --ml-color: #34d399;
+    --ai-color: #f472b6;
+    --text: #e2e8f0;
+    --text-dim: #64748b;
+    --text-mid: #94a3b8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Lora', Georgia, serif;
+    min-height: 100vh;
+    line-height: 1.7;
+  }
+
+  header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 3rem 2rem 2.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -80px; left: 50%; transform: translateX(-50%);
+    width: 800px; height: 300px;
+    background: radial-gradient(ellipse, rgba(110,231,183,0.06) 0%, rgba(244,114,182,0.06) 50%, transparent 70%);
+  }
+  header h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.4rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, var(--ml-color), var(--ai-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  header p {
+    color: var(--text-mid);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+    letter-spacing: 0.1em;
+  }
+
+  main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+  }
+
+  .subtitle {
+    text-align: center;
+    color: var(--text-dim);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    margin-bottom: 2.5rem;
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .card {
+    display: block;
+    text-decoration: none;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem;
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    transition: opacity 0.25s;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: transparent;
+  }
+  .card:active {
+    transform: translateY(-1px);
+  }
+
+  .card-ml::before {
+    background: linear-gradient(90deg, var(--ml-color), #6ee7b7);
+  }
+  .card-ml:hover {
+    border-color: rgba(52,211,153,0.3);
+    box-shadow: 0 8px 40px rgba(52,211,153,0.08);
+  }
+
+  .card-ai::before {
+    background: linear-gradient(90deg, var(--ai-color), #fb7185);
+  }
+  .card-ai:hover {
+    border-color: rgba(244,114,182,0.3);
+    box-shadow: 0 8px 40px rgba(244,114,182,0.08);
+  }
+
+  .card-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .card h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .card-ml h2 { color: var(--ml-color); }
+  .card-ai h2 { color: var(--ai-color); }
+
+  .card p {
+    color: var(--text-mid);
+    font-size: 0.9rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .card-meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .card-arrow {
+    font-size: 1rem;
+    margin-left: auto;
+    transition: transform 0.25s;
+  }
+  .card-ml .card-arrow { color: var(--ml-color); }
+  .card-ai .card-arrow { color: var(--ai-color); }
+  .card:hover .card-arrow { transform: translateX(4px); }
+
+  footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-dim);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    border-top: 1px solid var(--border);
+    margin-top: 2rem;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Exam Question Bank</h1>
+  <p>BCA · ALL SUBJECTS — WITH FULL ANSWERS</p>
+</header>
+
+<main>
+  <p class="subtitle">SELECT A SUBJECT</p>
+
+  <div class="cards">
+    <a href="juju.html" class="card card-ml">
+      <div class="card-icon">▣</div>
+      <h2>Machine Learning</h2>
+      <p>30 MCQs · 20 Short Answer · 10 Long Questions covering algorithms, evaluation, ensemble methods, and deep learning.</p>
+      <div class="card-meta">
+        <span>MCQ · SAQ · LONG</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="ai.html" class="card card-ai">
+      <div class="card-icon">▣</div>
+      <h2>Artificial Intelligence</h2>
+      <p>15 questions covering search algorithms, knowledge representation, NLP, expert systems, neural networks, and transformers.</p>
+      <div class="card-meta">
+        <span>SEARCH · LOGIC · NLP · DEEP LEARNING</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+  </div>
+</main>
+
+<footer>
+  Exam Question Bank · BCA · All questions sourced from course PDF
+</footer>
+
+</body>
+</html>

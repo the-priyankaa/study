@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Exam Question Bank</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap');
+
+  :root {
+    --bg: #0d0f14;
+    --surface: #13161e;
+    --surface2: #1a1e2a;
+    --border: #252b3b;
+    --accent1: #6ee7b7;
+    --accent2: #f59e0b;
+    --accent3: #818cf8;
+    --text: #e2e8f0;
+    --text-dim: #64748b;
+    --text-mid: #94a3b8;
+    --ai-accent: #f472b6;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Lora', Georgia, serif;
+    min-height: 100vh;
+    line-height: 1.7;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 2.5rem 2rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -60px; left: 50%; transform: translateX(-50%);
+    width: 600px; height: 200px;
+    background: radial-gradient(ellipse, rgba(244,114,182,0.1) 0%, transparent 70%);
+  }
+  header h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--ai-accent);
+  }
+  header p {
+    color: var(--text-mid);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+    letter-spacing: 0.1em;
+  }
+  .home-link {
+    position: absolute;
+    left: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-dim);
+    text-decoration: none;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+  .home-link:hover { color: var(--ai-accent); }
+
+  /* SECTION */
+  main { padding: 2rem; max-width: 900px; margin: 0 auto; }
+
+  .section-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-header h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--ai-accent);
+  }
+  .section-header p {
+    color: var(--text-mid);
+    font-size: 0.9rem;
+    margin-top: 0.3rem;
+  }
+
+  /* QUESTION CARD */
+  .q-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 1.2rem;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .q-card:hover { border-color: #333d52; }
+
+  .q-header {
+    padding: 1.1rem 1.4rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    cursor: pointer;
+    user-select: none;
+  }
+  .q-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.2rem 0.55rem;
+    border-radius: 4px;
+    background: rgba(244,114,182,0.12);
+    color: var(--ai-accent);
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+  }
+  .q-text {
+    flex: 1;
+    font-size: 0.97rem;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .q-toggle {
+    font-size: 1.1rem;
+    color: var(--text-dim);
+    flex-shrink: 0;
+    transition: transform 0.25s;
+    margin-top: 0.1rem;
+  }
+  .q-card.open .q-toggle { transform: rotate(180deg); }
+
+  /* ANSWER PANEL */
+  .q-answer {
+    display: none;
+    border-top: 1px solid var(--border);
+    padding: 1.2rem 1.4rem 1.2rem 3.8rem;
+    background: var(--surface2);
+  }
+  .q-card.open .q-answer { display: block; }
+
+  .ans-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    color: var(--ai-accent);
+    margin-bottom: 0.6rem;
+  }
+
+  .ans-text {
+    font-size: 0.92rem;
+    color: var(--text-mid);
+    line-height: 1.75;
+  }
+  .ans-text strong { color: var(--text); font-style: normal; }
+  .ans-text ul { padding-left: 1.2rem; margin-top: 0.4rem; }
+  .ans-text ul li { margin-bottom: 0.3rem; }
+  .ans-text .formula {
+    font-family: 'IBM Plex Mono', monospace;
+    background: rgba(255,255,255,0.05);
+    padding: 0.6rem 1rem;
+    border-radius: 5px;
+    border-left: 3px solid var(--accent3);
+    margin: 0.6rem 0;
+    font-size: 0.85rem;
+    color: #c4b5fd;
+  }
+  .ans-text .highlight {
+    background: rgba(244,114,182,0.08);
+    border-left: 3px solid var(--ai-accent);
+    padding: 0.6rem 1rem;
+    border-radius: 0 5px 5px 0;
+    margin: 0.6rem 0;
+    color: var(--text);
+  }
+  table { border-collapse: collapse; width: 100%; margin: 0.6rem 0; font-size: 0.85rem; }
+  th { background: rgba(255,255,255,0.05); padding: 0.5rem 0.8rem; text-align: left; color: var(--text); font-family: 'Syne', sans-serif; font-size: 0.8rem; border: 1px solid var(--border); }
+  td { padding: 0.45rem 0.8rem; border: 1px solid var(--border); color: var(--text-mid); }
+
+  /* TOPIC DIVIDER */
+  .topic-divider {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--text-dim);
+    padding: 0.5rem 0;
+    margin: 1.5rem 0 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .topic-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-dim);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    border-top: 1px solid var(--border);
+    margin-top: 2rem;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="home-link">← HOME</a>
+  <h1>AI Exam Question Bank</h1>
+  <p>15 QUESTIONS — ARTIFICIAL INTELLIGENCE — WITH FULL ANSWERS</p>
+</header>
+
+<main>
+  <div class="topic-divider">INTRODUCTION TO AI</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num">Q1</span>
+      <span class="q-text">What is Artificial Intelligence? Give a definition and 3 real-world examples.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label">ANSWER</div>
+      <div class="ans-text">
+        <strong>Definition:</strong> AI is the field of computer science that aims to build machines capable of performing tasks that typically require human intelligence — such as reasoning, learning, perception, and decision-making.
+        <br><br><strong>Real-World Examples:</strong>
+        <ul>
+          <li>Virtual assistants (Siri, Alexa, Google Assistant) using NLP</li>
+          <li>Autonomous vehicles using computer vision and planning</li>
+          <li>Recommendation systems (Netflix, YouTube) using collaborative filtering</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num">Q2</span>
+      <span class="q-text">Explain the Turing Test and its significance in AI.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label">ANSWER</div>
+      <div class="ans-text">
+        Proposed by Alan Turing in 1950, the <strong>Turing Test</strong> evaluates whether a machine can exhibit intelligent behavior indistinguishable from a human.
+        <br><br><strong>Setup:</strong> A human evaluator converses via text with both a human and a machine. If the evaluator cannot reliably tell them apart, the machine passes.
+        <br><br><strong>Significance:</strong> It shifted the question from "Can machines think?" to "Can machines behave intelligently?" — establishing a practical benchmark for AI.
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num">Q3</span>
+      <span class="q-text">Differentiate between Strong AI (AGI) and Weak AI (Narrow AI).</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label">ANSWER</div>
+      <div class="ans-text">
+        <table>
+          <tr><th>Feature</th><th>Weak AI (Narrow AI)</th><th>Strong AI (AGI)</th></tr>
+          <tr><td>Scope</td><td>Designed for a specific task</td><td>General-purpose; can perform any intellectual task</td></tr>
+          <tr><td>Consciousness</td><td>No self-awareness</td><td>Would possess consciousness and understanding</td></tr>
+          <tr><td>Examples</td><td>Chess engines, Siri, self-driving cars</td><td>Does not yet exist</td></tr>
+          <tr><td>Current status</td><td>All existing AI is Narrow AI</td><td>Theoretical / research goal</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">SEARCH & PROBLEM SOLVING</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num">Q4</span>
+      <span class="q-text">Compare BFS and DFS search algorithms in terms of data structure, completeness, and memory usage.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label">ANSWER</div>
+      <div class="ans-text">
+        <table>
+          <tr><th>Feature</th><th>BFS</th><th>DFS</th></tr>
+          <tr><td>Data structure</td><td>Queue (FIFO)</td><td>Stack (LIFO)</td></tr>
+          <tr><td>Completeness</td><td>Complete (finds solution if one exists)</td><td>Not complete in infinite spaces</td></tr>
+          <tr><td>Optimality</td><td>Optimal (finds shortest path)</td><td>Not optimal</td></tr>
+          <tr><td>Memory</td><td>O(b^d) — exponential</td><td>O(b×m) — linear</td></tr>
+          <tr><td>Best when</td><td>Solution is near the root</td><td>Solution is deep in the tree</td></tr>
+        </table>
+        where b = branching factor, d = depth of shallowest solution, m = maximum depth.
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num">Q5</span>
+      <span class="q-text">What is A* Search? Explain the role of the heuristic function h(n).</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label">ANSWER</div>
+      <div class="ans-text">
+        <strong>A* Search</strong> is an informed (heuristic) search algorithm that combines actual cost and estimated cost:
+        <div class="formula">f(n) = g(n) + h(n)</div>
+        <ul>
+          <li><strong>g(n):</strong> Actual cost from start to node n</li>
+          <li><strong>h(n):</strong> Heuristic estimate from n to goal</li>
+        </ul>
+        <strong>Heuristic h(n)</strong> guides the search toward the goal. For A* to be optimal, h(n) must be:
+        <ul>
+          <li><strong>Admissible:</strong> Never overestimates the true cost</li>
+          <li><strong>Consistent:</strong> h(n) ≤ cost(n, n') + h(n') for every successor n'</li>
+        </ul>
+        <div class="highlight">A* is both complete and optimal when h(n) is admissible.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num">Q6</span>
+      <span class="q-text">Explain Minimax algorithm with Alpha-Beta Pruning. Where is it used?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label">ANSWER</div>
+      <div class="ans-text">
+        <strong>Minimax</strong> is a recursive algorithm for two-player zero-sum games (e.g., Chess, Tic-Tac-Toe).
+        <ul>
+          <li><strong>MAX player</strong> tries to maximize the score</li>
+          <li><strong>MIN player</strong> tries to minimize the score</li>
+          <li>The algorithm explores the full game tree and backtracks values</li>
+        </ul>
+        <strong>Alpha-Beta Pruning</strong> optimizes Minimax by cutting off branches that cannot influence the final decision:
+        <ul>
+          <li><strong>Alpha:</strong> Best value MAX can guarantee so far</li>
+          <li><strong>Beta:</strong> Best value MIN can guarantee so far</li>
+          <li>If alpha ≥ beta, prune the branch</li>
+        </ul>
+        <div class="highlight">Alpha-Beta pruning produces the same result as full Minimax but examines fewer nodes — saving computation time.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">KNOWLEDGE REPRESENTATION & LOGIC</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num">Q7</span>
+      <span class="q-text">What is Propositional Logic? Explain its syntax, semantics, and limitations.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label">ANSWER</div>
+      <div class="ans-text">
+        <strong>Propositional Logic (PL)</strong> deals with propositions (statements that are True or False) and logical connectives.
+        <br><br><strong>Syntax — Logical Connectives:</strong>
+        <ul>
+          <li>¬ (NOT), ∧ (AND), ∨ (OR), → (IMPLIES), ↔ (IFF)</li>
+        </ul>
+        <strong>Semantics:</strong> Determined by truth tables — each connective defines how the truth value of a compound sentence depends on its components.
+        <br><br><strong>Limitations:</strong>
+        <ul>
+          <li>Cannot express relationships between objects ("All humans are mortal")</li>
+          <li>No quantifiers (∀, ∃)</li>
+          <li>Not expressive enough for complex knowledge representation</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num">Q8</span>
+      <span class="q-text">What is First-Order Logic (FOL)? Compare it with Propositional Logic.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label">ANSWER</div>
+      <div class="ans-text">
+        <strong>First-Order Logic (FOL)</strong> extends propositional logic by adding:
+        <ul>
+          <li><strong>Objects:</strong> Things in the world (e.g., John, House)</li>
+          <li><strong>Predicates:</strong> Properties or relations (e.g., IsMortal(x), Loves(x,y))</li>
+          <li><strong>Quantifiers:</strong> ∀ (for all), ∃ (there exists)</li>
+        </ul>
+        <div class="formula">∀x (Human(x) → Mortal(x))   — "All humans are mortal"</div>
+        <table>
+          <tr><th>Feature</th><th>Propositional Logic</th><th>First-Order Logic</th></tr>
+          <tr><td>Objects</td><td>No</td><td>Yes</td></tr>
+          <tr><td>Predicates</td><td>No</td><td>Yes</td></tr>
+          <tr><td>Quantifiers</td><td>No</td><td>Yes (∀, ∃)</td></tr>
+          <tr><td>Expressiveness</td><td>Low</td><td>High</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">MACHINE LEARNING IN AI</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num">Q9</span>
+      <span class="q-text">Explain the difference between Supervised, Unsupervised, and Reinforcement Learning in the context of AI.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label">ANSWER</div>
+      <div class="ans-text">
+        <table>
+          <tr><th>Aspect</th><th>Supervised</th><th>Unsupervised</th><th>Reinforcement</th></tr>
+          <tr><td>Data</td><td>Labeled (input-output pairs)</td><td>Unlabeled (only inputs)</td><td>States, actions, rewards</td></tr>
+          <tr><td>Goal</td><td>Learn mapping from input to output</td><td>Find hidden patterns/structure</td><td>Learn policy to maximize reward</td></tr>
+          <tr><td>Feedback</td><td>Direct (correct answer)</td><td>None</td><td>Delayed (reward/penalty)</td></tr>
+          <tr><td>Example</td><td>Email spam classification</td><td>Customer segmentation</td><td>Robot learning to walk</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num">Q10</span>
+      <span class="q-text">What is Natural Language Processing (NLP)? List 5 key NLP tasks.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label">ANSWER</div>
+      <div class="ans-text">
+        <strong>NLP</strong> is a branch of AI that enables computers to understand, interpret, and generate human language.
+        <br><br><strong>5 Key NLP Tasks:</strong>
+        <ul>
+          <li><strong>Text Classification:</strong> Categorizing text (spam detection, sentiment analysis)</li>
+          <li><strong>Machine Translation:</strong> Translating text between languages (Google Translate)</li>
+          <li><strong>Named Entity Recognition:</strong> Identifying names, places, dates in text</li>
+          <li><strong>Text Summarization:</strong> Creating short summaries of long documents</li>
+          <li><strong>Question Answering:</strong> Systems that answer questions in natural language (chatbots)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">EXPERT SYSTEMS & PLANNING</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num">Q11</span>
+      <span class="q-text">What is an Expert System? Describe its components and give 2 examples.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label">ANSWER</div>
+      <div class="ans-text">
+        <strong>Expert System:</strong> An AI program that emulates the decision-making ability of a human expert in a specific domain.
+        <br><br><strong>Components:</strong>
+        <ul>
+          <li><strong>Knowledge Base:</strong> Contains facts and rules from domain experts</li>
+          <li><strong>Inference Engine:</strong> Applies logical rules to derive conclusions from the knowledge base</li>
+          <li><strong>User Interface:</strong> Allows users to query the system and receive answers</li>
+        </ul>
+        <strong>Examples:</strong>
+        <ul>
+          <li>MYCIN — medical diagnosis system for bacterial infections</li>
+          <li>DENDRAL — chemical analysis to identify molecular structure</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num">Q12</span>
+      <span class="q-text">What is STRIPS? Explain how it is used in AI planning.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label">ANSWER</div>
+      <div class="ans-text">
+        <strong>STRIPS</strong> (Stanford Research Institute Problem Solver) is a classical planning framework in AI.
+        <br><br><strong>Components of a STRIPS problem:</strong>
+        <ul>
+          <li><strong>Initial State:</strong> Description of the world at the start</li>
+          <li><strong>Goal State:</strong> Desired conditions to achieve</li>
+          <li><strong>Actions:</strong> Each action has preconditions, add-list, and delete-list</li>
+        </ul>
+        <strong>Example — Blocks World:</strong>
+        <ul>
+          <li>Action: Move(block A, from B, to C)</li>
+          <li>Precondition: Clear(A), Clear(C), On(A,B)</li>
+          <li>Add: On(A,C), Clear(B)</li>
+          <li>Delete: On(A,B), Clear(C)</li>
+        </ul>
+        <div class="highlight">The planner searches for a sequence of actions that transforms the initial state into the goal state.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">NEURAL NETWORKS & DEEP LEARNING</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num">Q13</span>
+      <span class="q-text">Explain the structure of a Perceptron and how it learns using the Perceptron Learning Rule.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label">ANSWER</div>
+      <div class="ans-text">
+        <strong>Perceptron:</strong> The simplest neural network — a single-layer binary classifier.
+        <br><br><strong>Structure:</strong>
+        <ul>
+          <li>Inputs x₁, x₂, …, xₙ with corresponding weights w₁, w₂, …, wₙ</li>
+          <li>Bias term b</li>
+          <li>Activation: if Σ(wᵢxᵢ) + b ≥ 0 → output 1; else output 0</li>
+        </ul>
+        <strong>Learning Rule:</strong>
+        <div class="formula">wᵢ := wᵢ + α × (target - predicted) × xᵢ</div>
+        <ul>
+          <li>If prediction is correct → no update</li>
+          <li>If prediction is wrong → adjust weights toward the correct answer</li>
+        </ul>
+        <div class="highlight">Limitation: A single perceptron can only solve linearly separable problems (cannot solve XOR).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num">Q14</span>
+      <span class="q-text">What is Backpropagation? Explain the steps in training a multi-layer neural network.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label">ANSWER</div>
+      <div class="ans-text">
+        <strong>Backpropagation</strong> is the algorithm used to train multi-layer neural networks by computing gradients of the loss with respect to each weight.
+        <br><br><strong>Steps:</strong>
+        <ul>
+          <li><strong>Forward Pass:</strong> Input flows through the network layer by layer to produce an output</li>
+          <li><strong>Compute Loss:</strong> Compare output with target using a loss function (e.g., MSE, Cross-Entropy)</li>
+          <li><strong>Backward Pass:</strong> Apply the chain rule to compute gradients — starting from output layer back to input</li>
+          <li><strong>Weight Update:</strong> Adjust each weight using gradient descent:
+            <div class="formula">w := w - α × ∂L/∂w</div>
+          </li>
+        </ul>
+        This process is repeated for many epochs until the loss converges.
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num">Q15</span>
+      <span class="q-text">What are Transformers? Why are they replacing RNNs in modern AI?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label">ANSWER</div>
+      <div class="ans-text">
+        <strong>Transformers</strong> are a neural network architecture introduced in 2017 ("Attention Is All You Need") that rely entirely on the <strong>Self-Attention Mechanism</strong>.
+        <br><br><strong>Key innovations:</strong>
+        <ul>
+          <li><strong>Self-Attention:</strong> Every token attends to every other token — captures long-range dependencies in parallel</li>
+          <li><strong>No recurrence:</strong> Processes all tokens simultaneously (not sequentially)</li>
+          <li><strong>Positional Encoding:</strong> Adds position information since there's no inherent order</li>
+        </ul>
+        <strong>Why replacing RNNs:</strong>
+        <ul>
+          <li>Much faster training (parallelizable)</li>
+          <li>Better at capturing long-range dependencies</li>
+          <li>No vanishing gradient problem</li>
+          <li>Scales well with data and compute — enabling models like GPT, BERT, and LLMs</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  AI Exam Question Bank · BCA · All questions sourced from course PDF
+</footer>
+
+<script>
+  function toggle(card) {
+    card.classList.toggle('open');
+  }
+</script>
+</body>
+</html>
