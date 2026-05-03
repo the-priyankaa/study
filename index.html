@@ -14,6 +14,8 @@
     --border: #252b3b;
     --ml-color: #34d399;
     --ai-color: #f472b6;
+    --python-color: #3b82f6;
+    --dbms-color: #f59e0b;
     --text: #e2e8f0;
     --text-dim: #64748b;
     --text-mid: #94a3b8;
@@ -42,14 +44,14 @@
     position: absolute;
     top: -80px; left: 50%; transform: translateX(-50%);
     width: 800px; height: 300px;
-    background: radial-gradient(ellipse, rgba(110,231,183,0.06) 0%, rgba(244,114,182,0.06) 50%, transparent 70%);
+    background: radial-gradient(ellipse, rgba(110,231,183,0.06) 0%, rgba(244,114,182,0.04) 30%, rgba(59,130,246,0.04) 60%, rgba(245,158,11,0.06) 90%, transparent 70%);
   }
   header h1 {
     font-family: 'Syne', sans-serif;
     font-size: 2.4rem;
     font-weight: 800;
     letter-spacing: -0.03em;
-    background: linear-gradient(135deg, var(--ml-color), var(--ai-color));
+    background: linear-gradient(135deg, var(--ml-color), var(--ai-color), var(--python-color), var(--dbms-color));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -125,6 +127,22 @@
     box-shadow: 0 8px 40px rgba(244,114,182,0.08);
   }
 
+  .card-python::before {
+    background: linear-gradient(90deg, var(--python-color), #60a5fa);
+  }
+  .card-python:hover {
+    border-color: rgba(59,130,246,0.3);
+    box-shadow: 0 8px 40px rgba(59,130,246,0.08);
+  }
+
+  .card-dbms::before {
+    background: linear-gradient(90deg, var(--dbms-color), #fbbf24);
+  }
+  .card-dbms:hover {
+    border-color: rgba(245,158,11,0.3);
+    box-shadow: 0 8px 40px rgba(245,158,11,0.08);
+  }
+
   .card-icon {
     font-size: 2rem;
     margin-bottom: 1rem;
@@ -138,6 +156,8 @@
   }
   .card-ml h2 { color: var(--ml-color); }
   .card-ai h2 { color: var(--ai-color); }
+  .card-python h2 { color: var(--python-color); }
+  .card-dbms h2 { color: var(--dbms-color); }
 
   .card p {
     color: var(--text-mid);
@@ -161,6 +181,8 @@
   }
   .card-ml .card-arrow { color: var(--ml-color); }
   .card-ai .card-arrow { color: var(--ai-color); }
+  .card-python .card-arrow { color: var(--python-color); }
+  .card-dbms .card-arrow { color: var(--dbms-color); }
   .card:hover .card-arrow { transform: translateX(4px); }
 
   footer {
@@ -185,7 +207,7 @@
   <p class="subtitle">SELECT A SUBJECT</p>
 
   <div class="cards">
-    <a href="juju.html" class="card card-ml">
+    <a href="ml.html" class="card card-ml">
       <div class="card-icon">▣</div>
       <h2>Machine Learning</h2>
       <p>30 MCQs · 20 Short Answer · 10 Long Questions covering algorithms, evaluation, ensemble methods, and deep learning.</p>
@@ -198,9 +220,29 @@
     <a href="ai.html" class="card card-ai">
       <div class="card-icon">▣</div>
       <h2>Artificial Intelligence</h2>
-      <p>15 questions covering search algorithms, knowledge representation, NLP, expert systems, neural networks, and transformers.</p>
+      <p>Questions covering search algorithms, knowledge representation, NLP, expert systems, neural networks, and transformers.</p>
       <div class="card-meta">
-        <span>SEARCH · LOGIC · NLP · DEEP LEARNING</span>
+        <span>COMING SOON</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="python.html" class="card card-python">
+      <div class="card-icon">▣</div>
+      <h2>Python Programming</h2>
+      <p>Questions covering Python fundamentals, data structures, OOP, libraries, and practical programming.</p>
+      <div class="card-meta">
+        <span>COMING SOON</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="dbms.html" class="card card-dbms">
+      <div class="card-icon">▣</div>
+      <h2>DBMS</h2>
+      <p>Questions covering relational databases, SQL, normalization, ER diagrams, transactions, and indexing.</p>
+      <div class="card-meta">
+        <span>COMING SOON</span>
         <span class="card-arrow">→</span>
       </div>
     </a>
