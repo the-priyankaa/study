@@ -276,6 +276,30 @@
     border-top: 1px solid var(--border);
     margin-top: 2rem;
   }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    header { padding: 2.25rem 1.5rem 2rem; }
+    header h1 { font-size: 2rem; }
+    nav button { padding: 0.9rem 1.4rem; font-size: 0.8rem; }
+    section { padding: 1.6rem; }
+  }
+
+  @media (max-width: 600px) {
+    header { padding: 2rem 1.1rem 1.7rem; }
+    header h1 { font-size: 1.7rem; }
+    header p { font-size: 0.7rem; }
+    nav { flex-direction: column; align-items: stretch; }
+    nav button { width: 100%; border-bottom: 1px solid var(--border); }
+    nav button:last-child { border-bottom: none; }
+    section { padding: 1.2rem; }
+    .q-header { padding: 0.9rem 1.1rem; gap: 0.7rem; }
+    .q-text { font-size: 0.93rem; }
+    .q-options { padding: 0 1.1rem 0.5rem 2.8rem; }
+    .q-answer { padding: 1rem 1.1rem 1rem 2.8rem; }
+    .topic-divider { font-size: 0.7rem; }
+    footer { padding: 1.5rem; }
+  }
 </style>
 </head>
 <body>
