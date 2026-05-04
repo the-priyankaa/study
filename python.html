@@ -19,6 +19,10 @@
     --text-dim: #64748b;
     --text-mid: #94a3b8;
     --python-color: #3b82f6;
+    --mcq-color: #34d399;
+    --saq-color: #fbbf24;
+    --long-color: #a78bfa;
+    --correct: #10b981;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -31,6 +35,7 @@
     line-height: 1.7;
   }
 
+  /* HEADER */
   header {
     background: var(--surface);
     border-bottom: 1px solid var(--border);
@@ -62,7 +67,6 @@
   }
   .home-link {
     position: absolute;
-    left: 1.5rem;
     top: 1.2rem;
     left: 1.5rem;
     color: var(--text-dim);
@@ -74,7 +78,38 @@
   }
   .home-link:hover { color: var(--python-color); }
 
-  main { padding: 2rem; max-width: 900px; margin: 0 auto; }
+  /* NAV TABS */
+  nav {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  nav button {
+    padding: 1rem 2.5rem;
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    color: var(--text-dim);
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  nav button:hover { color: var(--text); }
+  nav button.active-mcq { color: var(--mcq-color); border-bottom-color: var(--mcq-color); }
+  nav button.active-saq { color: var(--saq-color); border-bottom-color: var(--saq-color); }
+  nav button.active-long { color: var(--long-color); border-bottom-color: var(--long-color); }
+
+  /* SECTIONS */
+  section { display: none; padding: 2rem; max-width: 900px; margin: 0 auto; }
+  section.active { display: block; }
 
   .section-header {
     margin-bottom: 2rem;
@@ -85,14 +120,17 @@
     font-family: 'Syne', sans-serif;
     font-size: 1.6rem;
     font-weight: 800;
-    color: var(--python-color);
   }
   .section-header p {
     color: var(--text-mid);
     font-size: 0.9rem;
     margin-top: 0.3rem;
   }
+  .mcq-tag { color: var(--mcq-color); }
+  .saq-tag { color: var(--saq-color); }
+  .long-tag { color: var(--long-color); }
 
+  /* QUESTION CARD */
   .q-card {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -117,11 +155,13 @@
     font-weight: 500;
     padding: 0.2rem 0.55rem;
     border-radius: 4px;
-    background: rgba(59,130,246,0.12);
-    color: var(--python-color);
     flex-shrink: 0;
     margin-top: 0.15rem;
   }
+  .mcq-num { background: rgba(52,211,153,0.12); color: var(--mcq-color); }
+  .saq-num { background: rgba(251,191,36,0.12); color: var(--saq-color); }
+  .long-num { background: rgba(167,139,250,0.12); color: var(--long-color); }
+
   .q-text {
     flex: 1;
     font-size: 0.97rem;
@@ -137,6 +177,26 @@
   }
   .q-card.open .q-toggle { transform: rotate(180deg); }
 
+  /* OPTIONS (MCQ) */
+  .q-options {
+    padding: 0 1.4rem 0.5rem 3.8rem;
+  }
+  .option {
+    padding: 0.4rem 0.8rem;
+    margin: 0.25rem 0;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    color: var(--text-mid);
+    border: 1px solid transparent;
+  }
+  .option.correct {
+    background: rgba(16,185,129,0.1);
+    border-color: rgba(16,185,129,0.3);
+    color: var(--correct);
+    font-weight: 500;
+  }
+
+  /* ANSWER PANEL */
   .q-answer {
     display: none;
     border-top: 1px solid var(--border);
@@ -149,9 +209,12 @@
     font-family: 'IBM Plex Mono', monospace;
     font-size: 0.7rem;
     letter-spacing: 0.12em;
-    color: var(--python-color);
+    color: var(--text-dim);
     margin-bottom: 0.6rem;
   }
+  .ans-label.mcq-lbl { color: var(--mcq-color); }
+  .ans-label.saq-lbl { color: var(--saq-color); }
+  .ans-label.long-lbl { color: var(--long-color); }
 
   .ans-text {
     font-size: 0.92rem;
@@ -183,6 +246,7 @@
   th { background: rgba(255,255,255,0.05); padding: 0.5rem 0.8rem; text-align: left; color: var(--text); font-family: 'Syne', sans-serif; font-size: 0.8rem; border: 1px solid var(--border); }
   td { padding: 0.45rem 0.8rem; border: 1px solid var(--border); color: var(--text-mid); }
 
+  /* TOPIC DIVIDER */
   .topic-divider {
     font-family: 'Syne', sans-serif;
     font-size: 0.78rem;
@@ -202,6 +266,7 @@
     background: var(--border);
   }
 
+  /* FOOTER */
   footer {
     text-align: center;
     padding: 2rem;
@@ -216,25 +281,916 @@
 <body>
 
 <header>
-  <a href="index.html" class="home-link">← HOME</a>
+  <a href="index.html" class="home-link"><- HOME</a>
   <h1>Python Exam Question Bank</h1>
-  <p>Questions with full answers. Click to reveal.</p>
+  <p>MCQ - SAQ - LONG QUESTIONS - WITH FULL ANSWERS</p>
 </header>
 
-<main>
+<nav>
+  <button class="active-mcq" onclick="switchTab('mcq')">MCQ SET</button>
+  <button onclick="switchTab('saq')">SHORT ANSWER</button>
+  <button onclick="switchTab('long')">LONG QUESTIONS</button>
+</nav>
+
+<!-- ========================= MCQ SECTION ========================= -->
+<section id="mcq" class="active">
   <div class="section-header">
-    <h2>Questions coming soon...</h2>
-    <p>This section is being prepared. Questions will appear here once added.</p>
+    <h2><span class="mcq-tag">MCQ</span> Multiple Choice Questions</h2>
+    <p>14 questions - click any question to reveal the answer</p>
   </div>
-</main>
+
+  <div class="topic-divider">UNIT 1: PYTHON BASICS</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q1</span>
+      <span class="q-text">What is Python? Who developed it and when?</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-options">
+      <div class="option">A) Low-level language by James Gosling (1995)</div>
+      <div class="option correct">B) High-level interpreted language by Guido van Rossum (1991)</div>
+      <div class="option">C) Compiled language by Dennis Ritchie (1972)</div>
+      <div class="option">D) Markup language by Tim Berners-Lee (1989)</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text">Python is a high-level, interpreted programming language created by Guido van Rossum and first released in 1991.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q2</span>
+      <span class="q-text">Which of the following is a valid Python variable name?</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-options">
+      <div class="option">A) 2var</div>
+      <div class="option">B) var-name</div>
+      <div class="option correct">C) _var2</div>
+      <div class="option">D) for</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: C</div>
+      <div class="ans-text">Variable names can start with a letter or underscore, cannot start with a digit, cannot contain hyphens, and cannot be keywords.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q3</span>
+      <span class="q-text">What is indentation in Python?</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-options">
+      <div class="option">A) Optional formatting with no functional use</div>
+      <div class="option correct">B) It defines code blocks; wrong indentation raises an error</div>
+      <div class="option">C) It is only required for functions</div>
+      <div class="option">D) It is used to write comments</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text">Python uses indentation to define blocks of code. Incorrect indentation causes an IndentationError.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q4</span>
+      <span class="q-text">Which of the following is the identity operator in Python?</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-options">
+      <div class="option">A) in</div>
+      <div class="option correct">B) is</div>
+      <div class="option">C) and</div>
+      <div class="option">D) +</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text">Identity operators (is, is not) check if two variables refer to the same object in memory.</div>
+    </div>
+  </div>
+
+  <div class="topic-divider">UNIT 2: STRINGS</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q5</span>
+      <span class="q-text">What is the difference between find() and index() in strings?</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-options">
+      <div class="option correct">A) find() returns -1 if not found; index() raises ValueError</div>
+      <div class="option">B) index() returns -1 if not found; find() raises ValueError</div>
+      <div class="option">C) Both raise ValueError if not found</div>
+      <div class="option">D) Both return -1 if not found</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: A</div>
+      <div class="ans-text">find() returns -1 when the substring is absent, while index() throws a ValueError.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q6</span>
+      <span class="q-text">What is the difference between isdigit() and isnumeric()?</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-options">
+      <div class="option">A) isdigit() supports fractions; isnumeric() does not</div>
+      <div class="option correct">B) isnumeric() supports fractions/roman numerals; isdigit() only 0-9</div>
+      <div class="option">C) Both are identical</div>
+      <div class="option">D) isdigit() checks alphabets</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text">isdigit() is True only for digits 0-9; isnumeric() is True for numeric characters like fractions.</div>
+    </div>
+  </div>
+
+  <div class="topic-divider">UNIT 3: LISTS</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q7</span>
+      <span class="q-text">What is the difference between sort() and sorted()?</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-options">
+      <div class="option">A) sort() returns new list; sorted() modifies original</div>
+      <div class="option correct">B) sorted() returns new list; sort() modifies original in-place</div>
+      <div class="option">C) Both modify the original list</div>
+      <div class="option">D) Both return new lists</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text">list.sort() sorts in-place and returns None; sorted() returns a new list.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q8</span>
+      <span class="q-text">What is the difference between remove() and pop()?</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-options">
+      <div class="option">A) remove() deletes by index; pop() deletes by value</div>
+      <div class="option correct">B) pop() deletes by index (returns value); remove() deletes by value</div>
+      <div class="option">C) Both delete by index</div>
+      <div class="option">D) Both delete by value</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text">remove(x) deletes the first occurrence of value x; pop(i) removes and returns the element at index i (last by default).</div>
+    </div>
+  </div>
+
+  <div class="topic-divider">UNIT 4: TUPLES</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q9</span>
+      <span class="q-text">What is the difference between a tuple and a list?</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-options">
+      <div class="option">A) Tuples are mutable; lists are immutable</div>
+      <div class="option correct">B) Lists are mutable; tuples are immutable</div>
+      <div class="option">C) Tuples use []; lists use ()</div>
+      <div class="option">D) Both are mutable</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text">Lists can be modified after creation, while tuples cannot be changed.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q10</span>
+      <span class="q-text">Why cannot you modify or delete elements from a tuple?</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-options">
+      <div class="option">A) Tuples are mutable but restricted</div>
+      <div class="option correct">B) Tuples are immutable; modification raises TypeError</div>
+      <div class="option">C) Modification is allowed, deletion is not</div>
+      <div class="option">D) Deletion is allowed, modification is not</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text">Tuples are immutable, so any attempt to change or delete elements raises a TypeError.</div>
+    </div>
+  </div>
+
+  <div class="topic-divider">UNIT 5: DICTIONARIES</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q11</span>
+      <span class="q-text">What is the difference between a dictionary and a list?</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-options">
+      <div class="option">A) Lists are key-value pairs; dictionaries are ordered sequences</div>
+      <div class="option correct">B) Dictionaries are key-value pairs; lists are indexed sequences</div>
+      <div class="option">C) Both use key-value pairs</div>
+      <div class="option">D) Both are indexed by position</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text">Lists store ordered items by index; dictionaries store data as key-value pairs.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q12</span>
+      <span class="q-text">What is a KeyError in a dictionary?</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-options">
+      <div class="option correct">A) Error when accessing a non-existent key directly</div>
+      <div class="option">B) Error when adding a new key</div>
+      <div class="option">C) Error when using the in operator</div>
+      <div class="option">D) Error when using get()</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: A</div>
+      <div class="ans-text">Accessing a missing key with dict[key] raises KeyError.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q13</span>
+      <span class="q-text">What is the advantage of the get() method?</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-options">
+      <div class="option">A) It raises KeyError if key is missing</div>
+      <div class="option correct">B) It returns None/default instead of raising an error</div>
+      <div class="option">C) It adds the key if missing</div>
+      <div class="option">D) It modifies the key value automatically</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text">dict.get(key, default) returns default when the key is not found, avoiding KeyError.</div>
+    </div>
+  </div>
+
+  <div class="topic-divider">UNIT 6: CONTROL STATEMENTS</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q14</span>
+      <span class="q-text">What is the difference between break and continue?</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-options">
+      <div class="option">A) break skips iteration, continue exits loop</div>
+      <div class="option correct">B) continue skips iteration, break exits the loop</div>
+      <div class="option">C) Both exit the loop</div>
+      <div class="option">D) Both skip the current iteration</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text">break ends the loop completely; continue skips the current iteration and moves to the next.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= SAQ SECTION ========================= -->
+<section id="saq">
+  <div class="section-header">
+    <h2><span class="saq-tag">SAQ</span> Short Answer Questions</h2>
+    <p>30 questions - click any question to reveal the answer</p>
+  </div>
+
+  <div class="topic-divider">UNIT 1: PYTHON BASICS</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S1</span>
+      <span class="q-text">What are the applications of Python?</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">Python is used in web development, data science, machine learning, automation, scripting, game development, and desktop apps.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S2</span>
+      <span class="q-text">What are the two ways to run a Python program? Explain with examples.</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <strong>Interactive mode:</strong> Run python in terminal and type commands, e.g., print("Hello").
+        <br><strong>Script mode:</strong> Save code in a .py file and run: python file.py.
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S3</span>
+      <span class="q-text">What are comments in Python? Explain single-line and multi-line comments with examples.</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        Comments are non-executable notes.
+        <br><strong>Single-line:</strong> # This is a comment
+        <br><strong>Multi-line:</strong> '''This is a multi-line comment''' or """This is a multi-line comment"""
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S4</span>
+      <span class="q-text">How do you assign a single value to multiple variables and multiple values to multiple variables?</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <strong>Single value:</strong> x = y = z = 10
+        <br><strong>Multiple values:</strong> a, b, c = 1, 2, 3
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S5</span>
+      <span class="q-text">What are data types in Python? Explain int, float, complex, and string with examples.</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <strong>int:</strong> 10, <strong>float:</strong> 10.5, <strong>complex:</strong> 3+4j, <strong>string:</strong> "Hello".
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S6</span>
+      <span class="q-text">What is type conversion? Explain int(), float(), and str() with examples.</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        Type conversion changes a value's data type: int("10") -> 10, float("10.5") -> 10.5, str(10) -> "10".
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">UNIT 2: STRINGS</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S7</span>
+      <span class="q-text">How are strings declared in Python?</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">Strings can use single quotes 'text', double quotes "text", or triple quotes '''text''' for multi-line.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S8</span>
+      <span class="q-text">Explain string indexing and negative indexing with an example.</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">For s = "Python", s[0] -> 'P'. Negative index counts from end: s[-1] -> 'n'.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S9</span>
+      <span class="q-text">Explain string operators (+, *, [], [:], in, not in, r, %) with examples.</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        +: "Hi" + "All" -> "HiAll"<br>
+        *: "Hi" * 3 -> "HiHiHi"<br>
+        []: s[0] -> first char<br>
+        [:]: s[1:4] -> substring<br>
+        in/not in: "Py" in "Python" -> True<br>
+        r: r"\n" keeps backslash literal<br>
+        %: "Hello %s" % "World" -> "Hello World"
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">UNIT 3: LISTS</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S10</span>
+      <span class="q-text">What is a list in Python? How is it created? Give examples.</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">A list is an ordered, mutable collection. Example: my_list = [1, 2, 3], empty: [].</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S11</span>
+      <span class="q-text">Explain list indexing and negative indexing with examples.</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">my_list = [10, 20, 30]; my_list[0] -> 10, my_list[-1] -> 30.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S12</span>
+      <span class="q-text">How do you update/change elements in a list? Give example.</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">Use indexing: nums = [1, 2, 3]; nums[1] = 20 -> [1, 20, 3].</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S13</span>
+      <span class="q-text">How do you delete elements from a list using del? Give example.</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">nums = [1, 2, 3]; del nums[1] -> [1, 3].</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S14</span>
+      <span class="q-text">How do you iterate a list using a for loop?</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">for item in my_list: print(item)</div>
+    </div>
+  </div>
+
+  <div class="topic-divider">UNIT 4: TUPLES</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S15</span>
+      <span class="q-text">How is a tuple created? Give examples including an empty tuple and a single-element tuple.</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">tuple1 = (1, 2, 3), empty = (), single = (5,)</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S16</span>
+      <span class="q-text">Explain tuple indexing and negative indexing.</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">t = (10, 20, 30); t[0] -> 10, t[-1] -> 30.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S17</span>
+      <span class="q-text">Explain tuple operators (+, *, [], [:], in, not in) with examples.</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        +: (1,2) + (3,4) -> (1,2,3,4)<br>
+        *: (1,) * 3 -> (1,1,1)<br>
+        []: t[0] -> first item<br>
+        [:]: t[1:3] -> slice<br>
+        in/not in: 2 in (1,2,3) -> True
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S18</span>
+      <span class="q-text">How do you delete an entire tuple using del?</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">t = (1, 2, 3); del t removes the tuple completely.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S19</span>
+      <span class="q-text">How do you iterate a tuple using a for loop?</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">for item in my_tuple: print(item)</div>
+    </div>
+  </div>
+
+  <div class="topic-divider">UNIT 5: DICTIONARIES</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S20</span>
+      <span class="q-text">How do you create a dictionary? Give examples including an empty dictionary.</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">my_dict = {"name": "Alice", "age": 25}; empty dict = {}.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S21</span>
+      <span class="q-text">How do you access, add, and update values in a dictionary?</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">Access: d["name"]. Add: d["city"] = "NY". Update: d["age"] = 26.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S22</span>
+      <span class="q-text">How do you loop through a dictionary using a for loop?</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">for key in d: print(key). To loop values: for val in d.values(): print(val).</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S23</span>
+      <span class="q-text">Explain keys(), values(), and items() methods of a dictionary with examples.</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">d.keys() returns all keys, d.values() returns values, d.items() returns (key, value) pairs.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S24</span>
+      <span class="q-text">How do you use two iteration variables with items() while looping? Give example.</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">for key, value in d.items(): print(key, value)</div>
+    </div>
+  </div>
+
+  <div class="topic-divider">UNIT 6: CONTROL STATEMENTS</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S25</span>
+      <span class="q-text">Explain if, if-else, and if-elif-else statements with syntax and examples.</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <strong>if:</strong> if condition: code<br>
+        <strong>if-else:</strong> if cond: code1 else: code2<br>
+        <strong>if-elif-else:</strong> if cond1: code1 elif cond2: code2 else: code3
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S26</span>
+      <span class="q-text">Explain the while loop with syntax and example.</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">while condition: code. Example: i=0; while i&lt;3: print(i); i+=1</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S27</span>
+      <span class="q-text">How is the else block used with a while loop? Give example.</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">The else block runs if the loop finishes normally (no break). Example: while i&lt;3: ... else: print("Done").</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S28</span>
+      <span class="q-text">Explain the for loop with syntax and example. What is range()?</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">for item in sequence: code. Example: for i in range(3): print(i). range() generates numbers from start to stop-1.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S29</span>
+      <span class="q-text">How is the else block used with a for loop? Give example.</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">The else block runs if the loop finishes without break. Example: for i in range(3): ... else: print("Done").</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S30</span>
+      <span class="q-text">Explain break and continue statements with syntax and examples.</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">break exits the loop; continue skips to next iteration. Example: if i==3: break; if i==2: continue.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= LONG SECTION ========================= -->
+<section id="long">
+  <div class="section-header">
+    <h2><span class="long-tag">LONG</span> Long Questions</h2>
+    <p>7 questions - detailed answers with examples</p>
+  </div>
+
+  <div class="topic-divider">UNIT 1: PYTHON BASICS</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num long-num">L1</span>
+      <span class="q-text">List and explain any five features of Python.</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label long-lbl">ANSWER</div>
+      <div class="ans-text">
+        <ul>
+          <li><strong>Interpreted:</strong> Runs line by line without compilation.</li>
+          <li><strong>High-level:</strong> Easy syntax close to natural language.</li>
+          <li><strong>Dynamically typed:</strong> No need to declare variable types.</li>
+          <li><strong>Portable:</strong> Runs on different operating systems.</li>
+          <li><strong>Large standard library:</strong> Many built-in modules and functions.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num long-num">L2</span>
+      <span class="q-text">Explain all types of operators in Python with examples.</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label long-lbl">ANSWER</div>
+      <div class="ans-text">
+        <ul>
+          <li><strong>Arithmetic:</strong> +, -, *, /, %, //, **. Example: 10 // 3 = 3.</li>
+          <li><strong>Comparison:</strong> ==, !=, &gt;, &lt;, &gt;=, &lt;=. Example: 5 &gt; 3 -> True.</li>
+          <li><strong>Assignment:</strong> =, +=, -=, *=. Example: x += 2.</li>
+          <li><strong>Logical:</strong> and, or, not. Example: (5 &gt; 3) and (2 &lt; 4).</li>
+          <li><strong>Bitwise:</strong> &, |, ^, ~, &lt;&lt;, &gt;&gt;. Example: 5 &amp; 3 = 1.</li>
+          <li><strong>Membership:</strong> in, not in. Example: 2 in [1,2,3] -> True.</li>
+          <li><strong>Identity:</strong> is, is not. Example: a is b.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">UNIT 2: STRINGS</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num long-num">L3</span>
+      <span class="q-text">Write short notes on string methods with syntax and examples.</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label long-lbl">ANSWER</div>
+      <div class="ans-text">
+        <ul>
+          <li><strong>len(s):</strong> len("Hello") -> 5</li>
+          <li><strong>lower():</strong> "HELLO".lower() -> "hello"</li>
+          <li><strong>upper():</strong> "hello".upper() -> "HELLO"</li>
+          <li><strong>replace():</strong> "Hello".replace("H","J") -> "Jello"</li>
+          <li><strong>split():</strong> "a,b".split(",") -> ["a","b"]</li>
+          <li><strong>find():</strong> "Hello".find("l") -> 2</li>
+          <li><strong>index():</strong> "Hello".index("l") -> 2</li>
+          <li><strong>isalnum():</strong> "Hello123".isalnum() -> True</li>
+          <li><strong>isdigit():</strong> "123".isdigit() -> True</li>
+          <li><strong>isnumeric():</strong> "1/2".isnumeric() -> False</li>
+          <li><strong>islower():</strong> "hello".islower() -> True</li>
+          <li><strong>isupper():</strong> "HELLO".isupper() -> True</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">UNIT 3: LISTS</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num long-num">L4</span>
+      <span class="q-text">Explain list functions and methods with syntax and examples.</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label long-lbl">ANSWER</div>
+      <div class="ans-text">
+        <ul>
+          <li><strong>len(list):</strong> len([1,2,3]) -> 3</li>
+          <li><strong>max(list):</strong> max([1,2,3]) -> 3</li>
+          <li><strong>min(list):</strong> min([1,2,3]) -> 1</li>
+          <li><strong>sum(list):</strong> sum([1,2,3]) -> 6</li>
+          <li><strong>list(iterable):</strong> list((1,2)) -> [1,2]</li>
+          <li><strong>sorted(list):</strong> sorted([3,1,2]) -> [1,2,3]</li>
+          <li><strong>append(x):</strong> a.append(3)</li>
+          <li><strong>remove(x):</strong> a.remove(2)</li>
+          <li><strong>sort():</strong> a.sort()</li>
+          <li><strong>reverse():</strong> a.reverse()</li>
+          <li><strong>count(x):</strong> a.count(1)</li>
+          <li><strong>index(x):</strong> a.index(2)</li>
+          <li><strong>insert(i,x):</strong> a.insert(1, 9)</li>
+          <li><strong>pop(i):</strong> a.pop(0)</li>
+          <li><strong>clear():</strong> a.clear()</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">UNIT 4: TUPLES</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num long-num">L5</span>
+      <span class="q-text">Explain tuple functions and methods with syntax and examples.</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label long-lbl">ANSWER</div>
+      <div class="ans-text">
+        <ul>
+          <li><strong>len(t):</strong> len((1,2,3)) -> 3</li>
+          <li><strong>max(t):</strong> max((1,2,3)) -> 3</li>
+          <li><strong>min(t):</strong> min((1,2,3)) -> 1</li>
+          <li><strong>sum(t):</strong> sum((1,2,3)) -> 6</li>
+          <li><strong>tuple(iterable):</strong> tuple([1,2]) -> (1,2)</li>
+          <li><strong>sorted(t):</strong> sorted((3,1,2)) -> [1,2,3]</li>
+          <li><strong>count(x):</strong> (1,2,1).count(1) -> 2</li>
+          <li><strong>index(x):</strong> (1,2,3).index(2) -> 1</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">UNIT 5: DICTIONARIES</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num long-num">L6</span>
+      <span class="q-text">Write a Python program to count the frequency of words in a sentence using a dictionary.</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label long-lbl">ANSWER</div>
+      <div class="ans-text">
+        <div class="formula">
+          sentence = "hello world hello python"<br>
+          words = sentence.split()<br>
+          freq = {}<br>
+          <br>
+          for w in words:<br>
+          &nbsp;&nbsp;freq[w] = freq.get(w, 0) + 1<br>
+          <br>
+          print(freq)
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">UNIT 6: CONTROL STATEMENTS</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num long-num">L7</span>
+      <span class="q-text">Write a Python program to find the maximum of three numbers using if-elif-else.</span>
+      <span class="q-toggle">v</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label long-lbl">ANSWER</div>
+      <div class="ans-text">
+        <div class="formula">
+          a = 10<br>
+          b = 20<br>
+          c = 15<br>
+          <br>
+          if a &gt;= b and a &gt;= c:<br>
+          &nbsp;&nbsp;max_num = a<br>
+          elif b &gt;= a and b &gt;= c:<br>
+          &nbsp;&nbsp;max_num = b<br>
+          else:<br>
+          &nbsp;&nbsp;max_num = c<br>
+          <br>
+          print("Maximum is:", max_num)
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <footer>
-  Python Exam Question Bank · BCA · All questions sourced from course PDF
+  Python Exam Question Bank - BCA - All questions sourced from course notes
 </footer>
 
 <script>
   function toggle(card) {
     card.classList.toggle('open');
+  }
+
+  function switchTab(tab) {
+    document.querySelectorAll('section').forEach(section => {
+      section.classList.remove('active');
+    });
+    document.getElementById(tab).classList.add('active');
+
+    const buttons = document.querySelectorAll('nav button');
+    buttons.forEach(btn => {
+      btn.classList.remove('active-mcq', 'active-saq', 'active-long');
+    });
+
+    if (tab === 'mcq') buttons[0].classList.add('active-mcq');
+    if (tab === 'saq') buttons[1].classList.add('active-saq');
+    if (tab === 'long') buttons[2].classList.add('active-long');
   }
 </script>
 </body>
