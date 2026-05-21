@@ -217,6 +217,13 @@
     header { padding: 2.25rem 1.5rem 2rem; }
     header h1 { font-size: 2rem; }
     main { padding: 1.6rem; }
+    .section-header h2 { font-size: 1.4rem; }
+  }
+
+  @media (max-width: 768px) {
+    .home-link { position: static; display: block; text-align: center; margin-bottom: 0.75rem; font-size: 0.7rem; }
+    .section-header h2 { font-size: 1.3rem; }
+    .section-header p { font-size: 0.8rem; }
   }
 
   @media (max-width: 600px) {
@@ -227,8 +234,25 @@
     .q-header { padding: 0.9rem 1.1rem; gap: 0.7rem; }
     .q-text { font-size: 0.93rem; }
     .q-answer { padding: 1rem 1.1rem 1rem 2.8rem; }
+    .ans-text { font-size: 0.85rem; }
+    .ans-label { font-size: 0.65rem; }
+    table { display: block; overflow-x: auto; white-space: nowrap; }
     .topic-divider { font-size: 0.7rem; }
-    footer { padding: 1.5rem; }
+    .section-header h2 { font-size: 1.15rem; }
+    footer { padding: 1.5rem; font-size: 0.65rem; }
+  }
+
+  @media (max-width: 400px) {
+    header { padding: 1.75rem 0.9rem 1.5rem; }
+    header h1 { font-size: 1.4rem; }
+    header p { font-size: 0.6rem; }
+    main { padding: 0.9rem; }
+    .q-header { padding: 0.75rem 0.9rem; gap: 0.5rem; }
+    .q-text { font-size: 0.88rem; }
+    .q-answer { padding: 0.85rem 0.9rem 0.85rem 2rem; }
+    .topic-divider { font-size: 0.6rem; }
+    .section-header h2 { font-size: 1rem; }
+    .section-header p { font-size: 0.72rem; }
   }
 </style>
 </head>

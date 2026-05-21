@@ -269,6 +269,15 @@
     header h1 { font-size: 2rem; }
     nav button { padding: 0.9rem 1.4rem; font-size: 0.8rem; }
     section { padding: 1.6rem; }
+    .section-header h2 { font-size: 1.4rem; }
+  }
+
+  @media (max-width: 768px) {
+    .home-link { position: static; display: block; text-align: center; margin-bottom: 0.75rem; font-size: 0.7rem; }
+    .section-header h2 { font-size: 1.3rem; }
+    .section-header p { font-size: 0.8rem; }
+    .q-num { font-size: 0.7rem; padding: 0.15rem 0.45rem; }
+    .option { font-size: 0.85rem; padding: 0.3rem 0.6rem; }
   }
 
   @media (max-width: 600px) {
@@ -276,15 +285,35 @@
     header h1 { font-size: 1.7rem; }
     header p { font-size: 0.7rem; }
     nav { flex-direction: column; align-items: stretch; }
-    nav button { width: 100%; border-bottom: 1px solid var(--border); }
+    nav button { width: 100%; padding: 0.85rem 1rem; border-bottom: 1px solid var(--border); }
     nav button:last-child { border-bottom: none; }
     section { padding: 1.2rem; }
     .q-header { padding: 0.9rem 1.1rem; gap: 0.7rem; }
     .q-text { font-size: 0.93rem; }
     .q-options { padding: 0 1.1rem 0.5rem 2.8rem; }
     .q-answer { padding: 1rem 1.1rem 1rem 2.8rem; }
+    .ans-text { font-size: 0.85rem; }
+    .ans-label { font-size: 0.65rem; }
+    table { display: block; overflow-x: auto; white-space: nowrap; }
     .topic-divider { font-size: 0.7rem; }
-    footer { padding: 1.5rem; }
+    .section-header h2 { font-size: 1.15rem; }
+    footer { padding: 1.5rem; font-size: 0.65rem; }
+  }
+
+  @media (max-width: 400px) {
+    header { padding: 1.75rem 0.9rem 1.5rem; }
+    header h1 { font-size: 1.4rem; }
+    header p { font-size: 0.6rem; }
+    nav button { padding: 0.75rem 1rem; font-size: 0.75rem; }
+    section { padding: 0.9rem; }
+    .q-header { padding: 0.75rem 0.9rem; gap: 0.5rem; }
+    .q-text { font-size: 0.88rem; }
+    .q-options { padding: 0 0.9rem 0.4rem 2rem; }
+    .q-answer { padding: 0.85rem 0.9rem 0.85rem 2rem; }
+    .option { font-size: 0.8rem; padding: 0.25rem 0.5rem; margin: 0.15rem 0; }
+    .topic-divider { font-size: 0.6rem; }
+    .section-header h2 { font-size: 1rem; }
+    .section-header p { font-size: 0.72rem; }
   }
 </style>
 </head>
