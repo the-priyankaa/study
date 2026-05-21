@@ -18,7 +18,10 @@
     --text: #e2e8f0;
     --text-dim: #64748b;
     --text-mid: #94a3b8;
-    --dbms-color: #f59e0b;
+    --mcq-color: #f59e0b;
+    --saq-color: #f97316;
+    --long-color: #a78bfa;
+    --correct: #10b981;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -44,14 +47,14 @@
     position: absolute;
     top: -60px; left: 50%; transform: translateX(-50%);
     width: 600px; height: 200px;
-    background: radial-gradient(ellipse, rgba(245,158,11,0.1) 0%, transparent 70%);
+    background: radial-gradient(ellipse, rgba(245,158,11,0.08) 0%, transparent 70%);
   }
   header h1 {
     font-family: 'Syne', sans-serif;
     font-size: 2.2rem;
     font-weight: 800;
     letter-spacing: -0.03em;
-    color: var(--dbms-color);
+    color: var(--mcq-color);
   }
   header p {
     color: var(--text-mid);
@@ -62,7 +65,6 @@
   }
   .home-link {
     position: absolute;
-    left: 1.5rem;
     top: 1.2rem;
     left: 1.5rem;
     color: var(--text-dim);
@@ -72,9 +74,34 @@
     letter-spacing: 0.05em;
     transition: color 0.2s;
   }
-  .home-link:hover { color: var(--dbms-color); }
+  .home-link:hover { color: var(--mcq-color); }
 
-  main { padding: 2rem; max-width: 900px; margin: 0 auto; }
+  nav {
+    display: flex;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+  }
+  nav button {
+    flex: 1;
+    padding: 1rem 1.5rem;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--text-dim);
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  nav button:hover { color: var(--text); }
+  nav button.active-mcq { color: var(--mcq-color); border-bottom-color: var(--mcq-color); }
+  nav button.active-saq { color: var(--saq-color); border-bottom-color: var(--saq-color); }
+  nav button.active-long { color: var(--long-color); border-bottom-color: var(--long-color); }
+
+  section { display: none; padding: 2rem; max-width: 900px; margin: 0 auto; }
+  section.active { display: block; }
 
   .section-header {
     margin-bottom: 2rem;
@@ -85,13 +112,15 @@
     font-family: 'Syne', sans-serif;
     font-size: 1.6rem;
     font-weight: 800;
-    color: var(--dbms-color);
   }
   .section-header p {
     color: var(--text-mid);
     font-size: 0.9rem;
     margin-top: 0.3rem;
   }
+  .mcq-tag { color: var(--mcq-color); }
+  .saq-tag { color: var(--saq-color); }
+  .long-tag { color: var(--long-color); }
 
   .q-card {
     background: var(--surface);
@@ -117,11 +146,13 @@
     font-weight: 500;
     padding: 0.2rem 0.55rem;
     border-radius: 4px;
-    background: rgba(245,158,11,0.12);
-    color: var(--dbms-color);
     flex-shrink: 0;
     margin-top: 0.15rem;
   }
+  .mcq-num { background: rgba(245,158,11,0.12); color: var(--mcq-color); }
+  .saq-num { background: rgba(249,115,22,0.12); color: var(--saq-color); }
+  .long-num { background: rgba(167,139,250,0.12); color: var(--long-color); }
+
   .q-text {
     flex: 1;
     font-size: 0.97rem;
@@ -137,6 +168,24 @@
   }
   .q-card.open .q-toggle { transform: rotate(180deg); }
 
+  .q-options {
+    padding: 0 1.4rem 0.5rem 3.8rem;
+  }
+  .option {
+    padding: 0.4rem 0.8rem;
+    margin: 0.25rem 0;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    color: var(--text-mid);
+    border: 1px solid transparent;
+  }
+  .option.correct {
+    background: rgba(16,185,129,0.1);
+    border-color: rgba(16,185,129,0.3);
+    color: var(--correct);
+    font-weight: 500;
+  }
+
   .q-answer {
     display: none;
     border-top: 1px solid var(--border);
@@ -149,9 +198,12 @@
     font-family: 'IBM Plex Mono', monospace;
     font-size: 0.7rem;
     letter-spacing: 0.12em;
-    color: var(--dbms-color);
+    color: var(--text-dim);
     margin-bottom: 0.6rem;
   }
+  .ans-label.mcq-lbl { color: var(--mcq-color); }
+  .ans-label.saq-lbl { color: var(--saq-color); }
+  .ans-label.long-lbl { color: var(--long-color); }
 
   .ans-text {
     font-size: 0.92rem;
@@ -173,7 +225,7 @@
   }
   .ans-text .highlight {
     background: rgba(245,158,11,0.08);
-    border-left: 3px solid var(--dbms-color);
+    border-left: 3px solid var(--mcq-color);
     padding: 0.6rem 1rem;
     border-radius: 0 5px 5px 0;
     margin: 0.6rem 0;
@@ -212,20 +264,24 @@
     margin-top: 2rem;
   }
 
-  /* RESPONSIVE */
   @media (max-width: 900px) {
     header { padding: 2.25rem 1.5rem 2rem; }
     header h1 { font-size: 2rem; }
-    main { padding: 1.6rem; }
+    nav button { padding: 0.9rem 1.4rem; font-size: 0.8rem; }
+    section { padding: 1.6rem; }
   }
 
   @media (max-width: 600px) {
     header { padding: 2rem 1.1rem 1.7rem; }
     header h1 { font-size: 1.7rem; }
     header p { font-size: 0.7rem; }
-    main { padding: 1.2rem; }
+    nav { flex-direction: column; align-items: stretch; }
+    nav button { width: 100%; border-bottom: 1px solid var(--border); }
+    nav button:last-child { border-bottom: none; }
+    section { padding: 1.2rem; }
     .q-header { padding: 0.9rem 1.1rem; gap: 0.7rem; }
     .q-text { font-size: 0.93rem; }
+    .q-options { padding: 0 1.1rem 0.5rem 2.8rem; }
     .q-answer { padding: 1rem 1.1rem 1rem 2.8rem; }
     .topic-divider { font-size: 0.7rem; }
     footer { padding: 1.5rem; }
@@ -237,15 +293,849 @@
 <header>
   <a href="index.html" class="home-link">← HOME</a>
   <h1>DBMS Exam Question Bank</h1>
-  <p>Questions with full answers. Click to reveal.</p>
+  <p>MCQ · SAQ · LONG QUESTIONS — WITH FULL ANSWERS</p>
 </header>
 
-<main>
+<nav>
+  <button class="active-mcq" onclick="switchTab('mcq')">▣ MCQ SET</button>
+  <button onclick="switchTab('saq')">▤ SHORT ANSWER</button>
+  <button onclick="switchTab('long')">▦ LONG QUESTIONS</button>
+</nav>
+
+<!-- ===== MCQ SECTION ===== -->
+<section id="mcq" class="active">
   <div class="section-header">
-    <h2>Questions coming soon...</h2>
-    <p>This section is being prepared. Questions will appear here once added.</p>
+    <h2><span class="mcq-tag">▣</span> Multiple Choice Questions</h2>
+    <p>20 questions — Click any question to reveal the answer and explanation</p>
   </div>
-</main>
+
+  <div class="topic-divider">FUNDAMENTALS</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q1</span>
+      <span class="q-text">Which of the following is a DDL command?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) SELECT</div>
+      <div class="option">b) INSERT</div>
+      <div class="option correct">c) ALTER</div>
+      <div class="option">d) UPDATE</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: C</div>
+      <div class="ans-text">DDL (Data Definition Language) defines database structure. ALTER, CREATE, DROP, and TRUNCATE are DDL commands. SELECT, INSERT, and UPDATE belong to DML (Data Manipulation Language).</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q2</span>
+      <span class="q-text">Which normal form removes partial dependency?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) 1NF</div>
+      <div class="option correct">b) 2NF</div>
+      <div class="option">c) 3NF</div>
+      <div class="option">d) BCNF</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text">A relation is in 2NF if it is in 1NF and every non-key attribute is fully functionally dependent on the entire primary key — i.e., no partial dependency exists. 1NF only requires atomic values; partial dependencies are addressed at the 2NF level.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q3</span>
+      <span class="q-text">In ACID properties, "D" stands for:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Dependency</div>
+      <div class="option correct">b) Durability</div>
+      <div class="option">c) Data integrity</div>
+      <div class="option">d) Distribution</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text">Durability guarantees that once a transaction is committed, its changes persist permanently in the database — even in the event of a system crash, power failure, or hardware failure. This is typically achieved through write-ahead logging.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q4</span>
+      <span class="q-text">A relation is in BCNF if for every functional dependency X → Y, X is a:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Primary key</div>
+      <div class="option">b) Foreign key</div>
+      <div class="option correct">c) Super key</div>
+      <div class="option">d) Candidate key only</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: C</div>
+      <div class="ans-text">BCNF (Boyce-Codd Normal Form) requires that for every non-trivial FD X → Y, X must be a super key. This is stricter than 3NF — every BCNF relation is in 3NF, but not every 3NF relation is in BCNF.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q5</span>
+      <span class="q-text">Which SQL keyword is used to remove duplicate rows from a result?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) UNIQUE</div>
+      <div class="option correct">b) DISTINCT</div>
+      <div class="option">c) DIFFERENT</div>
+      <div class="option">d) FILTER</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text">The DISTINCT keyword is used with SELECT to eliminate duplicate rows from the result set. UNIQUE is a constraint (not a query keyword), and the other options are not valid SQL keywords.</div>
+    </div>
+  </div>
+
+  <div class="topic-divider">INDEXING & JOIN</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q6</span>
+      <span class="q-text">In a B+ Tree, data pointers are stored only in:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Root node</div>
+      <div class="option">b) Internal nodes</div>
+      <div class="option correct">c) Leaf nodes</div>
+      <div class="option">d) All nodes</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: C</div>
+      <div class="ans-text">In a B+ Tree, all actual data pointers are stored only at the leaf nodes. Internal nodes store only key values and node pointers (acting as routers). Leaf nodes are linked for efficient range queries.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q7</span>
+      <span class="q-text">Which of the following is NOT a type of join in SQL?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) INNER JOIN</div>
+      <div class="option">b) LEFT JOIN</div>
+      <div class="option">c) CROSS JOIN</div>
+      <div class="option correct">d) DEEP JOIN</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: D</div>
+      <div class="ans-text">"DEEP JOIN" is not a standard SQL join type. The standard join types are INNER, LEFT, RIGHT, FULL, and CROSS JOIN. NATURAL JOIN and SELF JOIN are also valid variations.</div>
+    </div>
+  </div>
+
+  <div class="topic-divider">CONCURRENCY & LOCKS</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q8</span>
+      <span class="q-text">A schedule is conflict serializable if its precedence graph has:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) A cycle</div>
+      <div class="option correct">b) No cycle</div>
+      <div class="option">c) Self loops</div>
+      <div class="option">d) No edges</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text">A schedule is conflict serializable if and only if its precedence graph has no cycles. The presence of a cycle indicates the schedule is not conflict equivalent to any serial schedule.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q9</span>
+      <span class="q-text">A shared lock (S-lock) allows:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Read and write</div>
+      <div class="option correct">b) Read only</div>
+      <div class="option">c) Write only</div>
+      <div class="option">d) Neither read nor write</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text">A shared (S) lock permits only read operations on the locked data item. Multiple transactions can simultaneously hold shared locks. An exclusive (X) lock permits both read and write and is held by only one transaction at a time.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q10</span>
+      <span class="q-text">Two-Phase Locking guarantees:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Deadlock freedom</div>
+      <div class="option correct">b) Conflict serializability</div>
+      <div class="option">c) View serializability</div>
+      <div class="option">d) Atomicity</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text">Two-Phase Locking (2PL) guarantees conflict serializability. It does NOT guarantee deadlock freedom — in fact, 2PL can lead to deadlocks. Strict 2PL also provides cascadeless rollbacks.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q11</span>
+      <span class="q-text">Deadlock in DBMS occurs due to:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Too many transactions</div>
+      <div class="option correct">b) Circular wait for locks</div>
+      <div class="option">c) Slow disk I/O</div>
+      <div class="option">d) Large database size</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text">Deadlock occurs when each transaction in a set is waiting for a lock held by another transaction in the same set, forming a circular wait. The four necessary conditions are: Mutual Exclusion, Hold and Wait, No Preemption, and Circular Wait.</div>
+    </div>
+  </div>
+
+  <div class="topic-divider">SQL & KEYS</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q12</span>
+      <span class="q-text">Which key can have NULL values?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Primary key</div>
+      <div class="option correct">b) Foreign key</div>
+      <div class="option">c) Composite key</div>
+      <div class="option">d) Super key</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text">A foreign key can contain NULL values unless explicitly constrained with NOT NULL. Primary keys cannot contain NULLs (they enforce entity integrity).</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q13</span>
+      <span class="q-text">The minimum super key is called a:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Primary key</div>
+      <div class="option correct">b) Candidate key</div>
+      <div class="option">c) Foreign key</div>
+      <div class="option">d) Composite key</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text">A candidate key is a minimal super key — no proper subset of it is a super key. The primary key is one candidate key chosen by the designer.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q14</span>
+      <span class="q-text">Which clause is used to filter results of GROUP BY?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) WHERE</div>
+      <div class="option">b) FILTER</div>
+      <div class="option correct">c) HAVING</div>
+      <div class="option">d) ORDER BY</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: C</div>
+      <div class="ans-text">The HAVING clause filters groups after GROUP BY aggregation. WHERE filters individual rows before grouping. FILTER is not a standard SQL clause at the group level.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q15</span>
+      <span class="q-text">Which aggregate function ignores NULL values?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) COUNT(*)</div>
+      <div class="option correct">b) SUM(col)</div>
+      <div class="option">c) Both a and b</div>
+      <div class="option">d) Neither</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text">SUM(col) ignores NULL values in its calculation. COUNT(*) counts all rows including those with NULLs. COUNT(col) also ignores NULLs in the specified column.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q16</span>
+      <span class="q-text">GRANT and REVOKE belong to which SQL category?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) DDL</div>
+      <div class="option">b) DML</div>
+      <div class="option correct">c) DCL</div>
+      <div class="option">d) TCL</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: C</div>
+      <div class="ans-text">GRANT and REVOKE are DCL (Data Control Language) commands used to manage database permissions. DDL = CREATE, ALTER, DROP; DML = SELECT, INSERT, UPDATE; TCL = COMMIT, ROLLBACK.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q17</span>
+      <span class="q-text">Which command removes all rows but keeps table structure?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) DELETE</div>
+      <div class="option">b) DROP</div>
+      <div class="option correct">c) TRUNCATE</div>
+      <div class="option">d) REMOVE</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: C</div>
+      <div class="ans-text">TRUNCATE removes all rows but preserves the table structure. It is a DDL command and is faster than DELETE (DML, rows removed one by one). DROP removes the entire table including structure.</div>
+    </div>
+  </div>
+
+  <div class="topic-divider">NORMAL FORMS & ER</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q18</span>
+      <span class="q-text">Which normal form removes transitive dependency?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) 1NF</div>
+      <div class="option">b) 2NF</div>
+      <div class="option correct">c) 3NF</div>
+      <div class="option">d) 4NF</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: C</div>
+      <div class="ans-text">3NF removes transitive dependency — where a non-key attribute depends on another non-key attribute. Formally: a relation is in 3NF if it is in 2NF and no non-key attribute is transitively dependent on the primary key.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q19</span>
+      <span class="q-text">In an ER diagram, a weak entity is shown with a:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Single rectangle</div>
+      <div class="option correct">b) Double rectangle</div>
+      <div class="option">c) Dashed ellipse</div>
+      <div class="option">d) Diamond</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text">In ER diagrams: a weak entity = double rectangle; strong entity = single rectangle; multivalued attribute = double ellipse; derived attribute = dashed ellipse; relationship = diamond.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q20</span>
+      <span class="q-text">In ER diagrams, a multivalued attribute is shown with a:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Single ellipse</div>
+      <div class="option correct">b) Double ellipse</div>
+      <div class="option">c) Dashed ellipse</div>
+      <div class="option">d) Rectangle</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text">A multivalued attribute (e.g., PhoneNumbers for an Employee) is represented by a double ellipse. Single ellipse = simple attribute, dashed ellipse = derived attribute, rectangle = entity.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SAQ SECTION ===== -->
+<section id="saq">
+  <div class="section-header">
+    <h2><span class="saq-tag">▤</span> Short Answer Questions</h2>
+    <p>7 questions — 5 marks each. Click to reveal full answer.</p>
+  </div>
+
+  <div class="topic-divider">ACID & NORMALIZATION</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S1</span>
+      <span class="q-text">Explain all four ACID properties with a real-life example for each.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <strong>ACID</strong> stands for Atomicity, Consistency, Isolation, Durability.
+
+        <br><br><strong>1. Atomicity</strong> — All-or-nothing execution. <em>Example:</em> Bank transfer of ₹500 from A to B: both debit from A and credit to B must happen. If the system crashes mid-way, the entire transaction rolls back.
+
+        <br><br><strong>2. Consistency</strong> — Database moves from one valid state to another, preserving all rules. <em>Example:</em> After transfer, total balance A+B remains ₹1500. No constraint is violated.
+
+        <br><br><strong>3. Isolation</strong> — Concurrent transactions appear serial. <em>Example:</em> If T1 transfers money and T2 calculates total balance simultaneously, T2 sees either the state before or after T1 — not a partial state.
+
+        <br><br><strong>4. Durability</strong> — Committed changes are permanent. <em>Example:</em> After transfer confirmation, a power failure won't undo it — changes are in persistent storage via write-ahead logging.
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S2</span>
+      <span class="q-text">Differentiate between 2NF and 3NF with an example showing a relation that is in 2NF but not in 3NF.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <strong>2NF</strong> removes <em>partial dependency</em> (non-key attribute depends on part of a composite key).<br>
+        <strong>3NF</strong> removes <em>transitive dependency</em> (non-key attribute depends on another non-key attribute).
+
+        <br><br><strong>Example:</strong> Employee(<u>EmpID</u>, DeptID, DeptName, EmpName)<br>
+        FDs: EmpID → DeptID, EmpName &nbsp; and &nbsp; DeptID → DeptName
+
+        <br><br><strong>2NF check:</strong> Since the primary key is a single attribute (EmpID), there is no partial dependency. ✓ In 2NF.
+
+        <br><br><strong>3NF check:</strong> There IS a transitive dependency: EmpID → DeptID → DeptName. DeptName depends on DeptID (non-key), not directly on EmpID. ✗ NOT in 3NF.
+
+        <br><br><strong>Decompose to 3NF:</strong><br>
+        R1(<u>EmpID</u>, EmpName, DeptID) — FK: DeptID → Department<br>
+        R2(<u>DeptID</u>, DeptName)
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S3</span>
+      <span class="q-text">Write SQL queries using the table Student(RollNo, Name, Branch, Marks, City):<br>
+        (a) Find all students from "Kolkata" with marks above 75.<br>
+        (b) Count students in each branch.<br>
+        (c) Find the branch with average marks greater than 70.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <strong>(a)</strong>
+        <div class="formula">SELECT * FROM Student WHERE City = 'Kolkata' AND Marks &gt; 75;</div>
+
+        <strong>(b)</strong>
+        <div class="formula">SELECT Branch, COUNT(*) AS StudentCount FROM Student GROUP BY Branch;</div>
+
+        <strong>(c)</strong>
+        <div class="formula">SELECT Branch FROM Student GROUP BY Branch HAVING AVG(Marks) &gt; 70;</div>
+
+        <div class="highlight">HAVING filters groups after GROUP BY. WHERE filters rows before grouping.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">TRANSACTIONS & KEYS</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S4</span>
+      <span class="q-text">What is Two-Phase Locking? Explain its growing phase and shrinking phase. Why does strict 2PL prevent cascading rollbacks?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <strong>Two-Phase Locking (2PL)</strong> is a concurrency protocol that ensures conflict serializability by dividing transaction execution into two phases.
+
+        <br><br><strong>Growing Phase:</strong> Transaction acquires locks but may NOT release any. It gradually obtains all needed locks.
+
+        <br><br><strong>Shrinking Phase:</strong> Transaction releases locks but may NOT acquire any new ones. Begins after the "lock point".
+
+        <br><br><strong>Strict 2PL</strong> holds all exclusive locks until commit/abort. No other transaction can read uncommitted data. If a transaction aborts, no one read its dirty data — no cascading rollback needed.
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S5</span>
+      <span class="q-text">Explain the different types of keys in DBMS: Super key, Candidate key, Primary key, Composite key, and Foreign key. Give one example of each.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <strong>1. Super Key</strong> — Any attribute set that uniquely identifies a tuple.<br>
+        <em>Example:</em> {RollNo}, {RollNo, Name} in Student.
+
+        <br><br><strong>2. Candidate Key</strong> — Minimal super key (no proper subset is a super key).<br>
+        <em>Example:</em> {RollNo} and {Email} if both uniquely identify.
+
+        <br><br><strong>3. Primary Key</strong> — Selected candidate key, cannot be NULL.<br>
+        <em>Example:</em> RollNo chosen as PK.
+
+        <br><br><strong>4. Composite Key</strong> — Candidate key with multiple attributes.<br>
+        <em>Example:</em> {StudentID, CourseID} in Enrollment.
+
+        <br><br><strong>5. Foreign Key</strong> — References PK of another table, enforces referential integrity.<br>
+        <em>Example:</em> DeptID in Employee referencing DeptID in Department.
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">INDEXING & SERIALIZABILITY</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S6</span>
+      <span class="q-text">What is a B+ Tree? How does it differ from a B-Tree? Why is it preferred for database indexing?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <strong>B+ Tree:</strong> A balanced multi-level index where all data pointers are in leaf nodes; internal nodes act as routers.
+
+        <br><br><strong>Differences from B-Tree:</strong>
+        <table>
+          <tr><th>Feature</th><th>B-Tree</th><th>B+ Tree</th></tr>
+          <tr><td>Data pointers</td><td>Internal & leaf nodes</td><td>Only leaf nodes</td></tr>
+          <tr><td>Internal nodes</td><td>Keys + data</td><td>Keys only (routers)</td></tr>
+          <tr><td>Leaf links</td><td>Not linked</td><td>Linked list</td></tr>
+          <tr><td>Range queries</td><td>Less efficient</td><td>Highly efficient</td></tr>
+          <tr><td>Fanout</td><td>Lower</td><td>Higher → shorter tree</td></tr>
+        </table>
+
+        <br><strong>Why preferred:</strong> Higher fanout → fewer disk I/Os; linked leaves → efficient range scans; shorter tree → stable search performance.
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S7</span>
+      <span class="q-text">Explain conflict serializability. Given the schedule S: R1(A), R2(A), W1(A), R2(B), W2(B), W1(B), identify conflicting pairs, draw the precedence graph, and state whether S is conflict serializable.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <strong>Conflict Serializability:</strong> A schedule is conflict serializable if it can be transformed into a serial schedule by swapping non-conflicting operations. Two operations conflict if they belong to different transactions, access the same data, and at least one is a write.
+
+        <br><br><strong>Schedule:</strong> R1(A), R2(A), W1(A), R2(B), W2(B), W1(B)
+
+        <br><br><strong>Conflicting pairs:</strong>
+        <table>
+          <tr><th>Ops</th><th>Data</th><th>Conflict</th><th>Edge</th></tr>
+          <tr><td>R2(A) & W1(A)</td><td>A</td><td>Yes (rw)</td><td>T2 → T1</td></tr>
+          <tr><td>W2(B) & W1(B)</td><td>B</td><td>Yes (ww)</td><td>T2 → T1</td></tr>
+        </table>
+
+        <br><strong>Precedence Graph:</strong> T<sub>2</sub> → T<sub>1</sub> (two edges, no cycle)
+
+        <br><br><strong>Conclusion:</strong> No cycles → <strong>conflict serializable</strong>. Equivalent serial schedule: T2, T1.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== LONG SECTION ===== -->
+<section id="long">
+  <div class="section-header">
+    <h2><span class="long-tag">▦</span> Long Questions</h2>
+    <p>5 questions — 10 marks each. Detailed answers. Click to expand.</p>
+  </div>
+
+  <div class="topic-divider">NORMALIZATION & DESIGN</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num long-num">L1</span>
+      <span class="q-text">Consider the relation R(StudentID, StudentName, CourseID, CourseName, InstructorID, InstructorName) with FDs:<br>FD1: StudentID, CourseID → StudentName, CourseName, InstructorID<br>FD2: CourseID → CourseName<br>FD3: InstructorID → InstructorName<br><br>(a) Identify all candidate keys. (2 marks)<br>(b) Is R in 1NF? 2NF? Justify. (3 marks)<br>(c) Decompose R fully into 3NF with primary keys. (5 marks)</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label long-lbl">DETAILED ANSWER</div>
+      <div class="ans-text">
+        <strong>(a) Candidate Keys</strong>
+        <br>From FD1, {StudentID, CourseID} determines all other attributes. CourseID alone cannot determine StudentID, and StudentID alone cannot determine CourseID.
+        <div class="highlight">Candidate Key: {StudentID, CourseID} — the only candidate key.</div>
+
+        <br><strong>(b) Normal Form Analysis</strong>
+        <br><strong>1NF:</strong> Yes — all attributes are atomic. ✓
+        <br><br><strong>2NF:</strong> No — partial dependency exists. FD2: CourseID → CourseName means CourseName depends on CourseID (part of the candidate key). This violates 2NF. ✗
+
+        <br><br><strong>(c) Decomposition to 3NF</strong>
+        <br><strong>Step 1:</strong> Remove partial dependencies → 2NF
+        <div class="formula">
+          R1(<u>StudentID, CourseID</u>, InstructorID) &nbsp;— Enrollment<br>
+          R2(<u>CourseID</u>, CourseName) &nbsp;— Course
+        </div>
+
+        <br><strong>Step 2:</strong> Remove transitive dependencies → 3NF<br>
+        In R1: {StudentID, CourseID} → InstructorID. But FD3 says InstructorID → InstructorName. We need a separate Instructor table.
+
+        <div class="formula">
+          <strong>Enrollment</strong>(<u>StudentID, CourseID</u>, InstructorID)<br>
+          &nbsp;&nbsp;PK: {StudentID, CourseID}, FK: InstructorID → Instructor<br>
+          <strong>Course</strong>(<u>CourseID</u>, CourseName)<br>
+          &nbsp;&nbsp;PK: CourseID<br>
+          <strong>Instructor</strong>(<u>InstructorID</u>, InstructorName)<br>
+          &nbsp;&nbsp;PK: InstructorID
+        </div>
+
+        <div class="highlight">All three relations are in 3NF (and BCNF) — no partial or transitive dependencies. Decomposition is lossless and dependency-preserving.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num long-num">L2</span>
+      <span class="q-text">Design a complete ER diagram for a University Management System:<br>— Students enroll in multiple Courses; each Course is taught by one Professor.<br>— Each Course belongs to a Department; each Department has multiple Professors.<br>— A Student lives in a Hostel (optional).<br><br>(a) Draw the ER diagram with entities, attributes, relationships, and cardinalities. (6 marks)<br>(b) Convert to relational schema with primary and foreign keys. (4 marks)</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label long-lbl">DETAILED ANSWER</div>
+      <div class="ans-text">
+        <strong>(a) ER Diagram — Entities, Attributes, and Relationships</strong>
+
+        <br><br><strong>Entities:</strong>
+        <table>
+          <tr><th>Entity</th><th>Attributes</th></tr>
+          <tr><td><strong>Student</strong></td><td>StudentID (PK), Name, DOB, Phone, Email</td></tr>
+          <tr><td><strong>Course</strong></td><td>CourseID (PK), Title, Credits</td></tr>
+          <tr><td><strong>Professor</strong></td><td>ProfessorID (PK), Name, Phone, Email</td></tr>
+          <tr><td><strong>Department</strong></td><td>DeptID (PK), DeptName, Location</td></tr>
+          <tr><td><strong>Hostel</strong></td><td>HostelID (PK), HostelName, Capacity</td></tr>
+        </table>
+
+        <br><strong>Relationships & Cardinalities:</strong>
+        <div class="formula">
+          Student ──M── enrolls in ──N── Course (attribute: Grade)<br>
+          Course ──N── taught by ──1── Professor<br>
+          Course ──N── belongs to ──1── Department<br>
+          Professor ──N── works for ──1── Department<br>
+          Student ──N── lives in ──1── Hostel (optional on Student side)
+        </div>
+
+        <br><strong>(b) Relational Schema</strong>
+        <div class="formula">
+          <strong>Student</strong>(<u>StudentID</u>, Name, DOB, Phone, Email, <u>HostelID</u><sup>FK</sup>)<br>
+          <strong>Course</strong>(<u>CourseID</u>, Title, Credits, <u>ProfessorID</u><sup>FK</sup>, <u>DeptID</u><sup>FK</sup>)<br>
+          <strong>Enrollment</strong>(<u>StudentID</u><sup>FK</sup>, <u>CourseID</u><sup>FK</sup>, Grade)<br>
+          <strong>Professor</strong>(<u>ProfessorID</u>, Name, Phone, Email, <u>DeptID</u><sup>FK</sup>)<br>
+          <strong>Department</strong>(<u>DeptID</u>, DeptName, Location)<br>
+          <strong>Hostel</strong>(<u>HostelID</u>, HostelName, Capacity)
+        </div>
+
+        <div class="highlight"><u>Underlined</u> = Primary Key | <sup>FK</sup> = Foreign Key. HostelID in Student is nullable (optional residence).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">TRANSACTIONS & CONCURRENCY</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num long-num">L3</span>
+      <span class="q-text">Given T1, T2, T3 on data items A and B:<br>T1: Read(A); A = A − 500; Write(A); Read(B); B = B + 500; Write(B)<br>T2: Read(A); A = A × 1.1; Write(A)<br>T3: Read(B); B = B − 200; Write(B)<br><br>(a) What anomaly arises if T1 and T2 run concurrently? (2 marks)<br>(b) Apply 2PL to T1 and T2. Show the lock table. (4 marks)<br>(c) How could deadlock occur between T1 and T3? Explain wait-die. (4 marks)</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label long-lbl">DETAILED ANSWER</div>
+      <div class="ans-text">
+        <strong>(a) Lost Update Problem</strong>
+        <br>Assume A = 1000 initially.
+        <div class="formula">
+          T1 reads A=1000, computes A=500<br>
+          T2 reads A=1000 (misses T1's update), computes A=1100<br>
+          T1 writes A=500<br>
+          T2 writes A=1100 — <strong>overwrites T1!</strong>
+        </div>
+        Final A=1100. T1's debit of 500 is <strong>lost</strong>.
+
+        <br><br><strong>(b) Two-Phase Locking (Strict 2PL)</strong>
+        <table>
+          <tr><th>Time</th><th>T1</th><th>T2</th><th>Locks</th></tr>
+          <tr><td>1</td><td>Lock-X(A): Granted</td><td></td><td>A: X(T1)</td></tr>
+          <tr><td>2</td><td>Read(A)=1000</td><td></td><td></td></tr>
+          <tr><td>3</td><td>A=500, Write(A)</td><td></td><td></td></tr>
+          <tr><td>4</td><td></td><td>Lock-X(A): WAIT</td><td>A: X(T1)</td></tr>
+          <tr><td>5</td><td>Lock-X(B): Granted</td><td></td><td>B: X(T1)</td></tr>
+          <tr><td>6</td><td>Read(B)=500, B=1000, Write(B)</td><td></td><td></td></tr>
+          <tr><td>7</td><td><strong>COMMIT</strong> (unlock A, B)</td><td></td><td></td></tr>
+          <tr><td>8</td><td></td><td>Lock-X(A): Granted</td><td>A: X(T2)</td></tr>
+          <tr><td>9</td><td></td><td>Read(A)=500, A=550, Write(A)</td><td></td></tr>
+          <tr><td>10</td><td></td><td><strong>COMMIT</strong></td><td></td></tr>
+        </table>
+        Final: A=550, B=1000. Both updates preserved.
+
+        <br><br><strong>(c) Deadlock & Wait-Die</strong>
+        <br><strong>Scenario:</strong> T1 holds Lock-X(A), requests Lock-X(B). T3 holds Lock-X(B), requests Lock-X(A). Circular wait → deadlock.
+
+        <br><br><strong>Wait-Die Scheme</strong> (non-preemptive):
+        <br>Assume T1=100 (older), T3=200 (younger).
+        <ul>
+          <li>T1 (older) requests lock held by T3 (younger): T1 <strong>waits</strong>.</li>
+          <li>T3 (younger) requests lock held by T1 (older): T3 <strong>dies</strong> (aborts, restarts with same timestamp).</li>
+        </ul>
+        <div class="highlight">Wait-Die prevents deadlock by ensuring at least one transaction in any cycle is aborted. It is a deadlock prevention scheme.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">ADVANCED SQL</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num long-num">L4</span>
+      <span class="q-text">Write SQL queries using:<br>Employee(EmpID, Name, Dept, Salary, ManagerID, JoinDate)<br>Department(DeptID, DeptName, Location)<br><br>(a) Employees earning more than their manager. (2 marks)<br>(b) Departments where no employee earns below ₹30,000. (2 marks)<br>(c) Each department name with employee count and average salary, sorted by avg salary desc. (3 marks)<br>(d) Employees who joined in the last 2 years in "IT" or "Finance". (3 marks)</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label long-lbl">DETAILED ANSWER</div>
+      <div class="ans-text">
+        <strong>(a) Employees earning more than their manager</strong>
+        <div class="formula">
+          SELECT e.Name<br>
+          FROM Employee e<br>
+          JOIN Employee m ON e.ManagerID = m.EmpID<br>
+          WHERE e.Salary &gt; m.Salary;
+        </div>
+
+        <br><strong>(b) Departments with no employee below ₹30,000</strong>
+        <div class="formula">
+          SELECT d.DeptName<br>
+          FROM Department d<br>
+          WHERE d.DeptID NOT IN (<br>
+          &nbsp;&nbsp;SELECT e.Dept FROM Employee e WHERE e.Salary &lt; 30000<br>
+          );
+        </div>
+        <em>Or using HAVING:</em>
+        <div class="formula">
+          SELECT d.DeptName<br>
+          FROM Department d<br>
+          JOIN Employee e ON d.DeptID = e.Dept<br>
+          GROUP BY d.DeptID, d.DeptName<br>
+          HAVING MIN(e.Salary) &gt;= 30000;
+        </div>
+
+        <br><strong>(c) Department name, count, avg salary (sorted desc)</strong>
+        <div class="formula">
+          SELECT d.DeptName,<br>
+          &nbsp;&nbsp;COUNT(e.EmpID) AS EmployeeCount,<br>
+          &nbsp;&nbsp;AVG(e.Salary) AS AvgSalary<br>
+          FROM Department d<br>
+          LEFT JOIN Employee e ON d.DeptID = e.Dept<br>
+          GROUP BY d.DeptID, d.DeptName<br>
+          ORDER BY AvgSalary DESC;
+        </div>
+
+        <br><strong>(d) IT/Finance employees, joined in last 2 years</strong>
+        <div class="formula">
+          SELECT e.*<br>
+          FROM Employee e<br>
+          JOIN Department d ON e.Dept = d.DeptID<br>
+          WHERE e.JoinDate &gt;= DATE_SUB(CURDATE(), INTERVAL 2 YEAR)<br>
+          &nbsp;&nbsp;AND d.DeptName IN ('IT', 'Finance');
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num long-num">L5</span>
+      <span class="q-text">Write short notes on any TWO of the following (5 marks each):<br>
+        (a) Indexing in DBMS — types, dense vs sparse, B+ Tree indexing.<br>
+        (b) Normalization — 1NF, 2NF, 3NF, BCNF with examples, when to stop.<br>
+        (c) Transaction states — active, partially committed, committed, failed, aborted with state diagram.<br>
+        (d) Concurrency problems — lost update, dirty read, unrepeatable read with examples.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label long-lbl">DETAILED ANSWER</div>
+      <div class="ans-text">
+
+        <strong>(a) Indexing in DBMS</strong>
+        <br><br><strong>Types of Indexes:</strong>
+        <table>
+          <tr><th>Type</th><th>Description</th></tr>
+          <tr><td>Primary Index</td><td>Sparse index on the ordering key field</td></tr>
+          <tr><td>Clustering Index</td><td>Sparse index on a non-key ordering field</td></tr>
+          <tr><td>Secondary Index</td><td>Dense index on a non-ordering field</td></tr>
+        </table>
+
+        <br><strong>Dense vs Sparse:</strong> Dense has an entry for every key value (faster lookup, larger index). Sparse has entries for some keys (smaller, may need block scan).
+
+        <br><br><strong>B+ Tree:</strong> Balanced tree where data pointers are only in leaf nodes, internal nodes are routers, and leaves are linked for range scans. High fanout → shorter tree → fewer disk I/Os.
+
+        <br><br><strong>(b) Normalization</strong>
+        <br><strong>1NF:</strong> Atomic values, no repeating groups. <em>Violation:</em> Student with PhoneNumbers list. Fix: separate Phone table.
+        <br><br><strong>2NF:</strong> 1NF + no partial dependency. <em>Violation:</em> Enrollment(<u>StudentID, CourseID</u>, StudentName). Fix: separate Student table.
+        <br><br><strong>3NF:</strong> 2NF + no transitive dependency. <em>Violation:</em> Employee(<u>EmpID</u>, DeptID, DeptName). Fix: separate Department table.
+        <br><br><strong>BCNF:</strong> 3NF + for every FD X→Y, X is a super key. Stricter than 3NF.
+        <br><br><strong>When to stop:</strong> At BCNF (or 3NF if BCNF loses FDs). Further normalization (4NF/5NF) is rarely needed in practice.
+
+        <br><br><strong>(c) Transaction States</strong>
+        <table>
+          <tr><th>State</th><th>Description</th></tr>
+          <tr><td><strong>Active</strong></td><td>Transaction is executing</td></tr>
+          <tr><td><strong>Partially Committed</strong></td><td>After final statement executed (changes may be in buffers)</td></tr>
+          <tr><td><strong>Committed</strong></td><td>Changes written permanently to disk</td></tr>
+          <tr><td><strong>Failed</strong></td><td>Cannot proceed due to error</td></tr>
+          <tr><td><strong>Aborted</strong></td><td>Rolled back to initial state</td></tr>
+        </table>
+
+        <br><strong>State Diagram:</strong>
+        <div class="formula">
+          Active → Partially Committed → Committed<br>
+          Active → Failed → Aborted
+        </div>
+
+        <br><strong>(d) Concurrency Problems</strong>
+        <br><strong>1. Lost Update:</strong> T1 reads A=100, writes A=70. T2 reads A=100, writes A=110. T1's update overwritten. Final A=110.
+        <br><em>Solution:</em> Locking or timestamp ordering.
+
+        <br><br><strong>2. Dirty Read:</strong> T1 writes A=70 (uncommitted). T2 reads A=70. T1 aborts. T2 read invalid data.
+        <br><em>Solution:</em> Strict 2PL (write locks held until commit).
+
+        <br><br><strong>3. Unrepeatable Read:</strong> T1 reads A=100. T2 writes A=200 and commits. T1 reads A again → 200. Same transaction sees different values.
+        <br><em>Solution:</em> Repeatable Read isolation level or snapshot isolation.
+      </div>
+    </div>
+  </div>
+</section>
 
 <footer>
   DBMS Exam Question Bank · BCA · All questions sourced from course PDF
@@ -254,6 +1144,16 @@
 <script>
   function toggle(card) {
     card.classList.toggle('open');
+  }
+
+  function switchTab(tab) {
+    document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('nav button').forEach(b => { b.className = ''; });
+    document.getElementById(tab).classList.add('active');
+    const btns = document.querySelectorAll('nav button');
+    if (tab === 'mcq') btns[0].className = 'active-mcq';
+    else if (tab === 'saq') btns[1].className = 'active-saq';
+    else btns[2].className = 'active-long';
   }
 </script>
 </body>
