@@ -82,6 +82,35 @@
   .home-link:hover { color: var(--accent1); }
   .home-link:active { color: var(--accent1); }
 
+  /* NAV TABS */
+  nav {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  nav button {
+    padding: 1rem 2.5rem;
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    color: var(--text-dim);
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  nav button:hover { color: var(--text); }
+  nav button.active-mcq { color: var(--mcq-color); border-bottom-color: var(--mcq-color); }
+  nav button.active-saq { color: var(--saq-color); border-bottom-color: var(--saq-color); }
+  nav button.active-long { color: var(--long-color); border-bottom-color: var(--long-color); }
+
   /* SECTIONS */
   section { display: none; padding: 2rem; max-width: 900px; margin: 0 auto; }
   section.active { display: block; }
