@@ -27,13 +27,8 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Lora', Georgia, serif;
-    min-height: 100vh;
-    line-height: 1.7;
-  }
 
+  /* HEADER */
   header {
     background: var(--surface);
     border-bottom: 1px solid var(--border);
@@ -78,6 +73,7 @@
   .home-link:hover { color: var(--mcq-color); }
   .home-link:active { color: var(--mcq-color); }
 
+  /* NAV TABS */
   nav {
     display: flex;
     justify-content: center;
@@ -106,6 +102,7 @@
   nav button.active-saq { color: var(--saq-color); border-bottom-color: var(--saq-color); }
   nav button.active-long { color: var(--long-color); border-bottom-color: var(--long-color); }
 
+  /* SECTIONS */
   section { display: none; padding: 2rem; max-width: 900px; margin: 0 auto; }
   section.active { display: block; }
 
@@ -128,6 +125,7 @@
   .saq-tag { color: var(--saq-color); }
   .long-tag { color: var(--long-color); }
 
+  /* QUESTION CARD */
   .q-card {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -174,6 +172,7 @@
   }
   .q-card.open .q-toggle { transform: rotate(180deg); }
 
+  /* OPTIONS (MCQ) */
   .q-options {
     padding: 0 1.4rem 0.5rem 3.8rem;
   }
@@ -192,6 +191,7 @@
     font-weight: 500;
   }
 
+  /* ANSWER PANEL */
   .q-answer {
     display: none;
     border-top: 1px solid var(--border);
@@ -241,6 +241,7 @@
   th { background: rgba(255,255,255,0.05); padding: 0.5rem 0.8rem; text-align: left; color: var(--text); font-family: 'Syne', sans-serif; font-size: 0.8rem; border: 1px solid var(--border); }
   td { padding: 0.45rem 0.8rem; border: 1px solid var(--border); color: var(--text-mid); }
 
+  /* TOPIC DIVIDER */
   .topic-divider {
     font-family: 'Syne', sans-serif;
     font-size: 0.78rem;
@@ -260,6 +261,7 @@
     background: var(--border);
   }
 
+  /* FOOTER */
   footer {
     text-align: center;
     padding: 2rem;
@@ -270,6 +272,7 @@
     margin-top: 2rem;
   }
 
+  /* RESPONSIVE */
   @media (max-width: 900px) {
     header { padding: 2.25rem 1.5rem 2rem; }
     header h1 { font-size: 2rem; }

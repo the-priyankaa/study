@@ -19,6 +19,10 @@
     --text-dim: #64748b;
     --text-mid: #94a3b8;
     --ai-color: #f472b6;
+    --mcq-color: #34d399;
+    --saq-color: #fbbf24;
+    --long-color: #a78bfa;
+    --correct: #10b981;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -31,6 +35,7 @@
     line-height: 1.7;
   }
 
+  /* HEADER */
   header {
     background: var(--surface);
     border-bottom: 1px solid var(--border);
@@ -62,8 +67,8 @@
   }
   .home-link {
     position: absolute;
-    left: 1.5rem;
     top: 1.2rem;
+    left: 1.5rem;
     z-index: 2;
     color: var(--text-dim);
     text-decoration: none;
@@ -75,7 +80,38 @@
   .home-link:hover { color: var(--ai-color); }
   .home-link:active { color: var(--ai-color); }
 
-  main { padding: 2rem; max-width: 900px; margin: 0 auto; }
+  /* NAV TABS */
+  nav {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  nav button {
+    padding: 1rem 2.5rem;
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    color: var(--text-dim);
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  nav button:hover { color: var(--text); }
+  nav button.active-mcq { color: var(--mcq-color); border-bottom-color: var(--mcq-color); }
+  nav button.active-saq { color: var(--saq-color); border-bottom-color: var(--saq-color); }
+  nav button.active-long { color: var(--long-color); border-bottom-color: var(--long-color); }
+
+  /* SECTIONS */
+  section { display: none; padding: 2rem; max-width: 900px; margin: 0 auto; }
+  section.active { display: block; }
 
   .section-header {
     margin-bottom: 2rem;
@@ -86,14 +122,17 @@
     font-family: 'Syne', sans-serif;
     font-size: 1.6rem;
     font-weight: 800;
-    color: var(--ai-color);
   }
   .section-header p {
     color: var(--text-mid);
     font-size: 0.9rem;
     margin-top: 0.3rem;
   }
+  .mcq-tag { color: var(--mcq-color); }
+  .saq-tag { color: var(--saq-color); }
+  .long-tag { color: var(--long-color); }
 
+  /* QUESTION CARD */
   .q-card {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -118,11 +157,13 @@
     font-weight: 500;
     padding: 0.2rem 0.55rem;
     border-radius: 4px;
-    background: rgba(244,114,182,0.12);
-    color: var(--ai-color);
     flex-shrink: 0;
     margin-top: 0.15rem;
   }
+  .mcq-num { background: rgba(52,211,153,0.12); color: var(--mcq-color); }
+  .saq-num { background: rgba(251,191,36,0.12); color: var(--saq-color); }
+  .long-num { background: rgba(167,139,250,0.12); color: var(--long-color); }
+
   .q-text {
     flex: 1;
     font-size: 0.97rem;
@@ -138,6 +179,26 @@
   }
   .q-card.open .q-toggle { transform: rotate(180deg); }
 
+  /* OPTIONS (MCQ) */
+  .q-options {
+    padding: 0 1.4rem 0.5rem 3.8rem;
+  }
+  .option {
+    padding: 0.4rem 0.8rem;
+    margin: 0.25rem 0;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    color: var(--text-mid);
+    border: 1px solid transparent;
+  }
+  .option.correct {
+    background: rgba(16,185,129,0.1);
+    border-color: rgba(16,185,129,0.3);
+    color: var(--correct);
+    font-weight: 500;
+  }
+
+  /* ANSWER PANEL */
   .q-answer {
     display: none;
     border-top: 1px solid var(--border);
@@ -150,9 +211,12 @@
     font-family: 'IBM Plex Mono', monospace;
     font-size: 0.7rem;
     letter-spacing: 0.12em;
-    color: var(--ai-color);
+    color: var(--text-dim);
     margin-bottom: 0.6rem;
   }
+  .ans-label.mcq-lbl { color: var(--mcq-color); }
+  .ans-label.saq-lbl { color: var(--saq-color); }
+  .ans-label.long-lbl { color: var(--long-color); }
 
   .ans-text {
     font-size: 0.92rem;
@@ -184,6 +248,7 @@
   th { background: rgba(255,255,255,0.05); padding: 0.5rem 0.8rem; text-align: left; color: var(--text); font-family: 'Syne', sans-serif; font-size: 0.8rem; border: 1px solid var(--border); }
   td { padding: 0.45rem 0.8rem; border: 1px solid var(--border); color: var(--text-mid); }
 
+  /* TOPIC DIVIDER */
   .topic-divider {
     font-family: 'Syne', sans-serif;
     font-size: 0.78rem;
@@ -203,6 +268,7 @@
     background: var(--border);
   }
 
+  /* FOOTER */
   footer {
     text-align: center;
     padding: 2rem;
@@ -217,7 +283,8 @@
   @media (max-width: 900px) {
     header { padding: 2.25rem 1.5rem 2rem; }
     header h1 { font-size: 2rem; }
-    main { padding: 1.6rem; }
+    nav button { padding: 0.9rem 1.4rem; font-size: 0.8rem; }
+    section { padding: 1.6rem; }
     .section-header h2 { font-size: 1.4rem; }
   }
 
@@ -225,15 +292,21 @@
     .home-link { display: none; }
     .section-header h2 { font-size: 1.3rem; }
     .section-header p { font-size: 0.8rem; }
+    .q-num { font-size: 0.7rem; padding: 0.15rem 0.45rem; }
+    .option { font-size: 0.85rem; padding: 0.3rem 0.6rem; }
   }
 
   @media (max-width: 600px) {
     header { padding: 2rem 1.1rem 1.7rem; }
     header h1 { font-size: 1.7rem; }
     header p { font-size: 0.7rem; }
-    main { padding: 1.2rem; }
+    nav { flex-direction: column; align-items: stretch; }
+    nav button { width: 100%; padding: 0.85rem 1rem; border-bottom: 1px solid var(--border); }
+    nav button:last-child { border-bottom: none; }
+    section { padding: 1.2rem; }
     .q-header { padding: 0.9rem 1.1rem; gap: 0.7rem; }
     .q-text { font-size: 0.93rem; }
+    .q-options { padding: 0 1.1rem 0.5rem 2.8rem; }
     .q-answer { padding: 1rem 1.1rem 1rem 2.8rem; }
     .ans-text { font-size: 0.85rem; }
     .ans-label { font-size: 0.65rem; }
@@ -247,10 +320,13 @@
     header { padding: 1.75rem 0.9rem 1.5rem; }
     header h1 { font-size: 1.4rem; }
     header p { font-size: 0.6rem; }
-    main { padding: 0.9rem; }
+    nav button { padding: 0.75rem 1rem; font-size: 0.75rem; }
+    section { padding: 0.9rem; }
     .q-header { padding: 0.75rem 0.9rem; gap: 0.5rem; }
     .q-text { font-size: 0.88rem; }
+    .q-options { padding: 0 0.9rem 0.4rem 2rem; }
     .q-answer { padding: 0.85rem 0.9rem 0.85rem 2rem; }
+    .option { font-size: 0.8rem; padding: 0.25rem 0.5rem; margin: 0.15rem 0; }
     .topic-divider { font-size: 0.6rem; }
     .section-header h2 { font-size: 1rem; }
     .section-header p { font-size: 0.72rem; }
@@ -262,15 +338,165 @@
 <header>
   <a href="index.html" class="home-link">← HOME</a>
   <h1>AI Exam Question Bank</h1>
-  <p>Questions with full answers. Click to reveal.</p>
+  <p>MCQ · SAQ · LONG QUESTIONS — WITH FULL ANSWERS</p>
 </header>
 
-<main>
+<nav>
+  <button class="active-mcq" onclick="switchTab('mcq')">▣ MCQ SET</button>
+  <button onclick="switchTab('saq')">▤ SHORT ANSWER</button>
+  <button onclick="switchTab('long')">▦ LONG QUESTIONS</button>
+</nav>
+
+<!-- ========================= MCQ SECTION ========================= -->
+<section id="mcq" class="active">
   <div class="section-header">
-    <h2>Questions coming soon...</h2>
-    <p>This section is being prepared. Questions will appear here once added.</p>
+    <h2><span class="mcq-tag">▣</span> Multiple Choice Questions</h2>
+    <p>Questions coming soon — placeholder content below</p>
   </div>
-</main>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q1</span>
+      <span class="q-text">What is Artificial Intelligence?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">A) A type of hardware processor</div>
+      <div class="option correct">B) Simulation of human intelligence by machines</div>
+      <div class="option">C) A programming language</div>
+      <div class="option">D) A database management system</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text">Artificial Intelligence refers to the simulation of human intelligence in machines that are programmed to think and learn like humans.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q2</span>
+      <span class="q-text">Who is considered the father of Artificial Intelligence?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">A) Alan Turing</div>
+      <div class="option correct">B) John McCarthy</div>
+      <div class="option">C) Marvin Minsky</div>
+      <div class="option">D) Arthur Samuel</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text">John McCarthy coined the term "Artificial Intelligence" in 1956 and is widely regarded as the father of AI.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q3</span>
+      <span class="q-text">Which of the following is NOT a subfield of AI?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">A) Machine Learning</div>
+      <div class="option">B) Natural Language Processing</div>
+      <div class="option">C) Compiler Design</div>
+      <div class="option correct">D) Computer Networks</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: D</div>
+      <div class="ans-text">Computer Networks is a field of computer science but is not a subfield of AI. ML, NLP, Computer Vision, and Robotics are core AI subfields.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= SAQ SECTION ========================= -->
+<section id="saq">
+  <div class="section-header">
+    <h2><span class="saq-tag">▤</span> Short Answer Questions</h2>
+    <p>Questions coming soon — placeholder content below</p>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">Q1</span>
+      <span class="q-text">Define Artificial Intelligence and list its main goals.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text"><strong>Artificial Intelligence</strong> is the branch of computer science that aims to create intelligent machines that can perform tasks requiring human intelligence. The main goals of AI include:<br><br>
+      <strong>1. Reasoning</strong> — ability to solve problems logically.<br>
+      <strong>2. Knowledge Representation</strong> — storing information about the world.<br>
+      <strong>3. Planning</strong> — setting and achieving goals.<br>
+      <strong>4. Learning</strong> — improving performance through experience.<br>
+      <strong>5. Natural Language Processing</strong> — understanding and generating human language.<br>
+      <strong>6. Perception</strong> — understanding the environment through sensors.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">Q2</span>
+      <span class="q-text">What is the Turing Test?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">The <strong>Turing Test</strong>, proposed by Alan Turing in 1950, is a test of a machine's ability to exhibit intelligent behaviour equivalent to, or indistinguishable from, that of a human. A human evaluator judges natural language conversations between a human and a machine. If the evaluator cannot reliably tell which is which, the machine is said to have passed the test.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= LONG SECTION ========================= -->
+<section id="long">
+  <div class="section-header">
+    <h2><span class="long-tag">▦</span> Long Questions</h2>
+    <p>Questions coming soon — placeholder content below</p>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num long-num">Q1</span>
+      <span class="q-text">Explain the different types of Artificial Intelligence with suitable examples.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label long-lbl">ANSWER</div>
+      <div class="ans-text">AI can be categorised into types based on capabilities and functionality:<br><br>
+
+      <strong>Based on Capabilities:</strong><br>
+      <strong>1. Narrow AI (Weak AI)</strong> — Designed to perform a specific task. Examples: Siri, Alexa, chess-playing AI.<br>
+      <strong>2. General AI (Strong AI)</strong> — Can perform any intellectual task like a human. Still theoretical.<br>
+      <strong>3. Super AI</strong> — Surpasses human intelligence in all aspects. Hypothetical.<br><br>
+
+      <strong>Based on Functionality:</strong><br>
+      <strong>1. Reactive Machines</strong> — No memory, only reacts to current input. Example: Deep Blue.<br>
+      <strong>2. Limited Memory</strong> — Uses past experiences. Example: Self-driving cars.<br>
+      <strong>3. Theory of Mind</strong> — Understands emotions and beliefs. Still in research.<br>
+      <strong>4. Self-aware AI</strong> — Has consciousness. Hypothetical.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num long-num">Q2</span>
+      <span class="q-text">Discuss the applications of Artificial Intelligence in various domains.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label long-lbl">ANSWER</div>
+      <div class="ans-text"><strong>Applications of AI:</strong><br><br>
+      <strong>1. Healthcare:</strong> Disease diagnosis, drug discovery, personalised medicine, robotic surgery.<br>
+      <strong>2. Finance:</strong> Fraud detection, algorithmic trading, credit scoring, risk management.<br>
+      <strong>3. Transportation:</strong> Self-driving cars, traffic prediction, route optimisation.<br>
+      <strong>4. Education:</strong> Personalised learning, intelligent tutoring systems, automated grading.<br>
+      <strong>5. Entertainment:</strong> Recommendation systems (Netflix, YouTube), game AI, content generation.<br>
+      <strong>6. Manufacturing:</strong> Predictive maintenance, quality control, robotic automation.<br>
+      <strong>7. Agriculture:</strong> Crop monitoring, yield prediction, precision farming.<br>
+      <strong>8. Customer Service:</strong> Chatbots, virtual assistants, sentiment analysis.</div>
+    </div>
+  </div>
+</section>
 
 <footer>
   AI Exam Question Bank · BCA · All questions sourced from course PDF
@@ -279,6 +505,22 @@
 <script>
   function toggle(card) {
     card.classList.toggle('open');
+  }
+
+  function switchTab(tab) {
+    document.querySelectorAll('section').forEach(section => {
+      section.classList.remove('active');
+    });
+    document.getElementById(tab).classList.add('active');
+
+    const buttons = document.querySelectorAll('nav button');
+    buttons.forEach(btn => {
+      btn.classList.remove('active-mcq', 'active-saq', 'active-long');
+    });
+
+    if (tab === 'mcq') buttons[0].classList.add('active-mcq');
+    if (tab === 'saq') buttons[1].classList.add('active-saq');
+    if (tab === 'long') buttons[2].classList.add('active-long');
   }
 </script>
 </body>
