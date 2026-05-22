@@ -351,60 +351,376 @@
 <section id="mcq" class="active">
   <div class="section-header">
     <h2><span class="mcq-tag">▣</span> Multiple Choice Questions</h2>
-    <p>Questions coming soon — placeholder content below</p>
+    <p>20 questions — Click any question to reveal the answer</p>
   </div>
+
+  <div class="topic-divider">MODULE 1 — REAL WORLD AI & RATIONALITY</div>
 
   <div class="q-card" onclick="toggle(this)">
     <div class="q-header">
       <span class="q-num mcq-num">Q1</span>
-      <span class="q-text">What is Artificial Intelligence?</span>
+      <span class="q-text">Which of the following best defines Artificial Intelligence?</span>
       <span class="q-toggle">▾</span>
     </div>
     <div class="q-options">
-      <div class="option">A) A type of hardware processor</div>
-      <div class="option correct">B) Simulation of human intelligence by machines</div>
-      <div class="option">C) A programming language</div>
-      <div class="option">D) A database management system</div>
+      <div class="option">a) Making computers faster</div>
+      <div class="option correct">b) Simulation of human intelligence by machines</div>
+      <div class="option">c) Programming using assembly language</div>
+      <div class="option">d) Designing computer hardware</div>
     </div>
     <div class="q-answer">
       <div class="ans-label mcq-lbl">ANSWER: B</div>
-      <div class="ans-text">Artificial Intelligence refers to the simulation of human intelligence in machines that are programmed to think and learn like humans.</div>
+      <div class="ans-text">AI is the simulation of human intelligence processes by machines, especially computer systems, including learning, reasoning, and self-correction.</div>
     </div>
   </div>
 
   <div class="q-card" onclick="toggle(this)">
     <div class="q-header">
       <span class="q-num mcq-num">Q2</span>
-      <span class="q-text">Who is considered the father of Artificial Intelligence?</span>
+      <span class="q-text">A rational agent is one that:</span>
       <span class="q-toggle">▾</span>
     </div>
     <div class="q-options">
-      <div class="option">A) Alan Turing</div>
-      <div class="option correct">B) John McCarthy</div>
-      <div class="option">C) Marvin Minsky</div>
-      <div class="option">D) Arthur Samuel</div>
+      <div class="option">a) Always does what humans say</div>
+      <div class="option correct">b) Selects actions that maximize its performance measure</div>
+      <div class="option">c) Never makes mistakes</div>
+      <div class="option">d) Only works with complete information</div>
     </div>
     <div class="q-answer">
       <div class="ans-label mcq-lbl">ANSWER: B</div>
-      <div class="ans-text">John McCarthy coined the term "Artificial Intelligence" in 1956 and is widely regarded as the father of AI.</div>
+      <div class="ans-text">A rational agent acts to achieve the best expected outcome based on its percept sequence, built-in knowledge, and performance measure.</div>
     </div>
   </div>
 
   <div class="q-card" onclick="toggle(this)">
     <div class="q-header">
       <span class="q-num mcq-num">Q3</span>
-      <span class="q-text">Which of the following is NOT a subfield of AI?</span>
+      <span class="q-text">PEAS stands for:</span>
       <span class="q-toggle">▾</span>
     </div>
     <div class="q-options">
-      <div class="option">A) Machine Learning</div>
-      <div class="option">B) Natural Language Processing</div>
-      <div class="option">C) Compiler Design</div>
-      <div class="option correct">D) Computer Networks</div>
+      <div class="option">a) Process, Environment, Action, State</div>
+      <div class="option correct">b) Performance, Environment, Actuators, Sensors</div>
+      <div class="option">c) Planning, Execution, Analysis, Simulation</div>
+      <div class="option">d) Perception, Evaluation, Agent, System</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text">PEAS = Performance measure, Environment, Actuators, Sensors — the framework used to describe rational agents.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q4</span>
+      <span class="q-text">Which environment type has the agent's next state fully determined by the current state and action?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option correct">a) Deterministic</div>
+      <div class="option">b) Stochastic</div>
+      <div class="option">c) Episodic</div>
+      <div class="option">d) Dynamic</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: A</div>
+      <div class="ans-text">In a deterministic environment, the next state is completely determined by the current state and the action taken by the agent.</div>
+    </div>
+  </div>
+
+  <div class="topic-divider">MODULE 2 — SEARCH ALGORITHMS</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q5</span>
+      <span class="q-text">Which search algorithm uses a FIFO (First-In First-Out) queue?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option correct">a) Breadth-First Search (BFS)</div>
+      <div class="option">b) Depth-First Search (DFS)</div>
+      <div class="option">c) Uniform Cost Search</div>
+      <div class="option">d) A* Search</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: A</div>
+      <div class="ans-text">BFS uses a FIFO queue to explore nodes level by level, guaranteeing the shallowest solution.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q6</span>
+      <span class="q-text">DFS (Depth-First Search) uses which data structure?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Queue</div>
+      <div class="option correct">b) Stack</div>
+      <div class="option">c) Priority Queue</div>
+      <div class="option">d) Heap</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text">DFS uses a LIFO stack (or recursion), exploring as deep as possible along each branch before backtracking.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q7</span>
+      <span class="q-text">Uniform Cost Search (UCS) expands the node with the:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Fewest children</div>
+      <div class="option correct">b) Lowest path cost</div>
+      <div class="option">c) Highest heuristic value</div>
+      <div class="option">d) Most recently visited</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text">UCS always expands the frontier node with the lowest cumulative path cost g(n), using a priority queue.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q8</span>
+      <span class="q-text">Which of the following is NOT an uninformed search algorithm?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) BFS</div>
+      <div class="option">b) DFS</div>
+      <div class="option">c) UCS</div>
+      <div class="option correct">d) A* Search</div>
     </div>
     <div class="q-answer">
       <div class="ans-label mcq-lbl">ANSWER: D</div>
-      <div class="ans-text">Computer Networks is a field of computer science but is not a subfield of AI. ML, NLP, Computer Vision, and Robotics are core AI subfields.</div>
+      <div class="ans-text">A* is an informed (heuristic) search that uses f(n) = g(n) + h(n). BFS, DFS, and UCS are all uninformed search strategies.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q9</span>
+      <span class="q-text">In a search problem, the "branching factor" refers to:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option correct">a) Average number of successors for each node</div>
+      <div class="option">b) Depth of the solution</div>
+      <div class="option">c) Cost of each step</div>
+      <div class="option">d) Number of goal states</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: A</div>
+      <div class="ans-text">Branching factor (b) is the average number of successors (children) of each node, used to calculate time/space complexity.</div>
+    </div>
+  </div>
+
+  <div class="topic-divider">MODULE 3 — KNOWLEDGE REPRESENTATION</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q10</span>
+      <span class="q-text">Which of the following is a type of knowledge in AI?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option correct">a) Declarative knowledge</div>
+      <div class="option">b) Abstract knowledge</div>
+      <div class="option">c) Quantum knowledge</div>
+      <div class="option">d) Recursive knowledge</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: A</div>
+      <div class="ans-text">Declarative knowledge ("know-that") is factual knowledge about things. Other types include procedural, meta, and heuristic knowledge.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q11</span>
+      <span class="q-text">Propositional Logic deals with:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option correct">a) Statements that are either true or false</div>
+      <div class="option">b) Objects and their relationships</div>
+      <div class="option">c) Fuzzy values between 0 and 1</div>
+      <div class="option">d) Temporal reasoning</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: A</div>
+      <div class="ans-text">Propositional logic uses propositions (statements that are true/false) and logical connectives (AND, OR, NOT, IMPLIES).</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q12</span>
+      <span class="q-text">A Knowledge Base (KB) in AI contains:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Only procedural rules</div>
+      <div class="option correct">b) Facts and rules about the domain</div>
+      <div class="option">c) Only learned data from training</div>
+      <div class="option">d) Source code of the program</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text">A Knowledge Base stores domain-specific facts and inference rules that an AI system uses to reason and make decisions.</div>
+    </div>
+  </div>
+
+  <div class="topic-divider">MODULE 4 — DEEP LEARNING & NEURAL NETWORKS</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q13</span>
+      <span class="q-text">The activation function used in the output layer for binary classification is typically:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) ReLU</div>
+      <div class="option correct">b) Sigmoid</div>
+      <div class="option">c) Tanh</div>
+      <div class="option">d) Linear</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text">Sigmoid outputs values between 0 and 1, making it ideal for binary classification probability output.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q14</span>
+      <span class="q-text">CNN stands for:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option correct">a) Convolutional Neural Network</div>
+      <div class="option">b) Connected Neural Node</div>
+      <div class="option">c) Computed Network Node</div>
+      <div class="option">d) Cyclic Neural Network</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: A</div>
+      <div class="ans-text">CNN (Convolutional Neural Network) is specialized for processing grid-like data such as images using convolutional layers.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q15</span>
+      <span class="q-text">RNN stands for and is best used for:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option correct">a) Recurrent Neural Network — sequential/time-series data</div>
+      <div class="option">b) Random Neural Network — image data</div>
+      <div class="option">c) Recursive Neural Network — tree data only</div>
+      <div class="option">d) Robust Neural Network — any data</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: A</div>
+      <div class="ans-text">RNN (Recurrent Neural Network) has loops allowing information to persist, ideal for sequential data like text, speech, and time series.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q16</span>
+      <span class="q-text">Backpropagation in ANN is used to:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Forward-pass data through the network</div>
+      <div class="option correct">b) Update weights by calculating gradients of the loss function</div>
+      <div class="option">c) Initialize the network weights</div>
+      <div class="option">d) Add new layers to the network</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text">Backpropagation computes the gradient of the loss function with respect to each weight, enabling gradient descent to minimize error.</div>
+    </div>
+  </div>
+
+  <div class="topic-divider">MODULE 5 — EXPERT SYSTEMS</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q17</span>
+      <span class="q-text">The two main components of an Expert System are:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option correct">a) Knowledge Base and Inference Engine</div>
+      <div class="option">b) Database and Query Engine</div>
+      <div class="option">c) CPU and Memory</div>
+      <div class="option">d) Input Module and Output Module</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: A</div>
+      <div class="ans-text">An Expert System's core components are the Knowledge Base (facts + rules) and the Inference Engine (reasoning mechanism).</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q18</span>
+      <span class="q-text">Forward chaining in an Expert System is also known as:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option correct">a) Data-driven reasoning</div>
+      <div class="option">b) Goal-driven reasoning</div>
+      <div class="option">c) Backward reasoning</div>
+      <div class="option">d) Probabilistic reasoning</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: A</div>
+      <div class="ans-text">Forward chaining starts from known facts and applies rules to derive new facts (data-driven). Backward chaining is goal-driven.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q19</span>
+      <span class="q-text">MYCIN is an example of which type of system?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option correct">a) Expert System (medical diagnosis)</div>
+      <div class="option">b) Neural Network</div>
+      <div class="option">c) Search Algorithm</div>
+      <div class="option">d) Game-playing AI</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: A</div>
+      <div class="ans-text">MYCIN (1970s, Stanford) is a classic rule-based Expert System for diagnosing bacterial blood infections and recommending antibiotics.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q20</span>
+      <span class="q-text">The person who provides domain knowledge to build an Expert System is called:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) AI Programmer</div>
+      <div class="option correct">b) Domain Expert / Knowledge Engineer</div>
+      <div class="option">c) System Analyst</div>
+      <div class="option">d) End User</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text">A Knowledge Engineer extracts domain knowledge from Domain Experts and encodes it into the knowledge base.</div>
     </div>
   </div>
 </section>
@@ -413,36 +729,224 @@
 <section id="saq">
   <div class="section-header">
     <h2><span class="saq-tag">▤</span> Short Answer Questions</h2>
-    <p>Questions coming soon — placeholder content below</p>
+    <p>10 questions — 2–5 marks each. Click to reveal full answer.</p>
   </div>
+
+  <div class="topic-divider">MODULE 1 — REAL WORLD AI & RATIONALITY</div>
 
   <div class="q-card" onclick="toggle(this)">
     <div class="q-header">
-      <span class="q-num saq-num">Q1</span>
-      <span class="q-text">Define Artificial Intelligence and list its main goals.</span>
+      <span class="q-num saq-num">S1</span>
+      <span class="q-text">What is a Rational Agent? List the four types of AI agents.</span>
       <span class="q-toggle">▾</span>
     </div>
     <div class="q-answer">
       <div class="ans-label saq-lbl">ANSWER</div>
-      <div class="ans-text"><strong>Artificial Intelligence</strong> is the branch of computer science that aims to create intelligent machines that can perform tasks requiring human intelligence. The main goals of AI include:<br><br>
-      <strong>1. Reasoning</strong> — ability to solve problems logically.<br>
-      <strong>2. Knowledge Representation</strong> — storing information about the world.<br>
-      <strong>3. Planning</strong> — setting and achieving goals.<br>
-      <strong>4. Learning</strong> — improving performance through experience.<br>
-      <strong>5. Natural Language Processing</strong> — understanding and generating human language.<br>
-      <strong>6. Perception</strong> — understanding the environment through sensors.</div>
+      <div class="ans-text">
+        <strong>Rational Agent:</strong> An agent that acts to maximize its expected performance measure based on its percept history and built-in knowledge.<br><br>
+        <strong>Four Types of AI Agents:</strong><br>
+        1. <strong>Simple Reflex Agent</strong> — Acts only on current percept (if-then rules).<br>
+        2. <strong>Model-Based Reflex Agent</strong> — Maintains internal state to handle partial observability.<br>
+        3. <strong>Goal-Based Agent</strong> — Takes actions to achieve specific goals.<br>
+        4. <strong>Utility-Based Agent</strong> — Maximizes a utility function for best outcome among multiple goals.
+      </div>
     </div>
   </div>
 
   <div class="q-card" onclick="toggle(this)">
     <div class="q-header">
-      <span class="q-num saq-num">Q2</span>
-      <span class="q-text">What is the Turing Test?</span>
+      <span class="q-num saq-num">S2</span>
+      <span class="q-text">Explain the PEAS framework with an example.</span>
       <span class="q-toggle">▾</span>
     </div>
     <div class="q-answer">
       <div class="ans-label saq-lbl">ANSWER</div>
-      <div class="ans-text">The <strong>Turing Test</strong>, proposed by Alan Turing in 1950, is a test of a machine's ability to exhibit intelligent behaviour equivalent to, or indistinguishable from, that of a human. A human evaluator judges natural language conversations between a human and a machine. If the evaluator cannot reliably tell which is which, the machine is said to have passed the test.</div>
+      <div class="ans-text">
+        <strong>PEAS</strong> describes an agent's task environment:<br><br>
+        • <strong>P</strong>erformance Measure — How success is evaluated<br>
+        • <strong>E</strong>nvironment — Where the agent operates<br>
+        • <strong>A</strong>ctuators — Output mechanisms<br>
+        • <strong>S</strong>ensors — Input mechanisms<br><br>
+        <strong>Example — Self-Driving Car:</strong><br>
+        • P: Safe driving, reaching destination, fuel efficiency<br>
+        • E: Roads, traffic, pedestrians, weather<br>
+        • A: Steering, accelerator, brakes, horn<br>
+        • S: Cameras, GPS, LIDAR, speedometer
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">MODULE 2 — SEARCH ALGORITHMS</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S3</span>
+      <span class="q-text">Compare BFS and DFS in terms of completeness, optimality, time, and space complexity.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <strong>BFS (Breadth-First Search):</strong><br>
+        • Completeness: Yes (if b is finite)<br>
+        • Optimality: Yes (if all costs equal)<br>
+        • Time: O(b^d)<br>
+        • Space: O(b^d) — stores all nodes at depth d<br><br>
+        <strong>DFS (Depth-First Search):</strong><br>
+        • Completeness: No (may loop in infinite spaces)<br>
+        • Optimality: No<br>
+        • Time: O(b^m)<br>
+        • Space: O(bm) — only stores current path<br><br>
+        Where b = branching factor, d = depth of solution, m = max depth.
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S4</span>
+      <span class="q-text">What is Uniform Cost Search? When is it preferred over BFS?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <strong>Uniform Cost Search (UCS)</strong> expands the node with the lowest cumulative path cost g(n) using a priority queue. It always finds the optimal (least-cost) path.<br><br>
+        <strong>When to prefer UCS over BFS:</strong><br>
+        UCS is preferred when step costs are NOT equal. BFS finds the shallowest solution (optimal only if all step costs are equal), while UCS finds the lowest-cost solution regardless of depth.<br><br>
+        <strong>Example:</strong> In a city map where roads have different distances, UCS finds the shortest path, not just the path with fewest roads.
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S5</span>
+      <span class="q-text">What is Alpha-Beta Pruning? How does it improve Minimax?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <strong>Minimax</strong> is a decision rule used in two-player games where MAX maximizes the score and MIN minimizes it. It explores the entire game tree.<br><br>
+        <strong>Alpha-Beta Pruning</strong> improves Minimax by eliminating branches that cannot affect the final decision:<br>
+        • <strong>Alpha (α)</strong> — best value MAX can guarantee (starts at −∞)<br>
+        • <strong>Beta (β)</strong> — best value MIN can guarantee (starts at +∞)<br>
+        • A branch is pruned when α ≥ β<br><br>
+        <strong>Benefit:</strong> Reduces time complexity from O(b^m) to O(b^(m/2)), effectively doubling the search depth for the same computation.
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">MODULE 3 — KNOWLEDGE REPRESENTATION</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S6</span>
+      <span class="q-text">What is Knowledge Representation? Name four types of knowledge.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <strong>Knowledge Representation (KR)</strong> is the field of AI dedicated to representing information about the world in a form that a computer system can use to solve complex tasks like diagnosing medical conditions or understanding natural language.<br><br>
+        <strong>Four Types of Knowledge:</strong><br>
+        1. <strong>Declarative</strong> — Facts ("The sky is blue")<br>
+        2. <strong>Procedural</strong> — How to do things ("Steps to solve an equation")<br>
+        3. <strong>Meta-Knowledge</strong> — Knowledge about knowledge ("I know that I don't know X")<br>
+        4. <strong>Heuristic</strong> — Rules of thumb ("If fever &gt; 38°C, consider infection")
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S7</span>
+      <span class="q-text">Differentiate between Propositional Logic and First Order Predicate Logic.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <strong>Propositional Logic:</strong><br>
+        • Deals with propositions (true/false statements)<br>
+        • Cannot express relationships between objects<br>
+        • Example: P = "It is raining", Q = "Roads are wet"<br>
+        • Rule: P → Q<br><br>
+        <strong>First Order Predicate Logic (FOPL):</strong><br>
+        • Deals with objects, predicates, and quantifiers<br>
+        • Can express relationships and properties<br>
+        • Uses ∀ (for all) and ∃ (there exists)<br>
+        • Example: ∀x [Human(x) → Mortal(x)]<br><br>
+        FOPL is far more expressive and is the basis of most knowledge representation systems.
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">MODULE 4 — DEEP LEARNING & NEURAL NETWORKS</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S8</span>
+      <span class="q-text">What is an ANN? Describe its basic structure.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <strong>Artificial Neural Network (ANN)</strong> is a computing model inspired by biological neural networks in the brain.<br><br>
+        <strong>Structure:</strong><br>
+        1. <strong>Input Layer</strong> — Receives raw input features (e.g., pixels, numbers)<br>
+        2. <strong>Hidden Layer(s)</strong> — Performs transformations using weights and activation functions<br>
+        3. <strong>Output Layer</strong> — Produces the final result (class, value)<br><br>
+        Each neuron computes: output = activation(Σ(wᵢxᵢ) + bias)<br><br>
+        <strong>Learning:</strong> Weights are adjusted via backpropagation and gradient descent to minimize the loss function.
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S9</span>
+      <span class="q-text">What is the difference between CNN and RNN?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <strong>CNN (Convolutional Neural Network):</strong><br>
+        • Best for spatial data (images, video)<br>
+        • Uses convolutional filters to detect local features<br>
+        • Layers: Convolution → Pooling → Fully Connected<br>
+        • Applications: Image classification, object detection<br><br>
+        <strong>RNN (Recurrent Neural Network):</strong><br>
+        • Best for sequential/temporal data (text, speech, time series)<br>
+        • Has feedback loops — output of one step is input to next<br>
+        • Maintains "memory" of previous inputs<br>
+        • Applications: Machine translation, speech recognition, text generation
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">MODULE 5 — EXPERT SYSTEMS</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S10</span>
+      <span class="q-text">List the main components of an Expert System and explain each briefly.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <strong>Components of an Expert System:</strong><br><br>
+        1. <strong>Knowledge Base</strong> — Stores domain-specific facts and IF-THEN rules<br>
+        2. <strong>Inference Engine</strong> — Applies rules to facts to derive conclusions (forward/backward chaining)<br>
+        3. <strong>Working Memory (Fact Base)</strong> — Holds current facts/data during a session<br>
+        4. <strong>User Interface</strong> — Allows the user to interact with the system (ask questions, get answers)<br>
+        5. <strong>Explanation Facility</strong> — Explains HOW a conclusion was reached and WHY a question was asked<br>
+        6. <strong>Knowledge Acquisition Facility</strong> — Interface for domain experts to add/update knowledge
+      </div>
     </div>
   </div>
 </section>
@@ -451,49 +955,262 @@
 <section id="long">
   <div class="section-header">
     <h2><span class="long-tag">▦</span> Long Questions</h2>
-    <p>Questions coming soon — placeholder content below</p>
+    <p>6 questions — 10–15 marks each. Detailed answers. Click to expand.</p>
+  </div>
+
+  <div class="topic-divider">MODULE 1 — REAL WORLD AI & RATIONALITY</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num long-num">L1</span>
+      <span class="q-text">Explain the concept of Intelligent Agents in AI. Describe all types of agents with examples, and explain the properties of task environments (PEAS + 6 properties).</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label long-lbl">DETAILED ANSWER</div>
+      <div class="ans-text">
+        <strong>1. What is an Intelligent Agent?</strong><br>
+        An intelligent agent is anything that perceives its environment through sensors and acts upon it through actuators. It maps percept sequences to actions to maximize its performance measure.<br><br>
+
+        <strong>2. Types of Agents</strong><br>
+        • <strong>Simple Reflex Agent:</strong> Uses condition-action rules (if percept → action). No memory. Works only in fully observable environments. Example: thermostat.<br>
+        • <strong>Model-Based Reflex Agent:</strong> Maintains an internal model of the world for partial observability. Updates state based on percept history. Example: robot vacuum with memory.<br>
+        • <strong>Goal-Based Agent:</strong> Has goals to achieve. Plans sequences of actions. Uses search and planning. Example: GPS navigation system.<br>
+        • <strong>Utility-Based Agent:</strong> Has a utility function to choose the BEST action among many goal-achieving options. Example: self-driving car that balances speed, safety, and fuel.<br>
+        • <strong>Learning Agent:</strong> Improves performance over time. Has performance element, critic, learning element, and problem generator.<br><br>
+
+        <strong>3. PEAS Framework</strong><br>
+        Performance Measure, Environment, Actuators, Sensors. Used to specify an agent's task environment. Example for medical diagnostic agent: P=correct diagnosis, E=patient data/hospital, A=display recommendations, S=patient symptoms input.<br><br>
+
+        <strong>4. Six Properties of Task Environments</strong><br>
+        • <strong>Fully vs Partially Observable:</strong> Can agent access complete state? (Fully: chess; Partially: poker)<br>
+        • <strong>Deterministic vs Stochastic:</strong> Is next state fully determined? (Det: chess; Stoch: weather)<br>
+        • <strong>Episodic vs Sequential:</strong> Do past actions affect current? (Episodic: spam filter; Seq: chess)<br>
+        • <strong>Static vs Dynamic:</strong> Does environment change while agent thinks? (Static: crossword; Dynamic: taxi)<br>
+        • <strong>Discrete vs Continuous:</strong> Finite or infinite percepts/actions? (Discrete: chess; Continuous: driving)<br>
+        • <strong>Single vs Multi-Agent:</strong> One agent or many? (Single: puzzle; Multi: chess vs opponent)
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">MODULE 2 — SEARCH ALGORITHMS</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num long-num">L2</span>
+      <span class="q-text">Explain all uninformed search strategies (BFS, DFS, UCS, Iterative Deepening) in detail with complexity analysis and comparison.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label long-lbl">DETAILED ANSWER</div>
+      <div class="ans-text">
+        <strong>1. Breadth-First Search (BFS)</strong><br>
+        Explores all nodes level by level using a FIFO queue.<br>
+        ✓ Complete | ✓ Optimal (equal costs) | Time: O(b^d) | Space: O(b^d)<br>
+        Best when: solution is at shallow depth, memory is abundant.<br><br>
+
+        <strong>2. Depth-First Search (DFS)</strong><br>
+        Explores as deep as possible using a LIFO stack (or recursion).<br>
+        ✗ Not complete (infinite paths) | ✗ Not optimal | Time: O(b^m) | Space: O(bm)<br>
+        Best when: memory is limited, solution is at deep level.<br><br>
+
+        <strong>3. Uniform Cost Search (UCS)</strong><br>
+        Expands node with lowest cumulative cost g(n) using a priority queue.<br>
+        ✓ Complete | ✓ Optimal | Time: O(b^(1+⌊C*/ε⌋)) | Space: same as time<br>
+        Best when: step costs vary. Equivalent to BFS when costs are equal.<br><br>
+
+        <strong>4. Iterative Deepening DFS (IDDFS)</strong><br>
+        Repeatedly applies DFS with increasing depth limits (0, 1, 2, …).<br>
+        ✓ Complete | ✓ Optimal (equal costs) | Time: O(b^d) | Space: O(bd)<br>
+        Best of both worlds: BFS's completeness + DFS's memory efficiency.<br><br>
+
+        <strong>5. Comparison Summary</strong><br>
+        • BFS: Complete✓ Optimal✓ Space=High<br>
+        • DFS: Complete✗ Optimal✗ Space=Low<br>
+        • UCS: Complete✓ Optimal✓ Space=High<br>
+        • IDDFS: Complete✓ Optimal✓ Space=Low ← Best uninformed
+      </div>
+    </div>
   </div>
 
   <div class="q-card" onclick="toggle(this)">
     <div class="q-header">
-      <span class="q-num long-num">Q1</span>
-      <span class="q-text">Explain the different types of Artificial Intelligence with suitable examples.</span>
+      <span class="q-num long-num">L3</span>
+      <span class="q-text">Explain the Minimax algorithm with Alpha-Beta Pruning. Give a detailed example with a game tree.</span>
       <span class="q-toggle">▾</span>
     </div>
     <div class="q-answer">
-      <div class="ans-label long-lbl">ANSWER</div>
-      <div class="ans-text">AI can be categorised into types based on capabilities and functionality:<br><br>
+      <div class="ans-label long-lbl">DETAILED ANSWER</div>
+      <div class="ans-text">
+        <strong>1. Minimax Algorithm</strong><br>
+        Minimax is a recursive algorithm used for two-player zero-sum games (like Chess, Tic-Tac-Toe). MAX player tries to maximize the score; MIN player tries to minimize it.<br><br>
+        Algorithm:<br>
+        • If terminal state: return utility value<br>
+        • If MAX's turn: return max(minimax(children))<br>
+        • If MIN's turn: return min(minimax(children))<br><br>
+        Time: O(b^m) | Space: O(bm)<br><br>
 
-      <strong>Based on Capabilities:</strong><br>
-      <strong>1. Narrow AI (Weak AI)</strong> — Designed to perform a specific task. Examples: Siri, Alexa, chess-playing AI.<br>
-      <strong>2. General AI (Strong AI)</strong> — Can perform any intellectual task like a human. Still theoretical.<br>
-      <strong>3. Super AI</strong> — Surpasses human intelligence in all aspects. Hypothetical.<br><br>
+        <strong>2. Alpha-Beta Pruning</strong><br>
+        Optimization of Minimax that prunes branches that cannot affect the final decision.<br><br>
+        • α (alpha) = best value MAX can guarantee so far (initially −∞)<br>
+        • β (beta) = best value MIN can guarantee so far (initially +∞)<br>
+        • Prune when: α ≥ β<br><br>
+        <strong>At a MAX node:</strong> update α = max(α, value); if α ≥ β → prune remaining children<br>
+        <strong>At a MIN node:</strong> update β = min(β, value); if α ≥ β → prune remaining children<br><br>
 
-      <strong>Based on Functionality:</strong><br>
-      <strong>1. Reactive Machines</strong> — No memory, only reacts to current input. Example: Deep Blue.<br>
-      <strong>2. Limited Memory</strong> — Uses past experiences. Example: Self-driving cars.<br>
-      <strong>3. Theory of Mind</strong> — Understands emotions and beliefs. Still in research.<br>
-      <strong>4. Self-aware AI</strong> — Has consciousness. Hypothetical.</div>
+        <strong>3. Example Trace</strong><br>
+        Game tree with values at leaf nodes [3, 5, 2, 9, 1, 7, 4, 8]:<br>
+        • Minimax explores ALL 8 nodes → result = 3<br>
+        • Alpha-Beta prunes subtrees where value ≤ current α or ≥ current β<br>
+        • Same result (3) with fewer nodes evaluated<br>
+        Benefit: Best case O(b^(m/2)) — doubles effective search depth!<br><br>
+
+        <strong>4. Applications</strong><br>
+        • Chess engines (Deep Blue used Minimax with Alpha-Beta)<br>
+        • Tic-Tac-Toe solvers<br>
+        • Checkers, Go (with modifications)
+      </div>
     </div>
   </div>
 
+  <div class="topic-divider">MODULE 3 — KNOWLEDGE REPRESENTATION</div>
+
   <div class="q-card" onclick="toggle(this)">
     <div class="q-header">
-      <span class="q-num long-num">Q2</span>
-      <span class="q-text">Discuss the applications of Artificial Intelligence in various domains.</span>
+      <span class="q-num long-num">L4</span>
+      <span class="q-text">What is Knowledge Representation? Explain different types of knowledge and representation techniques in detail.</span>
       <span class="q-toggle">▾</span>
     </div>
     <div class="q-answer">
-      <div class="ans-label long-lbl">ANSWER</div>
-      <div class="ans-text"><strong>Applications of AI:</strong><br><br>
-      <strong>1. Healthcare:</strong> Disease diagnosis, drug discovery, personalised medicine, robotic surgery.<br>
-      <strong>2. Finance:</strong> Fraud detection, algorithmic trading, credit scoring, risk management.<br>
-      <strong>3. Transportation:</strong> Self-driving cars, traffic prediction, route optimisation.<br>
-      <strong>4. Education:</strong> Personalised learning, intelligent tutoring systems, automated grading.<br>
-      <strong>5. Entertainment:</strong> Recommendation systems (Netflix, YouTube), game AI, content generation.<br>
-      <strong>6. Manufacturing:</strong> Predictive maintenance, quality control, robotic automation.<br>
-      <strong>7. Agriculture:</strong> Crop monitoring, yield prediction, precision farming.<br>
-      <strong>8. Customer Service:</strong> Chatbots, virtual assistants, sentiment analysis.</div>
+      <div class="ans-label long-lbl">DETAILED ANSWER</div>
+      <div class="ans-text">
+        <strong>1. What is Knowledge?</strong><br>
+        Knowledge is information + context + reasoning ability. In AI, knowledge must be represented in a formal, machine-readable way to enable reasoning, inference, and problem-solving.<br><br>
+
+        <strong>2. Types of Knowledge</strong><br>
+        • <strong>Declarative:</strong> Facts about the world. "Delhi is the capital of India."<br>
+        • <strong>Procedural:</strong> How to do something. "Algorithm to sort an array."<br>
+        • <strong>Meta-Knowledge:</strong> Knowledge about knowledge. "I know that I don't know Y."<br>
+        • <strong>Heuristic:</strong> Rules of thumb from experience. "If patient has fever + cough → test for flu."<br>
+        • <strong>Structural:</strong> Knowledge about relationships. "Heart is part of circulatory system."<br><br>
+
+        <strong>3. KR Techniques</strong><br>
+        • <strong>Logical Representation:</strong> Propositional Logic, First Order Predicate Logic (FOPL). Precise and formal. Example: ∀x [Dog(x) → Animal(x)]<br>
+        • <strong>Semantic Networks:</strong> Graph-based, nodes = concepts, edges = relationships. Easy visualization. Example: "Canary IS-A Bird, Bird HAS wings."<br>
+        • <strong>Frames:</strong> Data structures for stereotyped situations. Similar to OOP classes. Example: Frame for "Car" with slots: color, speed, fuel.<br>
+        • <strong>Production Rules:</strong> IF-THEN rules. Used in Expert Systems. Example: IF temperature &gt; 100°C THEN boiling = true.<br>
+        • <strong>Ontologies:</strong> Formal representation of knowledge as a hierarchy of concepts within a domain.<br><br>
+
+        <strong>4. Requirements of a Good KR System</strong><br>
+        • Representational Adequacy — Can represent needed knowledge<br>
+        • Inferential Adequacy — Can derive new knowledge<br>
+        • Inferential Efficiency — Can do so in reasonable time<br>
+        • Acquisitional Efficiency — Easy to update/add knowledge
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">MODULE 4 — DEEP LEARNING & NEURAL NETWORKS</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num long-num">L5</span>
+      <span class="q-text">Explain Deep Learning, ANN, CNN, and RNN in detail with architectures, working, and applications.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label long-lbl">DETAILED ANSWER</div>
+      <div class="ans-text">
+        <strong>1. Deep Learning</strong><br>
+        A subfield of ML where neural networks with many hidden layers (deep networks) automatically learn hierarchical feature representations. Key advantage: No manual feature engineering. Requires large data and GPU computing.<br><br>
+
+        <strong>2. Artificial Neural Network (ANN)</strong><br>
+        <strong>Inspired by:</strong> Biological neurons in the brain.<br>
+        <strong>Structure:</strong> Input Layer → Hidden Layers → Output Layer<br>
+        <strong>Neuron formula:</strong> y = activation(Σwᵢxᵢ + b)<br>
+        <strong>Common Activations:</strong> Sigmoid (0-1), ReLU (max(0,x)), Tanh (−1 to 1), Softmax (multi-class)<br>
+        <strong>Training:</strong> Forward pass → compute loss → Backpropagation → weight update (gradient descent)<br>
+        <strong>Applications:</strong> Classification, regression, pattern recognition<br><br>
+
+        <strong>3. CNN (Convolutional Neural Network)</strong><br>
+        <strong>Best for:</strong> Image, video, spatial data<br>
+        <strong>Key Layers:</strong><br>
+        • Convolutional Layer: Applies filters to detect edges, textures, shapes<br>
+        • Pooling Layer: Down-samples spatial dimensions (Max Pooling, Avg Pooling)<br>
+        • Fully Connected Layer: Final classification<br>
+        <strong>Why CNN for images:</strong> Parameter sharing + local connectivity → fewer parameters, translation invariant<br>
+        <strong>Famous models:</strong> LeNet, AlexNet, VGG, ResNet<br>
+        <strong>Applications:</strong> Image classification, face recognition, medical imaging<br><br>
+
+        <strong>4. RNN (Recurrent Neural Network)</strong><br>
+        <strong>Best for:</strong> Sequential, time-series data<br>
+        <strong>Key feature:</strong> Hidden state hₜ = f(Whh·hₜ₋₁ + Wxh·xₜ) — memory of past inputs<br>
+        <strong>Problem:</strong> Vanishing gradient for long sequences<br>
+        <strong>Solutions:</strong> LSTM (Long Short-Term Memory) and GRU (Gated Recurrent Unit)<br>
+        <strong>LSTM gates:</strong> Forget gate, Input gate, Output gate<br>
+        <strong>Applications:</strong> Text generation, machine translation, speech recognition, sentiment analysis<br><br>
+
+        <strong>5. Comparison</strong><br>
+        • ANN: General purpose, tabular/flat data<br>
+        • CNN: Spatial data (images), local feature detection<br>
+        • RNN/LSTM: Sequential data, temporal dependencies
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">MODULE 5 — EXPERT SYSTEMS</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num long-num">L6</span>
+      <span class="q-text">What is an Expert System? Explain its architecture, components, working (forward &amp; backward chaining), advantages, limitations, and real-world applications in detail.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label long-lbl">DETAILED ANSWER</div>
+      <div class="ans-text">
+        <strong>1. What is an Expert System?</strong><br>
+        An Expert System (ES) is an AI program that simulates the decision-making ability of a human expert in a specific domain. It uses a knowledge base and inference engine to solve problems that require expert knowledge.<br><br>
+
+        <strong>2. Architecture / Components</strong><br>
+        • <strong>Knowledge Base:</strong> Stores domain knowledge as IF-THEN rules and facts. Example: IF fever &gt; 38°C AND sore throat THEN diagnosis = flu<br>
+        • <strong>Inference Engine:</strong> The "brain" — applies rules to facts to derive conclusions. Uses forward or backward chaining.<br>
+        • <strong>Working Memory:</strong> Temporary storage for current session facts<br>
+        • <strong>User Interface:</strong> Allows natural language interaction between user and system<br>
+        • <strong>Explanation Facility:</strong> WHY a question is asked / HOW a conclusion was reached<br>
+        • <strong>Knowledge Acquisition Facility:</strong> Interface for domain experts to add knowledge<br><br>
+
+        <strong>3. Forward Chaining (Data-Driven)</strong><br>
+        Starts from known facts, applies rules, derives new facts until goal is reached.<br>
+        Process: Facts → Rules → New Facts → … → Conclusion<br>
+        Example: Known: Fever=Yes, Cough=Yes → Rule: Fever+Cough → Suspect Flu → Rule: Suspect Flu + Test Positive → Diagnose Flu<br>
+        Used when: All data is available upfront, exploring possible outcomes.<br><br>
+
+        <strong>4. Backward Chaining (Goal-Driven)</strong><br>
+        Starts from a goal/hypothesis and works backward to find supporting facts.<br>
+        Process: Goal → Sub-goals → … → Known Facts<br>
+        Example: Goal: Is patient diabetic? → Need: blood sugar &gt; 200? → Ask user for blood sugar reading<br>
+        Used when: Specific goal needs to be proved/disproved.<br><br>
+
+        <strong>5. Advantages</strong><br>
+        • Available 24/7, consistent decisions<br>
+        • Can explain reasoning (unlike most ML models)<br>
+        • Captures and preserves expert knowledge<br>
+        • Handles incomplete information<br><br>
+
+        <strong>6. Limitations</strong><br>
+        • Knowledge acquisition bottleneck (extracting expert knowledge is hard)<br>
+        • Cannot learn from experience (unlike ML)<br>
+        • Limited to narrow domain<br>
+        • Maintenance is costly as rules grow<br><br>
+
+        <strong>7. Famous Real-World Expert Systems</strong><br>
+        • <strong>MYCIN</strong> (1970s): Blood infection diagnosis — recommended antibiotics<br>
+        • <strong>DENDRAL</strong>: Chemical structure analysis — mass spectrometry<br>
+        • <strong>XCON/R1</strong> (DEC): Computer configuration — saved millions annually<br>
+        • <strong>CADUCEUS</strong>: Internal medicine diagnosis<br>
+        • Modern: Tax advisory systems, loan approval systems, medical diagnosis apps
+      </div>
     </div>
   </div>
 </section>
