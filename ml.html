@@ -351,7 +351,7 @@
 <section id="mcq" class="active">
   <div class="section-header">
     <h2><span class="mcq-tag">▣</span> Multiple Choice Questions</h2>
-    <p>30 questions — Click any question to reveal the answer and explanation</p>
+    <p>40 questions — Click any question to reveal the answer and explanation</p>
   </div>
 
   <div class="topic-divider">INTRODUCTION TO ML</div>
@@ -937,13 +937,205 @@
       <div class="ans-text"><strong>Feature Representation Learning</strong> means the model automatically discovers useful features from raw data (images, text, audio) without human feature engineering. Deep Learning models like CNNs learn edges → shapes → objects hierarchically.</div>
     </div>
   </div>
+
+  <div class="topic-divider">ADDITIONAL MCQS</div>
+
+  <!-- Q31 -->
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q31</span>
+      <span class="q-text">Which algorithm splits data based on information gain or gini impurity?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Naive Bayes</div>
+      <div class="option correct">b) Decision Tree</div>
+      <div class="option">c) K-means</div>
+      <div class="option">d) PCA</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text"><strong>Decision Tree</strong> uses information gain (based on entropy) or gini impurity to select the best attribute for splitting at each node. The attribute with the highest information gain or lowest gini impurity becomes the split point.</div>
+    </div>
+  </div>
+
+  <!-- Q32 -->
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q32</span>
+      <span class="q-text">Logistic regression outputs a probability using which function?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) ReLU</div>
+      <div class="option">b) Tanh</div>
+      <div class="option correct">c) Sigmoid</div>
+      <div class="option">d) Softmax</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: C</div>
+      <div class="ans-text">Logistic Regression uses the <strong>Sigmoid</strong> function σ(z) = 1/(1+e⁻ᶻ) to convert continuous values into a probability between 0 and 1. The decision threshold is typically 0.5.</div>
+    </div>
+  </div>
+
+  <!-- Q33 -->
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q33</span>
+      <span class="q-text">Naive Bayes assumes all features are:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Correlated</div>
+      <div class="option">b) Normally distributed</div>
+      <div class="option correct">c) Conditionally independent</div>
+      <div class="option">d) Linearly separable</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: C</div>
+      <div class="ans-text">Naive Bayes assumes all features are <strong>conditionally independent</strong> given the class label. This is the "Naive" assumption — in real data, features are often correlated, but the algorithm still works well in practice.</div>
+    </div>
+  </div>
+
+  <!-- Q34 -->
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q34</span>
+      <span class="q-text">Binary classification produces output in:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Multiple classes</div>
+      <div class="option correct">b) Two classes only</div>
+      <div class="option">c) Continuous values</div>
+      <div class="option">d) Clusters</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text"><strong>Binary classification</strong> predicts one of exactly two possible classes (e.g., spam/not-spam, pass/fail, disease/no-disease). Logistic Regression and SVM are commonly used for binary classification.</div>
+    </div>
+  </div>
+
+  <!-- Q35 -->
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q35</span>
+      <span class="q-text">Overfitting in a decision tree can be reduced by:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Adding more nodes</div>
+      <div class="option correct">b) Pruning</div>
+      <div class="option">c) Increasing depth</div>
+      <div class="option">d) Removing labels</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text"><strong>Pruning</strong> removes branches that have little predictive power, reducing overfitting. Pre-pruning stops tree growth early; post-pruning removes branches after full growth. Both improve generalization to unseen data.</div>
+    </div>
+  </div>
+
+  <!-- Q36 -->
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q36</span>
+      <span class="q-text">Which supervised model is based on Bayes' theorem?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Decision Tree</div>
+      <div class="option">b) Logistic Regression</div>
+      <div class="option correct">c) Naive Bayes</div>
+      <div class="option">d) SVM</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: C</div>
+      <div class="ans-text"><strong>Naive Bayes</strong> is directly based on Bayes' Theorem: P(A|B) = P(B|A)×P(A)/P(B). It computes the posterior probability of each class given the features and predicts the class with the highest probability.</div>
+    </div>
+  </div>
+
+  <!-- Q37 -->
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q37</span>
+      <span class="q-text">In logistic regression, the decision boundary is:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Curved</div>
+      <div class="option correct">b) Always linear</div>
+      <div class="option">c) Quadratic</div>
+      <div class="option">d) Depends on kernel</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text">In basic Logistic Regression, the decision boundary is <strong>always linear</strong> because it is a linear combination of input features followed by a Sigmoid function. For non-linear boundaries, polynomial features or kernel methods can be used.</div>
+    </div>
+  </div>
+
+  <!-- Q38 -->
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q38</span>
+      <span class="q-text">Gini impurity of a pure node equals:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) 1</div>
+      <div class="option">b) 0.5</div>
+      <div class="option correct">c) 0</div>
+      <div class="option">d) 0.25</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: C</div>
+      <div class="ans-text">A <strong>pure node</strong> contains data points from only one class. Gini impurity = 1 − Σ(pᵢ²). For a pure node, p = 1 for one class, so Gini = 1 − 1² = <strong>0</strong>. Lower Gini = more pure.</div>
+    </div>
+  </div>
+
+  <!-- Q39 -->
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q39</span>
+      <span class="q-text">Supervised learning requires:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Only input data</div>
+      <div class="option correct">b) Labelled input-output pairs</div>
+      <div class="option">c) No training data</div>
+      <div class="option">d) Cluster assignments</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text"><strong>Supervised learning</strong> requires labeled training data — each input must have a corresponding output label. The model learns to map inputs to correct outputs by minimizing error on these labeled examples.</div>
+    </div>
+  </div>
+
+  <!-- Q40 -->
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q40</span>
+      <span class="q-text">Which metric is most relevant for imbalanced binary classification?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Accuracy</div>
+      <div class="option correct">b) F1 Score</div>
+      <div class="option">c) Mean Squared Error</div>
+      <div class="option">d) Variance</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+      <div class="ans-text"><strong>F1 Score</strong> is the harmonic mean of Precision and Recall. It is the best metric for imbalanced datasets because Accuracy can be misleading — a model predicting only the majority class can achieve high accuracy but is useless.</div>
+    </div>
+  </div>
 </section>
 
 <!-- ========================= SAQ SECTION ========================= -->
 <section id="saq">
   <div class="section-header">
     <h2><span class="saq-tag">▤</span> Short Answer Questions</h2>
-    <p>20 questions — 3–5 marks each. Click to reveal full answer.</p>
+    <p>25 questions — 3–5 marks each. Click to reveal full answer.</p>
   </div>
 
   <div class="topic-divider">CORE CONCEPTS</div>
@@ -1417,13 +1609,102 @@
       </div>
     </div>
   </div>
+
+  <div class="topic-divider">ADDITIONAL SAQS</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S21</span>
+      <span class="q-text">What is information gain in a decision tree? How is it used for splitting?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <strong>Information gain</strong> measures the reduction in entropy after a dataset is split on an attribute. The decision tree selects the attribute with the highest information gain at each node, meaning it picks the feature that best separates classes.
+        <div class="formula">IG = Entropy(parent) − Σ weighted Entropy(children)</div>
+        A higher information gain means the split has created more homogeneous (pure) child nodes, which is the goal at each step of tree construction.
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S22</span>
+      <span class="q-text">State the Naive Bayes assumption. Why is it called 'naive'?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        It assumes all features are <strong>conditionally independent</strong> given the class label. This is 'naive' because in real data, features are often correlated. Despite this, the model performs well in practice (e.g., spam filtering, text classification).
+        <div class="highlight">Naive Bayes computes P(class | features) ∝ P(class) × P(feature₁|class) × P(feature₂|class) × ... by multiplying individual feature likelihoods — which is only valid under the independence assumption.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S23</span>
+      <span class="q-text">What is the difference between binary and multiclass classification?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <strong>Binary classification</strong> predicts one of two possible classes (e.g., spam/not spam, pass/fail). <strong>Multiclass classification</strong> predicts one of three or more classes (e.g., digit recognition: 0–9, animal species identification).
+        <br><br>Binary classification can be handled by algorithms like Logistic Regression (with Sigmoid) and SVM. Multiclass can be handled by Softmax Regression, Decision Trees, or One-vs-Rest strategies. Binary is a special case of multiclass.
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S24</span>
+      <span class="q-text">How does logistic regression differ from linear regression?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <table>
+          <tr><th>Feature</th><th>Linear Regression</th><th>Logistic Regression</th></tr>
+          <tr><td>Output type</td><td>Continuous values</td><td>Categorical (binary: 0 or 1)</td></tr>
+          <tr><td>Output range</td><td>(−∞) to (+∞)</td><td>0 to 1 (probability)</td></tr>
+          <tr><td>Function used</td><td>Y = mX + c</td><td>Sigmoid σ(z) = 1/(1+e⁻ᶻ)</td></tr>
+          <tr><td>Purpose</td><td>Predict numeric values</td><td>Classify into categories</td></tr>
+          <tr><td>Example</td><td>Predict house price</td><td>Predict pass/fail</td></tr>
+        </table>
+        Linear regression predicts continuous values. Logistic regression predicts probabilities (0 to 1) using the sigmoid function, then thresholds to produce a class label.
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S25</span>
+      <span class="q-text">What is pruning in decision trees?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <strong>Pruning</strong> removes branches that have little power in classifying instances, reducing overfitting. There are two types:
+        <ul>
+          <li><strong>Pre-pruning:</strong> Stops tree growth early by setting constraints (max depth, min samples per leaf, min samples per split).</li>
+          <li><strong>Post-pruning:</strong> Allows full tree growth, then removes branches that don't improve performance on a validation set.</li>
+        </ul>
+        <div class="highlight">Pruning improves generalization to unseen data by reducing model complexity and preventing the tree from memorizing noise in the training data.</div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- ========================= LONG SECTION ========================= -->
 <section id="long">
   <div class="section-header">
     <h2><span class="long-tag">▦</span> Long Questions</h2>
-    <p>10 questions — 10–15 marks each. Detailed answers. Click to expand.</p>
+    <p>12 questions — 10–15 marks each. Detailed answers. Click to expand.</p>
   </div>
 
   <div class="topic-divider">SUPERVISED LEARNING ALGORITHMS</div>
@@ -1934,6 +2215,83 @@
           <li><strong>LSTM:</strong> Long-term pattern retention. Best for complex temporal dependencies.</li>
           <li><strong>GRU (Gated Recurrent Unit):</strong> Simpler and faster version of LSTM.</li>
         </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">ADDITIONAL LONG QUESTIONS</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num long-num">L11</span>
+      <span class="q-text">Explain the working of a Decision Tree classifier with an example. Discuss entropy, information gain, and how splits are chosen.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label long-lbl">DETAILED ANSWER</div>
+      <div class="ans-text">
+        A <strong>Decision Tree</strong> recursively splits data by choosing features that best separate classes.
+
+        <strong>Entropy:</strong> H(S) = −Σ pᵢ log₂(pᵢ). For a pure set (all one class), entropy = 0. For a 50/50 split, entropy = 1.
+
+        <strong>Information Gain:</strong> IG(S, A) = H(S) − Σ (|Sᵥ|/|S|) H(Sᵥ). The attribute with the highest IG is chosen as the split.
+
+        <strong>Example — Classifying whether to play tennis:</strong> Based on attributes like Weather, Humidity, and Wind, the decision tree evaluates which attribute gives the highest information gain. If splitting on 'Outlook' gives the highest IG, it becomes the root node. Each branch then recursively splits on the remaining features.
+
+        <strong>Stopping Criteria:</strong>
+        <ul>
+          <li>Maximum depth has been reached</li>
+          <li>All samples in a node belong to one class</li>
+          <li>Information gain = 0 (no benefit from splitting)</li>
+          <li>Number of samples in a node falls below minimum threshold</li>
+        </ul>
+
+        <strong>Handling Overfitting:</strong> Pruning prevents overfitting by removing low-significance branches. Decision trees are highly interpretable but prone to overfitting without proper regularization like pruning, setting max depth, or requiring minimum samples per leaf.
+
+        <div class="highlight">Decision trees form the foundation of powerful ensemble methods like Random Forest and Gradient Boosting.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num long-num">L12</span>
+      <span class="q-text">Compare Naive Bayes and Logistic Regression as binary classifiers. When would you prefer one over the other?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label long-lbl">DETAILED ANSWER</div>
+      <div class="ans-text">
+        <strong>Naive Bayes:</strong> A generative model based on Bayes' theorem. It assumes conditional independence of features and computes P(class|features) via P(features|class) × P(class). It is very fast and works well with small data and text classification.
+
+        <strong>Logistic Regression:</strong> A discriminative model that directly models P(Y=1|X) = σ(wᵀx + b) using the sigmoid function. Parameters are learned via gradient descent or maximum likelihood estimation.
+
+        <strong>Key Differences:</strong>
+        <table>
+          <tr><th>Feature</th><th>Naive Bayes</th><th>Logistic Regression</th></tr>
+          <tr><td>Type</td><td>Generative</td><td>Discriminative</td></tr>
+          <tr><td>Assumption</td><td>Features conditionally independent</td><td>Linear relationship between features and log-odds</td></tr>
+          <tr><td>Data efficiency</td><td>Works well with small datasets</td><td>Needs more data for reliable estimates</td></tr>
+          <tr><td>Speed</td><td>Very fast (simple computation)</td><td>Fast (iterative training)</td></tr>
+          <tr><td>Probabilities</td><td>Often extreme (close to 0 or 1)</td><td>Well-calibrated probabilities</td></tr>
+          <tr><td>Feature correlation</td><td>Violated assumption hurts performance</td><td>Handles correlated features better</td></tr>
+        </table>
+
+        <strong>Prefer Naive Bayes for:</strong>
+        <ul>
+          <li>Text classification / spam filtering (high-dimensional sparse data)</li>
+          <li>Small datasets</li>
+          <li>Real-time inference where speed is critical</li>
+        </ul>
+
+        <strong>Prefer Logistic Regression for:</strong>
+        <ul>
+          <li>Structured / tabular data with correlated features</li>
+          <li>When well-calibrated probability estimates are needed</li>
+          <li>When the independence assumption of Naive Bayes is clearly violated</li>
+        </ul>
+
+        <div class="highlight">In practice, both are strong baselines. Logistic Regression often outperforms Naive Bayes when sufficient data is available, but Naive Bayes is unbeatable for speed and simplicity in high-dimensional text problems.</div>
       </div>
     </div>
   </div>
