@@ -729,7 +729,7 @@
 <section id="saq">
   <div class="section-header">
     <h2><span class="saq-tag">▤</span> Short Answer Questions</h2>
-    <p>7 questions — 5 marks each. Click to reveal full answer.</p>
+    <p>11 questions — 5 marks each. Click to reveal full answer.</p>
   </div>
 
   <div class="topic-divider">ACID & NORMALIZATION</div>
@@ -911,13 +911,186 @@
       </div>
     </div>
   </div>
+
+  <div class="topic-divider">FILESYSTEM vs DBMS</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S8</span>
+      <span class="q-text">Differentiate between File System and Database Management System (DBMS).</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <table>
+          <tr><th>Feature</th><th>File System</th><th>DBMS</th></tr>
+          <tr><td>Data redundancy</td><td>High — duplicate data in multiple files</td><td>Low — centralized data, controlled redundancy</td></tr>
+          <tr><td>Data inconsistency</td><td>High — updates may not reflect everywhere</td><td>Low — consistency constraints enforced</td></tr>
+          <tr><td>Data sharing</td><td>Difficult — each app has its own files</td><td>Easy — multiple users access same database</td></tr>
+          <tr><td>Data integrity</td><td>No built-in constraints</td><td>Integrity constraints (PK, FK, CHECK, etc.)</td></tr>
+          <tr><td>Security</td><td>Limited — OS-level only</td><td>Advanced — user roles, privileges, encryption</td></tr>
+          <tr><td>Concurrent access</td><td>No control — may cause anomalies</td><td>Locking, transactions, ACID properties</td></tr>
+          <tr><td>Backup & recovery</td><td>Manual</td><td>Automated — logs, checkpoint, rollback</td></tr>
+          <tr><td>Data abstraction</td><td>None — physical level only</td><td>Three levels: physical, logical, view</td></tr>
+          <tr><td>Query language</td><td>No query language</td><td>SQL — powerful querying and manipulation</td></tr>
+          <tr><td>Example</td><td>Notepad, Excel, CSV files</td><td>MySQL, Oracle, PostgreSQL, MongoDB</td></tr>
+        </table>
+        <div class="highlight">DBMS overcomes nearly all limitations of file systems by providing centralized control, data independence, and structured querying.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">SQL COMMANDS</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S9</span>
+      <span class="q-text">Explain DDL, DML, and DCL with examples of each.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <strong>DDL (Data Definition Language)</strong> — Defines database structure/schema.
+        <div class="formula">
+          CREATE DATABASE db_name;<br>
+          CREATE TABLE Student (RollNo INT PRIMARY KEY, Name VARCHAR(50));<br>
+          ALTER TABLE Student ADD COLUMN City VARCHAR(30);<br>
+          DROP TABLE Student;<br>
+          TRUNCATE TABLE Student;
+        </div>
+
+        <br><strong>DML (Data Manipulation Language)</strong> — Manipulates data stored in tables.
+        <div class="formula">
+          SELECT * FROM Student WHERE City = 'Delhi';<br>
+          INSERT INTO Student VALUES (101, 'Alice', 'Delhi');<br>
+          UPDATE Student SET City = 'Mumbai' WHERE RollNo = 101;<br>
+          DELETE FROM Student WHERE RollNo = 101;
+        </div>
+
+        <br><strong>DCL (Data Control Language)</strong> — Controls access permissions.
+        <div class="formula">
+          GRANT SELECT, INSERT ON Student TO 'user1'@'localhost';<br>
+          REVOKE INSERT ON Student FROM 'user1'@'localhost';
+        </div>
+
+        <table>
+          <tr><th>Category</th><th>Commands</th><th>Effect</th></tr>
+          <tr><td>DDL</td><td>CREATE, ALTER, DROP, TRUNCATE, RENAME</td><td>Auto-commit (permanent changes)</td></tr>
+          <tr><td>DML</td><td>SELECT, INSERT, UPDATE, DELETE</td><td>Can be rolled back (if not auto-commit)</td></tr>
+          <tr><td>DCL</td><td>GRANT, REVOKE</td><td>Immediate effect on permissions</td></tr>
+        </table>
+        <div class="highlight">TCL (COMMIT, ROLLBACK, SAVEPOINT) is sometimes considered a separate category for transaction control.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">SET OPERATIONS</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S10</span>
+      <span class="q-text">Explain UNION, INTERSECT, and MINUS (EXCEPT) set operations in SQL with examples.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        Set operations combine results from two or more SELECT queries. All queries must have the same number and compatible data types of columns.
+
+        <br><br><strong>1. UNION</strong> — Combines results of two queries, removing duplicates.
+        <div class="formula">
+          SELECT City FROM Customers<br>
+          UNION<br>
+          SELECT City FROM Suppliers;
+        </div>
+        <em>UNION ALL keeps duplicates; UNION removes them.</em>
+
+        <br><br><strong>2. INTERSECT</strong> — Returns rows common to both queries.
+        <div class="formula">
+          SELECT City FROM Customers<br>
+          INTERSECT<br>
+          SELECT City FROM Suppliers;
+        </div>
+
+        <br><br><strong>3. MINUS / EXCEPT</strong> — Returns rows from the first query that are NOT in the second.
+        <div class="formula">
+          SELECT City FROM Customers<br>
+          EXCEPT<br>
+          SELECT City FROM Suppliers;
+        </div>
+        <em>MINUS in Oracle; EXCEPT in PostgreSQL/SQL Server.</em>
+
+        <table>
+          <tr><th>Operation</th><th>Result</th></tr>
+          <tr><td>A UNION B</td><td>All rows from A and B (no duplicates)</td></tr>
+          <tr><td>A INTERSECT B</td><td>Rows present in both A and B</td></tr>
+          <tr><td>A EXCEPT B</td><td>Rows in A but not in B</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">CARTESIAN PRODUCT</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S11</span>
+      <span class="q-text">Explain the Cartesian Product (CROSS JOIN) operation with an example.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        The Cartesian Product (also called CROSS JOIN or cross product) combines every row of the first table with every row of the second table. If table A has <em>m</em> rows and table B has <em>n</em> rows, the result has <em>m × n</em> rows.
+
+        <br><br><strong>Example:</strong>
+        <div class="formula">
+          Table: Student<br>
+          ┌────────┬───────┐<br>
+          │ RollNo │ Name  │<br>
+          ├────────┼───────┤<br>
+          │ 1      │ Alice │<br>
+          │ 2      │ Bob   │<br>
+          └────────┴───────┘<br><br>
+          Table: Course<br>
+          ┌──────────┬──────────┐<br>
+          │ CourseID │ CName    │<br>
+          ├──────────┼──────────┤<br>
+          │ C01      │ Maths    │<br>
+          │ C02      │ Physics  │<br>
+          └──────────┴──────────┘
+        </div>
+
+        <br><strong>Cartesian Product (CROSS JOIN):</strong>
+        <div class="formula">
+          SELECT * FROM Student CROSS JOIN Course;
+        </div>
+
+        <br><strong>Result (2 × 2 = 4 rows):</strong>
+        <div class="formula">
+          ┌────────┬───────┬──────────┬──────────┐<br>
+          │ RollNo │ Name  │ CourseID │ CName    │<br>
+          ├────────┼───────┼──────────┼──────────┤<br>
+          │ 1      │ Alice │ C01      │ Maths    │<br>
+          │ 1      │ Alice │ C02      │ Physics  │<br>
+          │ 2      │ Bob   │ C01      │ Maths    │<br>
+          │ 2      │ Bob   │ C02      │ Physics  │<br>
+          └────────┴───────┴──────────┴──────────┘
+        </div>
+
+        <div class="highlight">Cartesian Product is rarely used alone — it is typically followed by a JOIN condition (WHERE) to produce meaningful results. Without a condition, it generates a huge number of rows.</div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- ===== LONG SECTION ===== -->
 <section id="long">
   <div class="section-header">
     <h2><span class="long-tag">▦</span> Long Questions</h2>
-    <p>5 questions — 10 marks each. Detailed answers. Click to expand.</p>
+    <p>11 questions — 10 marks each. Detailed answers. Click to expand.</p>
   </div>
 
   <div class="topic-divider">NORMALIZATION & DESIGN</div>
@@ -1177,6 +1350,591 @@
 
         <br><br><strong>3. Unrepeatable Read:</strong> T1 reads A=100. T2 writes A=200 and commits. T1 reads A again → 200. Same transaction sees different values.
         <br><em>Solution:</em> Repeatable Read isolation level or snapshot isolation.
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">DBMS FUNDAMENTALS</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num long-num">L6</span>
+      <span class="q-text">Write short notes on the following DBMS concepts:<br>
+        (a) Data independence<br>
+        (b) Data abstraction<br>
+        (c) Data redundancy<br>
+        (d) Characteristics of DBMS<br>
+        (e) Example of DBMS<br>
+        (f) Data integrity<br>
+        (g) Data inconsistency<br>
+        (h) Referential integrity</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label long-lbl">DETAILED ANSWER</div>
+      <div class="ans-text">
+
+        <strong>(a) Data Independence</strong>
+        <br>Data independence is the ability to modify the schema at one level without affecting the schema at the next higher level. Two types:
+        <ul>
+          <li><strong>Physical Independence:</strong> Changing physical storage (file organization, indexing) without affecting logical schema. <em>Example:</em> Adding an index to speed up queries — no change to application code.</li>
+          <li><strong>Logical Independence:</strong> Changing logical schema (adding/removing columns, tables) without affecting external views. <em>Example:</em> Adding a new column 'Phone' to Student table — existing views/queries that don't use Phone still work.</li>
+        </ul>
+        This is achieved through the <strong>three-schema architecture</strong> (physical, logical, view).
+
+        <br><br><strong>(b) Data Abstraction</strong>
+        <br>Data abstraction hides the complexity of data storage and provides a simplified interface. Three levels:
+        <ul>
+          <li><strong>Physical Level:</strong> How data is actually stored on disk (blocks, pages, indexing). Lowest level.</li>
+          <li><strong>Logical Level:</strong> What data is stored and relationships among them. Describes tables, rows, columns, constraints.</li>
+          <li><strong>View Level:</strong> Part of the database visible to specific users. Hides irrelevant data for security and simplicity.</li>
+        </ul>
+
+        <br><br><strong>(c) Data Redundancy</strong>
+        <br>Redundancy means storing the same data in multiple places. In file systems, redundancy is high (same data in different files). In DBMS, redundancy is controlled and minimized through:
+        <ul>
+          <li><strong>Normalization</strong> — decomposing tables to eliminate duplication.</li>
+          <li><strong>Centralized storage</strong> — single source of truth.</li>
+        </ul>
+        <em>Problems caused by redundancy:</em> wasted storage, data inconsistency, update anomalies, insertion/deletion anomalies.
+
+        <br><br><strong>(d) Characteristics of DBMS</strong>
+        <ul>
+          <li><strong>Self-describing nature:</strong> DBMS stores metadata (data dictionary) about itself.</li>
+          <li><strong>Data independence:</strong> Separation of data and programs.</li>
+          <li><strong>Controlled redundancy:</strong> Minimizes duplication while allowing some for performance.</li>
+          <li><strong>Data integrity:</strong> Constraints ensure accuracy and consistency.</li>
+          <li><strong>Data security:</strong> User authentication, role-based access, encryption.</li>
+          <li><strong>Concurrent access:</strong> Multiple users can access simultaneously with ACID guarantees.</li>
+          <li><strong>Backup and recovery:</strong> Automated recovery from crashes and failures.</li>
+          <li><strong>Data sharing:</strong> Multiple applications and users share the same data.</li>
+          <li><strong>Query language:</strong> SQL for easy data retrieval and manipulation.</li>
+        </ul>
+
+        <br><br><strong>(e) Examples of DBMS</strong>
+        <table>
+          <tr><th>DBMS</th><th>Type</th><th>Features</th></tr>
+          <tr><td>MySQL</td><td>Relational (RDBMS)</td><td>Open-source, widely used for web apps</td></tr>
+          <tr><td>Oracle</td><td>Relational (RDBMS)</td><td>Enterprise-grade, advanced features</td></tr>
+          <tr><td>PostgreSQL</td><td>Relational (ORDBMS)</td><td>Open-source, object-relational, ACID</td></tr>
+          <tr><td>MongoDB</td><td>NoSQL (Document)</td><td>Document-based, schema-less, scalable</td></tr>
+          <tr><td>Microsoft SQL Server</td><td>Relational (RDBMS)</td><td>Windows ecosystem, BI tools</td></tr>
+          <tr><td>SQLite</td><td>Relational (RDBMS)</td><td>Embedded, serverless, lightweight</td></tr>
+        </table>
+
+        <br><br><strong>(f) Data Integrity</strong>
+        <br>Data integrity ensures accuracy, consistency, and validity of data. Types:
+        <ul>
+          <li><strong>Entity Integrity:</strong> Primary key must be unique and NOT NULL.</li>
+          <li><strong>Referential Integrity:</strong> Foreign key values must match a primary key or be NULL.</li>
+          <li><strong>Domain Integrity:</strong> Column values must fall within a defined domain (data type, CHECK constraint).</li>
+          <li><strong>User-defined Integrity:</strong> Business rules specific to an application.</li>
+        </ul>
+
+        <br><br><strong>(g) Data Inconsistency</strong>
+        <br>Data inconsistency occurs when different copies of the same data have different values. Caused by:
+        <ul>
+          <li>Uncontrolled redundancy — same data updated in one place but not others.</li>
+          <li>Concurrent access without proper locking — dirty reads, lost updates.</li>
+          <li>Lack of integrity constraints — invalid data entered.</li>
+        </ul>
+        <em>Solution:</em> Normalization, ACID transactions, integrity constraints.
+
+        <br><br><strong>(h) Referential Integrity</strong>
+        <br>Referential integrity ensures that a foreign key value in one table must either match a primary key value in the referenced table or be NULL. It prevents orphan records.
+        <div class="formula">
+          CREATE TABLE Enrollment (<br>
+          &nbsp;&nbsp;StudentID INT,<br>
+          &nbsp;&nbsp;CourseID INT,<br>
+          &nbsp;&nbsp;PRIMARY KEY (StudentID, CourseID),<br>
+          &nbsp;&nbsp;FOREIGN KEY (StudentID) REFERENCES Student(StudentID)<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;ON DELETE CASCADE ON UPDATE CASCADE,<br>
+          &nbsp;&nbsp;FOREIGN KEY (CourseID) REFERENCES Course(CourseID)<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;ON DELETE CASCADE ON UPDATE CASCADE<br>
+          );
+        </div>
+        <em>Referential actions:</em> CASCADE, SET NULL, SET DEFAULT, NO ACTION, RESTRICT.
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">ARCHITECTURE</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num long-num">L7</span>
+      <span class="q-text">Explain the following DBMS architectures with diagrams:<br>
+        (a) Three-Schema Architecture (ANSI/SPARC Architecture)<br>
+        (b) Three-Tier Architecture</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label long-lbl">DETAILED ANSWER</div>
+      <div class="ans-text">
+
+        <strong>(a) Three-Schema Architecture (ANSI/SPARC)</strong>
+        <br>Proposed by ANSI/SPARC in 1975, this architecture separates the database into three levels to achieve data independence.
+
+        <br><br><strong>1. Internal (Physical) Level</strong>
+        <br>Describes <em>how</em> data is physically stored on storage media. Deals with:
+        <ul>
+          <li>Storage structures (files, pages, blocks)</li>
+          <li>Indexing methods (B+ Tree, hash)</li>
+          <li>Data compression and encryption</li>
+          <li>Record placement and access paths</li>
+        </ul>
+
+        <br><strong>2. Conceptual (Logical) Level</strong>
+        <br>Describes <em>what</em> data is stored and the relationships among them. Hides physical details.
+        <ul>
+          <li>Entities, attributes, relationships</li>
+          <li>Constraints and business rules</li>
+          <li>Tables, views, schemas</li>
+        </ul>
+
+        <br><strong>3. External (View) Level</strong>
+        <br>Describes how different users <em>see</em> the data. Each user has their own view.
+        <ul>
+          <li>Hide irrelevant data for security</li>
+          <li>Provide customized representation</li>
+          <li>Multiple views over same conceptual schema</li>
+        </ul>
+
+        <br><strong>Mapping between levels:</strong>
+        <div class="formula">
+          External/Conceptual Mapping → Logical Data Independence<br>
+          Conceptual/Internal Mapping → Physical Data Independence
+        </div>
+
+        <br><br><strong>(b) Three-Tier Architecture</strong>
+        <br>Separates an application into three logical layers for modularity, scalability, and security.
+
+        <br><br><strong>1. Presentation Tier (Client Tier)</strong>
+        <ul>
+          <li>User interface — web browser, mobile app, desktop client</li>
+          <li>Handles user interaction and display</li>
+          <li>Does NOT directly access the database</li>
+        </ul>
+
+        <br><strong>2. Application Tier (Business Logic / Middle Tier)</strong>
+        <ul>
+          <li>Contains business logic, rules, validations</li>
+          <li>Processes client requests and coordinates</li>
+          <li>Acts as a bridge between presentation and database</li>
+          <li>Examples: Java EE, .NET, Node.js, Django, Flask</li>
+        </ul>
+
+        <br><strong>3. Database Tier (Data Tier)</strong>
+        <ul>
+          <li>Manages data storage and retrieval</li>
+          <li>DBMS runs here (MySQL, Oracle, PostgreSQL)</li>
+          <li>Handles data integrity, security, transactions</li>
+        </ul>
+
+        <br><strong>Architecture Diagram:</strong>
+        <div class="formula">
+          ┌─────────────┐     ┌─────────────┐     ┌─────────────┐<br>
+          │ Presentation│────→│ Application │────→│  Database   │<br>
+          │    Tier     │     │    Tier     │     │    Tier     │<br>
+          │ (Client)    │←────│ (Middleware)│←────│  (DBMS)     │<br>
+          └─────────────┘     └─────────────┘     └─────────────┘
+        </div>
+
+        <div class="highlight">Advantages: Scalability (each tier can scale independently), security (client never directly accesses DB), maintainability (changes in one tier don't affect others), reusability (same business logic for web + mobile).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">SQL CLAUSES & FUNCTIONS</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num long-num">L8</span>
+      <span class="q-text">Explain the following SQL clauses and functions with examples:<br>
+        WHERE, LIKE, ORDER BY, GROUP BY, BETWEEN, Functions (String, Date, Numeric), SUM, COUNT, MIN, MAX, AVG</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label long-lbl">DETAILED ANSWER</div>
+      <div class="ans-text">
+        Assume the following table for all examples:
+        <div class="formula">
+          Employee(EmpID, Name, Dept, Salary, City, JoinDate)
+        </div>
+
+        <br><strong>1. WHERE</strong> — Filters rows before grouping/aggregation.
+        <div class="formula">
+          SELECT * FROM Employee WHERE Salary &gt; 50000;<br>
+          SELECT * FROM Employee WHERE Dept = 'IT' AND City = 'Bangalore';
+        </div>
+
+        <br><strong>2. LIKE</strong> — Pattern matching with wildcards: <code>%</code> (any sequence) and <code>_</code> (single character).
+        <div class="formula">
+          SELECT * FROM Employee WHERE Name LIKE 'A%';      &nbsp;&nbsp;-- Names starting with 'A'<br>
+          SELECT * FROM Employee WHERE Name LIKE '%esh';    &nbsp;&nbsp;-- Names ending with 'esh'<br>
+          SELECT * FROM Employee WHERE Name LIKE '_a%';     &nbsp;&nbsp;-- Second letter is 'a'<br>
+          SELECT * FROM Employee WHERE City LIKE '%pur%';   &nbsp;&nbsp;-- City contains 'pur'
+        </div>
+
+        <br><strong>3. ORDER BY</strong> — Sorts result set (ASC default, DESC for descending).
+        <div class="formula">
+          SELECT * FROM Employee ORDER BY Salary DESC;<br>
+          SELECT * FROM Employee ORDER BY Dept ASC, Salary DESC;
+        </div>
+
+        <br><strong>4. GROUP BY</strong> — Groups rows that have the same values, used with aggregate functions.
+        <div class="formula">
+          SELECT Dept, COUNT(*) AS EmpCount FROM Employee GROUP BY Dept;<br>
+          SELECT Dept, AVG(Salary) AS AvgSal FROM Employee GROUP BY Dept;
+        </div>
+
+        <br><strong>5. BETWEEN</strong> — Filters values in a range (inclusive).
+        <div class="formula">
+          SELECT * FROM Employee WHERE Salary BETWEEN 30000 AND 70000;<br>
+          SELECT * FROM Employee WHERE JoinDate BETWEEN '2023-01-01' AND '2024-12-31';
+        </div>
+
+        <br><strong>6. SQL Functions</strong>
+        <br><br><strong>String Functions:</strong>
+        <div class="formula">
+          SELECT UPPER(Name) FROM Employee;              &nbsp;&nbsp;-- Convert to uppercase<br>
+          SELECT LOWER(Name) FROM Employee;              &nbsp;&nbsp;-- Convert to lowercase<br>
+          SELECT LENGTH(Name) FROM Employee;              &nbsp;&nbsp;-- Length of string<br>
+          SELECT CONCAT(Name, ' - ', Dept) FROM Employee; &nbsp;&nbsp;-- Concatenate strings<br>
+          SELECT SUBSTR(Name, 1, 3) FROM Employee;        &nbsp;&nbsp;-- First 3 characters<br>
+          SELECT TRIM('  Hello  ');                       &nbsp;&nbsp;-- Remove leading/trailing spaces
+        </div>
+
+        <br><strong>Date Functions:</strong>
+        <div class="formula">
+          SELECT CURDATE();                                &nbsp;&nbsp;-- Current date<br>
+          SELECT YEAR(JoinDate) FROM Employee;             &nbsp;&nbsp;-- Extract year<br>
+          SELECT MONTH(JoinDate) FROM Employee;            &nbsp;&nbsp;-- Extract month<br>
+          SELECT DATEDIFF(CURDATE(), JoinDate) FROM Employee; &nbsp;&nbsp;-- Days between dates<br>
+          SELECT DATE_ADD(JoinDate, INTERVAL 1 YEAR) FROM Employee;
+        </div>
+
+        <br><strong>Numeric Functions:</strong>
+        <div class="formula">
+          SELECT ROUND(Salary, -3) FROM Employee;          &nbsp;&nbsp;-- Round to nearest 1000<br>
+          SELECT ABS(-50);                                 &nbsp;&nbsp;-- Absolute value<br>
+          SELECT CEIL(4.2), FLOOR(4.8);                    &nbsp;&nbsp;-- 5, 4<br>
+          SELECT MOD(10, 3);                               &nbsp;&nbsp;-- 1 (remainder)
+        </div>
+
+        <br><strong>7. Aggregate Functions</strong> — Used with GROUP BY or on entire table.
+        <div class="formula">
+          SELECT SUM(Salary) FROM Employee;                &nbsp;&nbsp;-- Total salary<br>
+          SELECT COUNT(*) FROM Employee;                   &nbsp;&nbsp;-- Total rows<br>
+          SELECT COUNT(DISTINCT Dept) FROM Employee;       &nbsp;&nbsp;-- Unique departments<br>
+          SELECT MIN(Salary), MAX(Salary) FROM Employee;   &nbsp;&nbsp;-- Min and max salary<br>
+          SELECT AVG(Salary) FROM Employee;                &nbsp;&nbsp;-- Average salary
+        </div>
+
+        <br><strong>Combined Example:</strong>
+        <div class="formula">
+          SELECT Dept,<br>
+          &nbsp;&nbsp;COUNT(*) AS EmployeeCount,<br>
+          &nbsp;&nbsp;AVG(Salary) AS AvgSalary,<br>
+          &nbsp;&nbsp;MIN(Salary) AS MinSalary,<br>
+          &nbsp;&nbsp;MAX(Salary) AS MaxSalary<br>
+          FROM Employee<br>
+          WHERE City LIKE '%pur%'<br>
+          GROUP BY Dept<br>
+          HAVING AVG(Salary) &gt; 40000<br>
+          ORDER BY AvgSalary DESC;
+        </div>
+        <div class="highlight">Order of execution: FROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">JOIN OPERATIONS</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num long-num">L9</span>
+      <span class="q-text">Explain different types of JOIN operations in SQL with examples.<br>
+        INNER JOIN, LEFT JOIN, RIGHT JOIN, FULL JOIN, CROSS JOIN, SELF JOIN, NATURAL JOIN</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label long-lbl">DETAILED ANSWER</div>
+      <div class="ans-text">
+        JOINs combine rows from two or more tables based on a related column.
+
+        <br><br>Sample tables:
+        <div class="formula">
+          Students:                    Courses:<br>
+          ┌─────┬───────┬────────┐    ┌─────┬──────────┐<br>
+          │ Sid │ SName │ Cid    │    │ Cid │ CName    │<br>
+          ├─────┼───────┼────────┤    ├─────┼──────────┤<br>
+          │ 1   │ Alice │ C01    │    │ C01 │ Maths    │<br>
+          │ 2   │ Bob   │ C02    │    │ C02 │ Physics  │<br>
+          │ 3   │ Carol │ C03    │    │ C04 │ Chemistry│<br>
+          └─────┴───────┴────────┘    └─────┴──────────┘
+        </div>
+
+        <br><strong>1. INNER JOIN</strong> — Returns rows where there is a match in both tables.
+        <div class="formula">
+          SELECT S.SName, C.CName<br>
+          FROM Students S<br>
+          INNER JOIN Courses C ON S.Cid = C.Cid;
+        </div>
+        <em>Result:</em> Alice-Maths, Bob-Physics. Carol excluded (C03 has no match in Courses).
+
+        <br><br><strong>2. LEFT JOIN (LEFT OUTER JOIN)</strong> — All rows from left table, matching rows from right. NULLs where no match.
+        <div class="formula">
+          SELECT S.SName, C.CName<br>
+          FROM Students S<br>
+          LEFT JOIN Courses C ON S.Cid = C.Cid;
+        </div>
+        <em>Result:</em> Alice-Maths, Bob-Physics, Carol-NULL.
+
+        <br><br><strong>3. RIGHT JOIN (RIGHT OUTER JOIN)</strong> — All rows from right table, matching rows from left. NULLs where no match.
+        <div class="formula">
+          SELECT S.SName, C.CName<br>
+          FROM Students S<br>
+          RIGHT JOIN Courses C ON S.Cid = C.Cid;
+        </div>
+        <em>Result:</em> Alice-Maths, Bob-Physics, NULL-Chemistry.
+
+        <br><br><strong>4. FULL JOIN (FULL OUTER JOIN)</strong> — All rows from both tables. NULLs where no match.
+        <div class="formula">
+          SELECT S.SName, C.CName<br>
+          FROM Students S<br>
+          FULL JOIN Courses C ON S.Cid = C.Cid;
+        </div>
+        <em>Result:</em> Alice-Maths, Bob-Physics, Carol-NULL, NULL-Chemistry.
+
+        <br><br><strong>5. CROSS JOIN (Cartesian Product)</strong> — Every row of table A paired with every row of table B.
+        <div class="formula">
+          SELECT S.SName, C.CName<br>
+          FROM Students S<br>
+          CROSS JOIN Courses C;
+        </div>
+        <em>Result:</em> 3 Students × 3 Courses = 9 rows.
+
+        <br><br><strong>6. SELF JOIN</strong> — Joining a table with itself. Requires table aliases.
+        <div class="formula">
+          SELECT e1.Name AS Employee, e2.Name AS Manager<br>
+          FROM Employee e1<br>
+          JOIN Employee e2 ON e1.ManagerID = e2.EmpID;
+        </div>
+
+        <br><br><strong>7. NATURAL JOIN</strong> — JOIN based on columns with the same name. MySQL uses matching column names automatically.
+        <div class="formula">
+          SELECT * FROM Students NATURAL JOIN Courses;
+        </div>
+        <div class="highlight">NATURAL JOIN is risky — it matches ALL columns with same names. Best practice: use INNER JOIN with explicit ON condition.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">ER MODEL (HIGH PRIORITY)</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num long-num">L10</span>
+      <span class="q-text">Explain the Entity-Relationship (ER) Model in detail, covering:<br>
+        (a) Entities, attributes, and relationships<br>
+        (b) Types of attributes and keys<br>
+        (c) Cardinality and participation constraints<br>
+        (d) Weak entities and generalization/specialization<br>
+        (e) How to convert an ER diagram into relational schema</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label long-lbl">DETAILED ANSWER</div>
+      <div class="ans-text">
+
+        <strong>(a) Entities, Attributes, and Relationships</strong>
+        <br><strong>Entity:</strong> A real-world object distinguishable from others (e.g., a Student, a Car). Represented by a <strong>rectangle</strong> in ER diagrams.
+        <br><strong>Attribute:</strong> Properties that describe an entity (e.g., Student: RollNo, Name, Age). Represented by an <strong>ellipse</strong>.
+        <br><strong>Relationship:</strong> Association between entities (e.g., Student <em>enrolls in</em> Course). Represented by a <strong>diamond</strong>.
+
+        <br><br><strong>(b) Types of Attributes</strong>
+        <table>
+          <tr><th>Attribute Type</th><th>Description</th><th>ER Notation</th></tr>
+          <tr><td><strong>Simple</strong></td><td>Atomic, cannot be divided (e.g., Age)</td><td>Single ellipse</td></tr>
+          <tr><td><strong>Composite</strong></td><td>Can be subdivided (e.g., Name = First + Last)</td><td>Ellipse with sub-ellipses</td></tr>
+          <tr><td><strong>Multivalued</strong></td><td>Multiple values (e.g., PhoneNumbers)</td><td>Double ellipse</td></tr>
+          <tr><td><strong>Derived</strong></td><td>Calculated from others (e.g., Age from DOB)</td><td>Dashed ellipse</td></tr>
+          <tr><td><strong>Key</strong></td><td>Uniquely identifies entity (e.g., RollNo)</td><td>Underlined attribute</td></tr>
+        </table>
+
+        <br><strong>Types of Keys:</strong>
+        <ul>
+          <li><strong>Super Key:</strong> Set of attributes that uniquely identifies a tuple.</li>
+          <li><strong>Candidate Key:</strong> Minimal super key (no proper subset is a super key).</li>
+          <li><strong>Primary Key:</strong> Selected candidate key (NOT NULL, unique). Underlined in ER diagram.</li>
+          <li><strong>Foreign Key:</strong> References primary key of another table.</li>
+        </ul>
+
+        <br><br><strong>(c) Cardinality and Participation Constraints</strong>
+        <br><strong>Cardinality</strong> — Maximum number of relationship instances an entity can participate in:
+        <div class="formula">
+          1:1 — One-to-One (Person ↔ Aadhaar Card)<br>
+          1:N — One-to-Many (Department → Employees)<br>
+          M:N — Many-to-Many (Students ↔ Courses)
+        </div>
+
+        <br><strong>Participation</strong> — Minimum number of relationship instances:
+        <ul>
+          <li><strong>Total (mandatory):</strong> Every entity must participate (double line). <em>Example:</em> Every Employee must belong to a Department.</li>
+          <li><strong>Partial (optional):</strong> Some entities may not participate (single line). <em>Example:</em> A Student may or may not live in a Hostel.</li>
+        </ul>
+
+        <br><br><strong>(d) Weak Entities and Generalization/Specialization</strong>
+        <br><strong>Weak Entity:</strong> An entity that cannot be uniquely identified by its own attributes alone; depends on an <strong>identifying relationship</strong> with a <strong>strong entity</strong>.
+        <ul>
+          <li>Represented by a <strong>double rectangle</strong>.</li>
+          <li>Identifying relationship: double diamond.</li>
+          <li><em>Example:</em> Payment (PaymentID is only unique within a specific Order).</li>
+          <li>Weak entity has a <strong>partial key</strong> (dashed underline).</li>
+        </ul>
+
+        <br><strong>Generalization:</strong> Combining common attributes of lower-level entities into a higher-level entity (bottom-up).<br>
+        <strong>Specialization:</strong> Creating sub-groups from a higher-level entity (top-down).<br>
+        <em>Example:</em> Person generalized into Student and Employee; Student specialized into UG and PG.
+
+        <br><br><strong>(e) ER-to-Relational Mapping</strong>
+        <br>Steps to convert ER diagram to relational schema:
+        <ol>
+          <li><strong>Strong entity</strong> → A table with primary key.</li>
+          <li><strong>Weak entity</strong> → Table with foreign key referencing strong entity's PK; PK = partial_key + FK.</li>
+          <li><strong>1:1 Relationship</strong> → Add FK in either entity (prefer the one with total participation).</li>
+          <li><strong>1:N Relationship</strong> → Add FK in the N-side entity referencing PK of 1-side.</li>
+          <li><strong>M:N Relationship</strong> → New table with FKs referencing both entity PKs; PK = (FK1, FK2).</li>
+          <li><strong>Multivalued attribute</strong> → New table with FK referencing entity's PK.</li>
+          <li><strong>Composite attribute</strong> → Only component attributes are included.</li>
+          <li><strong>Derived attribute</strong> → Not stored; computed when needed.</li>
+        </ol>
+
+        <br><strong>Example — ER to Relational:</strong>
+        <div class="formula">
+          Student(<u>SID</u>, Name) — strong entity<br>
+          Course(<u>CID</u>, Title) — strong entity<br>
+          Enrolls(<u>SID</u>, <u>CID</u>, Grade) — M:N relationship table
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">NORMALIZATION & CLOSURE / BCNF</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num long-num">L11</span>
+      <span class="q-text">Explain Normalization, Attribute Closure, and BCNF decomposition:<br>
+        (a) 1NF, 2NF, 3NF, BCNF with examples<br>
+        (b) Attribute closure — how to find candidate keys<br>
+        (c) BCNF property and decomposition algorithm<br>
+        (d) Demonstrate with a complete example</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label long-lbl">DETAILED ANSWER</div>
+      <div class="ans-text">
+
+        <strong>(a) Normal Forms</strong>
+        <br><strong>1NF (First Normal Form):</strong>
+        <ul>
+          <li>Every attribute contains only atomic (indivisible) values.</li>
+          <li>No repeating groups or arrays.</li>
+        </ul>
+        <em>Violation:</em> Student with PhoneNumbers = {98765, 54321}
+        <br><em>Fix:</em> Separate Phone table or store one phone per row.
+
+        <br><br><strong>2NF (Second Normal Form):</strong>
+        <ul>
+          <li>In 1NF + no <strong>partial dependency</strong>.</li>
+          <li>Partial dependency: non-key attribute depends on part of a composite candidate key.</li>
+        </ul>
+        <em>Violation:</em> Enrollment(<u>StudentID, CourseID</u>, StudentName) — StudentName depends on StudentID (part of PK).
+        <br><em>Fix:</em> Split into Enrollment(<u>StudentID, CourseID</u>) and Student(<u>StudentID</u>, StudentName).
+
+        <br><br><strong>3NF (Third Normal Form):</strong>
+        <ul>
+          <li>In 2NF + no <strong>transitive dependency</strong>.</li>
+          <li>Transitive dependency: non-key attribute depends on another non-key attribute.</li>
+        </ul>
+        <em>Violation:</em> Employee(<u>EmpID</u>, DeptID, DeptName) — DeptName depends on DeptID (not on EmpID directly).
+        <br><em>Fix:</em> Employee(<u>EmpID</u>, DeptID) and Department(<u>DeptID</u>, DeptName).
+
+        <br><br><strong>BCNF (Boyce-Codd Normal Form):</strong>
+        <ul>
+          <li>In 3NF + for every non-trivial FD X → Y, X must be a <strong>super key</strong>.</li>
+          <li>Stricter than 3NF — every BCNF is in 3NF, but not vice versa.</li>
+        </ul>
+
+        <br><br><strong>(b) Attribute Closure — Finding Candidate Keys</strong>
+        <br><strong>Definition:</strong> Closure of attribute set X (denoted X<sup>+</sup>) is the set of all attributes that can be functionally determined by X.
+        <br><br><strong>Algorithm:</strong>
+        <div class="formula">
+          closure = X<br>
+          repeat:<br>
+          &nbsp;&nbsp;for each FD A → B:<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;if A ⊆ closure: closure = closure ∪ B<br>
+          until no change
+        </div>
+
+        <br><strong>Example:</strong> R(A, B, C, D, E) with FDs: AB → C, C → D, D → E, B → A
+        <br><br>Find all candidate keys:
+        <div class="formula">
+          B<sup>+</sup> = {B, A, C, D, E} = all attributes → B is a candidate key.<br>
+          AB<sup>+</sup> = {A, B, C, D, E} → AB is a super key but NOT minimal (B alone is sufficient).<br>
+          So, <strong>Candidate Key = {B}</strong>
+        </div>
+
+        <br><br><strong>(c) BCNF Decomposition Algorithm</strong>
+        <div class="formula">
+          Given relation R and set of FDs F:<br>
+          1. Find a FD X → Y that violates BCNF (X is NOT a super key).<br>
+          2. Decompose R into:<br>
+          &nbsp;&nbsp;R1 = X ∪ Y<br>
+          &nbsp;&nbsp;R2 = R − Y<br>
+          3. Repeat for R1 and R2 until all relations are in BCNF.
+        </div>
+
+        <br><strong>(d) Complete Example</strong>
+        <br>R(StudentID, CourseID, InstructorID, InstructorDept, Grade)
+        <br>FDs: StudentID, CourseID → Grade, InstructorID
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;InstructorID → InstructorDept
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CourseID → InstructorID
+
+        <br><br><strong>Step 1 — Find candidate keys:</strong>
+        <div class="formula">
+          {StudentID, CourseID}<sup>+</sup> = {StudentID, CourseID, Grade, InstructorID, InstructorDept}<br>
+          → Candidate Key: {StudentID, CourseID}
+        </div>
+
+        <br><strong>Step 2 — Check BCNF violations:</strong>
+        <div class="formula">
+          FD1: StudentID, CourseID → Grade, InstructorID — X is CK, OK.<br>
+          FD2: InstructorID → InstructorDept — X is NOT a super key. <strong>VIOLATION</strong><br>
+          FD3: CourseID → InstructorID — X is NOT a super key. <strong>VIOLATION</strong>
+        </div>
+
+        <br><strong>Step 3 — Decompose:</strong>
+        <div class="formula">
+          Take FD3 violation first: CourseID → InstructorID<br>
+          R1({StudentID, CourseID, Grade, InstructorID}) — keep CourseID as FK<br>
+          R2({CourseID, InstructorID})<br><br>
+          In R2: CourseID → InstructorID, InstructorID → InstructorDept (still violates)<br>
+          Decompose R2 further:<br>
+          R2a({CourseID, InstructorID}) — now in BCNF<br>
+          R2b({InstructorID, InstructorDept}) — in BCNF
+        </div>
+
+        <br><strong>Final BCNF decomposition:</strong>
+        <div class="formula">
+          Enrollment(<u>StudentID</u>, <u>CourseID</u>, Grade)<br>
+          Teaches(<u>CourseID</u>, InstructorID)<br>
+          Instructor(<u>InstructorID</u>, InstructorDept)
+        </div>
+
+        <div class="highlight">BCNF decomposition is lossless and preserves data. However, it may NOT preserve all FDs — in that case, 3NF is preferred.</div>
       </div>
     </div>
   </div>
