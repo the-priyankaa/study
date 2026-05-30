@@ -1,0 +1,2079 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Exam Question Bank</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap');
+
+  :root {
+    --bg: #0d0f14;
+    --surface: #13161e;
+    --surface2: #1a1e2a;
+    --border: #252b3b;
+    --accent1: #6ee7b7;
+    --accent2: #f59e0b;
+    --accent3: #818cf8;
+    --text: #e2e8f0;
+    --text-dim: #64748b;
+    --text-mid: #94a3b8;
+    --english-color: #e11d48;
+    --mcq-color: #34d399;
+    --saq-color: #fbbf24;
+    --long-color: #a78bfa;
+    --correct: #10b981;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Lora', Georgia, serif;
+    min-height: 100vh;
+    line-height: 1.7;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 2.5rem 2rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -60px; left: 50%; transform: translateX(-50%);
+    width: 600px; height: 200px;
+    background: radial-gradient(ellipse, rgba(225,29,72,0.08) 0%, transparent 70%);
+  }
+  header h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--english-color);
+  }
+  header p {
+    color: var(--text-mid);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+    letter-spacing: 0.1em;
+  }
+  .home-link {
+    position: absolute;
+    top: 1.2rem;
+    left: 1.5rem;
+    z-index: 2;
+    color: var(--text-dim);
+    text-decoration: none;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+  .home-link:hover { color: var(--english-color); }
+  .home-link:active { color: var(--english-color); }
+
+  /* NAV TABS */
+  nav {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  nav button {
+    padding: 1rem 2.5rem;
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    color: var(--text-dim);
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  nav button:hover { color: var(--text); }
+  nav button.active-mcq { color: var(--mcq-color); border-bottom-color: var(--mcq-color); }
+  nav button.active-saq { color: var(--saq-color); border-bottom-color: var(--saq-color); }
+  nav button.active-long { color: var(--long-color); border-bottom-color: var(--long-color); }
+
+  /* DISCLAIMER */
+  .disclaimer {
+    background: rgba(225,29,72,0.08);
+    border: 1px solid rgba(225,29,72,0.25);
+    border-radius: 8px;
+    padding: 1rem 1.4rem;
+    margin: 1.5rem auto;
+    max-width: 900px;
+    font-size: 0.9rem;
+    color: var(--text-mid);
+    line-height: 1.6;
+  }
+  .disclaimer strong {
+    color: var(--english-color);
+    font-family: 'Syne', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* SECTIONS */
+  section { display: none; padding: 0 2rem 2rem; max-width: 900px; margin: 0 auto; }
+  section.active { display: block; }
+
+  .section-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-header h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+  }
+  .section-header p {
+    color: var(--text-mid);
+    font-size: 0.9rem;
+    margin-top: 0.3rem;
+  }
+  .mcq-tag { color: var(--mcq-color); }
+  .saq-tag { color: var(--saq-color); }
+  .long-tag { color: var(--long-color); }
+
+  /* QUESTION CARD */
+  .q-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 1.2rem;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .q-card:hover { border-color: #333d52; }
+
+  .q-header {
+    padding: 1.1rem 1.4rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    cursor: pointer;
+    user-select: none;
+  }
+  .q-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.2rem 0.55rem;
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+  }
+  .mcq-num { background: rgba(52,211,153,0.12); color: var(--mcq-color); }
+  .saq-num { background: rgba(251,191,36,0.12); color: var(--saq-color); }
+  .long-num { background: rgba(167,139,250,0.12); color: var(--long-color); }
+
+  .q-text {
+    flex: 1;
+    font-size: 0.97rem;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .q-toggle {
+    font-size: 1.1rem;
+    color: var(--text-dim);
+    flex-shrink: 0;
+    transition: transform 0.25s;
+    margin-top: 0.1rem;
+  }
+  .q-card.open .q-toggle { transform: rotate(180deg); }
+
+  /* OPTIONS (MCQ) */
+  .q-options {
+    padding: 0 1.4rem 0.5rem 3.8rem;
+  }
+  .option {
+    padding: 0.4rem 0.8rem;
+    margin: 0.25rem 0;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    color: var(--text-mid);
+    border: 1px solid transparent;
+  }
+  .option.correct {
+    background: rgba(16,185,129,0.1);
+    border-color: rgba(16,185,129,0.3);
+    color: var(--correct);
+    font-weight: 500;
+  }
+
+  /* ANSWER PANEL */
+  .q-answer {
+    display: none;
+    border-top: 1px solid var(--border);
+    padding: 1.2rem 1.4rem 1.2rem 3.8rem;
+    background: var(--surface2);
+  }
+  .q-card.open .q-answer { display: block; }
+
+  .ans-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    color: var(--text-dim);
+    margin-bottom: 0.6rem;
+  }
+  .ans-label.mcq-lbl { color: var(--mcq-color); }
+  .ans-label.saq-lbl { color: var(--saq-color); }
+  .ans-label.long-lbl { color: var(--long-color); }
+
+  .ans-text {
+    font-size: 0.92rem;
+    color: var(--text-mid);
+    line-height: 1.75;
+  }
+  .ans-text strong { color: var(--text); font-style: normal; }
+  .ans-text ul { padding-left: 1.2rem; margin-top: 0.4rem; }
+  .ans-text ul li { margin-bottom: 0.3rem; }
+  .ans-text .formula {
+    font-family: 'IBM Plex Mono', monospace;
+    background: rgba(255,255,255,0.05);
+    padding: 0.6rem 1rem;
+    border-radius: 5px;
+    border-left: 3px solid var(--accent3);
+    margin: 0.6rem 0;
+    font-size: 0.85rem;
+    color: #c4b5fd;
+  }
+  .ans-text .highlight {
+    background: rgba(225,29,72,0.08);
+    border-left: 3px solid var(--english-color);
+    padding: 0.6rem 1rem;
+    border-radius: 0 5px 5px 0;
+    margin: 0.6rem 0;
+    color: var(--text);
+  }
+  table { border-collapse: collapse; width: 100%; margin: 0.6rem 0; font-size: 0.85rem; }
+  th { background: rgba(255,255,255,0.05); padding: 0.5rem 0.8rem; text-align: left; color: var(--text); font-family: 'Syne', sans-serif; font-size: 0.8rem; border: 1px solid var(--border); }
+  td { padding: 0.45rem 0.8rem; border: 1px solid var(--border); color: var(--text-mid); }
+
+  /* TOPIC DIVIDER */
+  .topic-divider {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--text-dim);
+    padding: 0.5rem 0;
+    margin: 1.5rem 0 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .topic-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-dim);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    border-top: 1px solid var(--border);
+    margin-top: 2rem;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    header { padding: 2.25rem 1.5rem 2rem; }
+    header h1 { font-size: 2rem; }
+    nav button { padding: 0.9rem 1.4rem; font-size: 0.8rem; }
+    section { padding: 0 1.6rem 1.6rem; }
+    .section-header h2 { font-size: 1.4rem; }
+    .disclaimer { margin: 1.2rem 1.6rem; }
+  }
+
+  @media (max-width: 768px) {
+    .home-link { display: none; }
+    .section-header h2 { font-size: 1.3rem; }
+    .section-header p { font-size: 0.8rem; }
+    .q-num { font-size: 0.7rem; padding: 0.15rem 0.45rem; }
+    .option { font-size: 0.85rem; padding: 0.3rem 0.6rem; }
+    .disclaimer { font-size: 0.82rem; padding: 0.9rem 1.1rem; }
+  }
+
+  @media (max-width: 600px) {
+    header { padding: 2rem 1.1rem 1.7rem; }
+    header h1 { font-size: 1.7rem; }
+    header p { font-size: 0.7rem; }
+    nav { flex-direction: column; align-items: stretch; }
+    nav button { width: 100%; padding: 0.85rem 1rem; border-bottom: 1px solid var(--border); }
+    nav button:last-child { border-bottom: none; }
+    section { padding: 0 1.2rem 1.2rem; }
+    .disclaimer { margin: 1rem 1.2rem; font-size: 0.8rem; padding: 0.8rem 1rem; }
+    .q-header { padding: 0.9rem 1.1rem; gap: 0.7rem; }
+    .q-text { font-size: 0.93rem; }
+    .q-options { padding: 0 1.1rem 0.5rem 2.8rem; }
+    .q-answer { padding: 1rem 1.1rem 1rem 2.8rem; }
+    .ans-text { font-size: 0.85rem; }
+    .ans-label { font-size: 0.65rem; }
+    table { display: block; overflow-x: auto; white-space: nowrap; }
+    .topic-divider { font-size: 0.7rem; }
+    .section-header h2 { font-size: 1.15rem; }
+    footer { padding: 1.5rem; font-size: 0.65rem; }
+  }
+
+  @media (max-width: 400px) {
+    header { padding: 1.75rem 0.9rem 1.5rem; }
+    header h1 { font-size: 1.4rem; }
+    header p { font-size: 0.6rem; }
+    nav button { padding: 0.75rem 1rem; font-size: 0.75rem; }
+    section { padding: 0 0.9rem 0.9rem; }
+    .disclaimer { margin: 0.8rem 0.9rem; font-size: 0.75rem; padding: 0.7rem 0.9rem; }
+    .q-header { padding: 0.75rem 0.9rem; gap: 0.5rem; }
+    .q-text { font-size: 0.88rem; }
+    .q-options { padding: 0 0.9rem 0.4rem 2rem; }
+    .q-answer { padding: 0.85rem 0.9rem 0.85rem 2rem; }
+    .option { font-size: 0.8rem; padding: 0.25rem 0.5rem; margin: 0.15rem 0; }
+    .topic-divider { font-size: 0.6rem; }
+    .section-header h2 { font-size: 1rem; }
+    .section-header p { font-size: 0.72rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="home-link">← HOME</a>
+  <h1>English Exam Question Bank</h1>
+  <p>MCQ · SAQ · LONG QUESTIONS — WITH FULL ANSWERS</p>
+</header>
+
+<nav>
+  <button class="active-mcq" onclick="switchTab('mcq')">▣ MCQ SET</button>
+  <button class="active-saq" onclick="switchTab('saq')">▤ SHORT ANSWER</button>
+  <button onclick="switchTab('long')">▦ LONG QUESTIONS</button>
+</nav>
+
+<div class="disclaimer">
+  <strong>NOTE:</strong> This note covers only <strong>Articles, Communication, Prepositions, Vocabulary Building, and Word Formation</strong>. For the Writing and Grammar, prepare them on your own.
+</div>
+
+<!-- ========================= MCQ SECTION ========================= -->
+<section id="mcq" class="active">
+  <div class="section-header">
+    <h2><span class="mcq-tag">▣</span> MCQ Practice Set</h2>
+    <p>50 Multiple Choice Questions — Click to reveal answer.</p>
+  </div>
+
+  <div class="topic-divider">⭐ SECTION 1: WORD FORMATION (Q1–Q10)</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q1</span>
+      <span class="q-text">What is back-formation in word formation?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Combining two complete words</div>
+      <div class="option correct">b) Creating a new word by removing what is believed to be an affix</div>
+      <div class="option">c) Shortening a word by dropping some part</div>
+      <div class="option">d) Repeating a word or part of a word</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q2</span>
+      <span class="q-text">The word "brunch" is formed by which process?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Clipping</div>
+      <div class="option">b) Back-formation</div>
+      <div class="option correct">c) Blending</div>
+      <div class="option">d) Reduplication</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: C (breakfast + lunch)</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q3</span>
+      <span class="q-text">Which of the following is an example of back-formation?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) "Photograph" to "photo"</div>
+      <div class="option correct">b) "Edit" from "editor"</div>
+      <div class="option">c) "Tick-tick" (sound)</div>
+      <div class="option">d) "Smog" from "smoke + fog"</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q4</span>
+      <span class="q-text">What does "fore-clipping" mean?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Removing from the end of a word</div>
+      <div class="option">b) Removing from the middle of a word</div>
+      <div class="option correct">c) Removing from the beginning of a word</div>
+      <div class="option">d) Removing from both ends of a word</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: C (Example: bus from omnibus)</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q5</span>
+      <span class="q-text">Which type of reduplication has identical vowels and consonants, but the initial consonant changes?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Exact reduplication</div>
+      <div class="option correct">b) Rhyming reduplication</div>
+      <div class="option">c) Ablaut reduplication</div>
+      <div class="option">d) Complete reduplication</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B (Example: roly-poly, namby-pamby)</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q6</span>
+      <span class="q-text">What is the main difference between an acronym and an initialism?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Acronyms are longer</div>
+      <div class="option correct">b) Acronyms are pronounced as words; initialisms are pronounced letter-by-letter</div>
+      <div class="option">c) Initialisms are more formal</div>
+      <div class="option">d) There is no difference</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B (Example: NASA vs. FBI)</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q7</span>
+      <span class="q-text">The word "workaholic" is best described as:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) A compound word</div>
+      <div class="option">b) A clipped word</div>
+      <div class="option correct">c) A blended word</div>
+      <div class="option">d) A back-formed word</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: C (work + alcoholic)</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q8</span>
+      <span class="q-text">Which of these is an example of "end-clipping"?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) "Plane" from "aeroplane"</div>
+      <div class="option correct">b) "Lab" from "laboratory"</div>
+      <div class="option">c) "Flu" from "influenza"</div>
+      <div class="option">d) "Lax" from "lacrosse"</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q9</span>
+      <span class="q-text">In the word "television," what process later led to the creation of "televise"?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Compounding</div>
+      <div class="option correct">b) Back-formation</div>
+      <div class="option">c) Blending</div>
+      <div class="option">d) Reduplication</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q10</span>
+      <span class="q-text">Which term is used for words created by repeating whole or part of a root word?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Acronyms</div>
+      <div class="option correct">b) Reduplication</div>
+      <div class="option">c) Blending</div>
+      <div class="option">d) Affixation</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+    </div>
+  </div>
+
+  <div class="topic-divider">🔤 SECTION 2: ARTICLES (Q11–Q18)</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q11</span>
+      <span class="q-text">Choose the correct article: "I saw _______ apple on the table."</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) a</div>
+      <div class="option correct">b) an</div>
+      <div class="option">c) the</div>
+      <div class="option">d) no article</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B (vowel sound)</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q12</span>
+      <span class="q-text">Which article is used before consonant sounds?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) an</div>
+      <div class="option correct">b) a</div>
+      <div class="option">c) the</div>
+      <div class="option">d) zero article</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q13</span>
+      <span class="q-text">"The information was very helpful." Why is "the" used here?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Information is countable</div>
+      <div class="option correct">b) Information is specific and known</div>
+      <div class="option">c) Information is always used with "the"</div>
+      <div class="option">d) It's a rule without reason</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q14</span>
+      <span class="q-text">"Dogs are loyal animals." What article is used here and why?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) "a" — singular</div>
+      <div class="option">b) "an" — before vowel</div>
+      <div class="option correct">c) Zero article — making generalization</div>
+      <div class="option">d) "the" — specific dogs</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: C</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q15</span>
+      <span class="q-text">Choose the correct option: "She is _______ doctor working at _______ hospital."</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) a, an</div>
+      <div class="option correct">b) a, the</div>
+      <div class="option">c) an, a</div>
+      <div class="option">d) the, the</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B (a doctor — indefinite singular; the hospital — specific)</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q16</span>
+      <span class="q-text">Which statement about uncountable nouns is correct?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) They can use "a" or "an"</div>
+      <div class="option">b) They are never used with "the"</div>
+      <div class="option correct">c) They can be used with "the" when specific</div>
+      <div class="option">d) They must always have an article</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: C</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q17</span>
+      <span class="q-text">"John saw a lion in the jungle. The lion was very fierce." Why does the article change from "a" to "the"?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Because "the" is always used in second mention</div>
+      <div class="option correct">b) Because information becomes specific after first mention</div>
+      <div class="option">c) Because "lion" is now plural</div>
+      <div class="option">d) For no particular reason</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B (Given-New Distinction)</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q18</span>
+      <span class="q-text">Choose correct: "_______ information you provided and _______ advice from your teacher were helpful."</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) A, an</div>
+      <div class="option correct">b) The, the</div>
+      <div class="option">c) An, a</div>
+      <div class="option">d) Zero article, zero article</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B (both uncountable and specific)</div>
+    </div>
+  </div>
+
+  <div class="topic-divider">📍 SECTION 3: PREPOSITIONS (Q19–Q28)</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q19</span>
+      <span class="q-text">Which preposition indicates position above something?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Under</div>
+      <div class="option">b) Below</div>
+      <div class="option correct">c) Above</div>
+      <div class="option">d) Beside</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: C</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q20</span>
+      <span class="q-text">"We met _______ the morning." What preposition should be used?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option correct">a) in</div>
+      <div class="option">b) on</div>
+      <div class="option">c) at</div>
+      <div class="option">d) during</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: A (period of time)</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q21</span>
+      <span class="q-text">"He walked _______ the road." Which preposition is correct?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) through</div>
+      <div class="option correct">b) across</div>
+      <div class="option">c) along</div>
+      <div class="option">d) toward</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B (crossing from one side to another)</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q22</span>
+      <span class="q-text">Which preposition shows movement from one place to another?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) In</div>
+      <div class="option">b) On</div>
+      <div class="option correct">c) Into</div>
+      <div class="option">d) Beside</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: C</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q23</span>
+      <span class="q-text">"The picture is _______ the wall." What preposition shows surface contact?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) in</div>
+      <div class="option correct">b) on</div>
+      <div class="option">c) under</div>
+      <div class="option">d) above</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q24</span>
+      <span class="q-text">Classify "in spite of" as a type of preposition:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Simple preposition</div>
+      <div class="option correct">b) Complex preposition</div>
+      <div class="option">c) Adverb</div>
+      <div class="option">d) Conjunction</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q25</span>
+      <span class="q-text">"Despite the rain, we played." Which complex preposition is similar?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) According to</div>
+      <div class="option">b) In front of</div>
+      <div class="option correct">c) In spite of</div>
+      <div class="option">d) Away from</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: C</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q26</span>
+      <span class="q-text">Explain the difference between "at" and "in" for time:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) "at" is for periods; "in" is for specific times</div>
+      <div class="option correct">b) "at" is for specific points; "in" is for duration/periods</div>
+      <div class="option">c) No difference</div>
+      <div class="option">d) "at" is always for place only</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B (at 6 PM vs. in 5 minutes)</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q27</span>
+      <span class="q-text">Which pair of prepositions correctly contrasts place?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) In/out (without "of")</div>
+      <div class="option correct">b) Above/below</div>
+      <div class="option">c) Before/after</div>
+      <div class="option">d) Since/until</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q28</span>
+      <span class="q-text">"The meeting is _______ the conference room _______ the second floor."</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option correct">a) in, on</div>
+      <div class="option">b) at, in</div>
+      <div class="option">c) on, in</div>
+      <div class="option">d) in, at</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: A (in the room; on the floor)</div>
+    </div>
+  </div>
+
+  <div class="topic-divider">💬 SECTION 4: COMMUNICATION TYPES (Q29–Q40)</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q29</span>
+      <span class="q-text">What is intrapersonal communication?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Communication between two people</div>
+      <div class="option correct">b) Communication within an individual (self-talk)</div>
+      <div class="option">c) Communication in a group</div>
+      <div class="option">d) Communication through media</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q30</span>
+      <span class="q-text">Interpersonal communication occurs between:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) One person (themselves)</div>
+      <div class="option correct">b) Two or more people in direct contact</div>
+      <div class="option">c) A person and a large audience</div>
+      <div class="option">d) Organizations</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q31</span>
+      <span class="q-text">Which communication type uses technology to reach millions of people?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Public communication</div>
+      <div class="option">b) Interpersonal communication</div>
+      <div class="option correct">c) Mass communication</div>
+      <div class="option">d) Group communication</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: C</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q32</span>
+      <span class="q-text">A face-to-face conversation between two friends is:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Intrapersonal communication</div>
+      <div class="option correct">b) Interpersonal communication</div>
+      <div class="option">c) Public communication</div>
+      <div class="option">d) Mass communication</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q33</span>
+      <span class="q-text">What is the main difference between public and mass communication?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Mass communication is always written</div>
+      <div class="option correct">b) Public communication involves live, co-present audience; mass communication is technology-mediated</div>
+      <div class="option">c) Public communication is formal; mass communication is informal</div>
+      <div class="option">d) There is no difference</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q34</span>
+      <span class="q-text">Which type of communication is also called "the grapevine"?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Formal communication</div>
+      <div class="option correct">b) Informal communication</div>
+      <div class="option">c) Public communication</div>
+      <div class="option">d) Mass communication</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q35</span>
+      <span class="q-text">In formal communication, information flows:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Only downward</div>
+      <div class="option correct">b) In all directions (downward, upward, horizontal, diagonal)</div>
+      <div class="option">c) Only from top to bottom</div>
+      <div class="option">d) Randomly</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q36</span>
+      <span class="q-text">A politician's speech broadcast live on television is best classified as:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Public communication (live event)</div>
+      <div class="option">b) Mass communication (broadcast)</div>
+      <div class="option correct">c) Both public and mass communication</div>
+      <div class="option">d) Interpersonal communication</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: C (live audience AND broadcast)</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q37</span>
+      <span class="q-text">Group communication differs from interpersonal communication in:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option correct">a) Number of participants (3+ vs. 2)</div>
+      <div class="option">b) Level of formality</div>
+      <div class="option">c) Use of verbal communication</div>
+      <div class="option">d) Need for feedback</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: A</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q38</span>
+      <span class="q-text">Which characteristic is true of mass communication but NOT public communication?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) One-directional flow</div>
+      <div class="option">b) Large audience</div>
+      <div class="option correct">c) Technology-mediated and geographically dispersed</div>
+      <div class="option">d) Requires feedback</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: C</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q39</span>
+      <span class="q-text">Which direction of formal communication refers to peer-to-peer interaction?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Downward</div>
+      <div class="option">b) Upward</div>
+      <div class="option correct">c) Horizontal/Lateral</div>
+      <div class="option">d) Diagonal</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: C</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q40</span>
+      <span class="q-text">Informal communication in an organization is characterized by:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Following official channels</div>
+      <div class="option">b) Being documented</div>
+      <div class="option correct">c) Being spontaneous and fast</div>
+      <div class="option">d) Maintaining chain of command</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: C</div>
+    </div>
+  </div>
+
+  <div class="topic-divider">👁️ SECTION 5: NONVERBAL COMMUNICATION (Q41–Q50)</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q41</span>
+      <span class="q-text">Which of the following is NOT a type of nonverbal communication?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Gestures</div>
+      <div class="option">b) Tone of voice</div>
+      <div class="option correct">c) Written words</div>
+      <div class="option">d) Eye contact</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: C (Written words are verbal)</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q42</span>
+      <span class="q-text">Paralanguage refers to:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Words and sentences</div>
+      <div class="option correct">b) Vocal elements like tone, pitch, volume, pace</div>
+      <div class="option">c) Body movements</div>
+      <div class="option">d) Touch and distance</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q43</span>
+      <span class="q-text">When pitch is high, it usually indicates:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Authority and seriousness</div>
+      <div class="option correct">b) Excitement or nervousness</div>
+      <div class="option">c) Anger</div>
+      <div class="option">d) Confidence</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q44</span>
+      <span class="q-text">What is proxemics?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) The study of touch</div>
+      <div class="option correct">b) The study of personal space</div>
+      <div class="option">c) The study of time</div>
+      <div class="option">d) The study of gestures</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q45</span>
+      <span class="q-text">Which type of gesture is a culturally agreed-upon substitute for words?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Illustrator</div>
+      <div class="option correct">b) Emblem</div>
+      <div class="option">c) Regulator</div>
+      <div class="option">d) Affect display</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B (Example: thumbs-up, peace sign)</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q46</span>
+      <span class="q-text">Intimate space (0–18 inches) is typically used with:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Colleagues</div>
+      <div class="option">b) Strangers</div>
+      <div class="option correct">c) Close personal relationships (family, romantic partners)</div>
+      <div class="option">d) Large audiences</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: C</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q47</span>
+      <span class="q-text">Which nonverbal element is most likely to contradict verbal communication?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Tone of voice</div>
+      <div class="option">b) Personal space</div>
+      <div class="option correct">c) Facial expression and body language</div>
+      <div class="option">d) Appearance</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: C</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q48</span>
+      <span class="q-text">In high-context cultures, nonverbal communication is:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Less important than verbal</div>
+      <div class="option correct">b) More important and carries more meaning</div>
+      <div class="option">c) Not used at all</div>
+      <div class="option">d) Used only in formal settings</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: B</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q49</span>
+      <span class="q-text">Regulators (a type of gesture) function to:</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Show emotion</div>
+      <div class="option">b) Emphasize speech</div>
+      <div class="option correct">c) Manage turn-taking in conversation</div>
+      <div class="option">d) Substitute for words</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: C</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num mcq-num">Q50</span>
+      <span class="q-text">Which element of paralanguage indicates hesitation or uncertainty?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-options">
+      <div class="option">a) Fast pace</div>
+      <div class="option">b) High pitch</div>
+      <div class="option correct">c) Frequent pauses and fillers (um, uh)</div>
+      <div class="option">d) Loud volume</div>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label mcq-lbl">ANSWER: C</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= SAQ SECTION ========================= -->
+<section id="saq">
+  <div class="section-header">
+    <h2><span class="saq-tag">▤</span> Short Answer Questions</h2>
+    <p>27 questions — Click to reveal full answer.</p>
+  </div>
+
+  <div class="topic-divider">TOPIC 1: WORD FORMATION PROCESSES</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S1</span>
+      <span class="q-text">What is clipping in word formation?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">Clipping is a word formation process in which a portion or segment of a word is removed to create a new, shorter word. The clipped word retains the meaning of the original word but is more informal/colloquial. Example: "exam" from "examination," "lab" from "laboratory," "phone" from "telephone".</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S2</span>
+      <span class="q-text">Give two examples of back-formation.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <ol>
+          <li>Donate (from donation)</li>
+          <li>Edit (from editor)</li>
+          <li>Televise (from television)</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S3</span>
+      <span class="q-text">Name three types of clipping.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <ol>
+          <li><strong>Fore-clipping</strong> (remove from beginning): bus (omnibus), copter (helicopter)</li>
+          <li><strong>End-clipping</strong> (remove from end): photo (photograph), gym (gymnasium)</li>
+          <li><strong>Middle-clipping</strong> (remove from middle): flu (influenza), fridge (refrigerator)</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S4</span>
+      <span class="q-text">Explain the difference between blending and compound words with examples.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <strong>Compound Words:</strong> Combine two complete words to form a new word. Example: "football" (foot + ball), "notebook" (note + book). Both component words are independent and meaningful.<br><br>
+        <strong>Blending:</strong> Merge parts/fragments of two words (not complete words). Example: "brunch" (breakfast + lunch), "smog" (smoke + fog). The components are partial; parts are deleted.<br><br>
+        In compound words, both parts remain recognizable; in blends, they don't.
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S5</span>
+      <span class="q-text">What is reduplication? Explain with three different types and examples.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <strong>Reduplication</strong> is a word formation process where a word is created by repeating the whole or part of a root word to indicate meanings like plurality, intensity, etc.<br><br>
+        <strong>Three Types:</strong>
+        <ol>
+          <li><strong>Exact Reduplication:</strong> Same word repeated exactly. Example: "tick-tick" (clock sound), "clump-clump" (boots sound)</li>
+          <li><strong>Rhyming Compounds:</strong> Vowel and consonants after it are identical; initial consonant changes. Example: "roly-poly," "namby-pamby," "higgledy-piggledy"</li>
+          <li><strong>Ablaut Reduplication:</strong> Only vowel sound changes; consonants remain same. Example: "ding-dong," "sing-song," "ping-pong"</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">TOPIC 2: VOCABULARY & ROOTS</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S6</span>
+      <span class="q-text">Give one English word with a Latin root "ped" (foot).</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">Pedestrian, pedal, expedition, centipede</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S7</span>
+      <span class="q-text">Name one Greek root and provide one English word from it.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        Root: "bio" (life) → Biology, biography, autobiography
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S8</span>
+      <span class="q-text">Explain how understanding Latin and Greek roots can help in learning vocabulary.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        Understanding roots helps because:
+        <ol>
+          <li><strong>Pattern Recognition:</strong> Once you know a root, you can understand related words. Example: Root "aud" (hear) → audience, audition, audit, audible</li>
+          <li><strong>Decoding Unknown Words:</strong> When you encounter "audiology," you can infer it means "study of hearing"</li>
+          <li><strong>Memory Aid:</strong> Grouping words by root makes memorization easier</li>
+          <li><strong>Etymology Understanding:</strong> Knowing that "pedestrian" comes from "ped" (foot) connects it to "pedal," "pedicure," "pedestal"</li>
+          <li><strong>Morphological Awareness:</strong> Combining roots with prefixes/suffixes creates systematic vocabulary growth. Example: "bio" (life) + "-logy" (study) = Biology</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S9</span>
+      <span class="q-text">Differentiate between synonyms and antonyms. Provide two examples of each, with explanation of the differences.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <strong>Synonyms:</strong> Words with similar or nearly identical meanings.<br><br>
+        Example 1: "Happy" and "joyful" — Both express positive emotion. "Happy" is general/balanced; "Joyful" is more intense and expressive.<br>
+        Example 2: "Beautiful" and "attractive" — Both express appeal. "Beautiful" = complete aesthetic appeal; "Attractive" = ability to draw interest.<br><br>
+        <strong>Antonyms:</strong> Words with opposite meanings.<br><br>
+        Example 1: "Hot" and "cold" (Gradable antonym) — Represent opposite ends of temperature scale. Middle ground exists: warm, cool, lukewarm.<br>
+        Example 2: "Alive" and "dead" (Complementary antonym) — Complete opposites with no middle ground. Binary opposition.
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">TOPIC 3: ARTICLES (A, AN, THE)</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S10</span>
+      <span class="q-text">Use "a" or "an" correctly: "I saw _____ beautiful butterfly and _____ orange butterfly."</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">"I saw <strong>a</strong> beautiful butterfly and <strong>an</strong> orange butterfly."<br>"a" before "b" (consonant sound); "an" before "o" (vowel sound).</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S11</span>
+      <span class="q-text">Fill in the blank with appropriate article: "_____ information you provided was very helpful."</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">"<strong>The</strong> information you provided was very helpful."<br>Information is uncountable; "the" is used because the information is specific and known.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S12</span>
+      <span class="q-text">Explain when to use zero article (no article) with plural nouns. Give two examples.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <strong>Rule:</strong> Use zero article with plural countable nouns when referring to things in general, non-specific sense.<br><br>
+        <strong>Example 1:</strong> "Doctors are important for society." — Refers to doctors in general, not specific doctors.<br>
+        <strong>Example 2:</strong> "Cats are independent animals." — Refers to cats as a category/species.<br><br>
+        <strong>Contrast:</strong> General: "Dogs are loyal." (zero article) vs. Specific: "The dogs in our neighborhood are friendly." (the article)
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S13</span>
+      <span class="q-text">Distinguish between countable and uncountable nouns. Provide the article rules for each with examples.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <strong>Countable Nouns:</strong> Can be counted individually; have singular and plural forms.<br>
+        Article Rules:
+        <ul>
+          <li>Singular, non-specific: "a/an" → "I saw a dog yesterday"</li>
+          <li>Singular, specific: "the" → "The dog in the park is brown"</li>
+          <li>Plural, non-specific: zero article → "Dogs are animals"</li>
+          <li>Plural, specific: "the" → "The dogs in the park are friendly"</li>
+        </ul>
+        <strong>Uncountable Nouns:</strong> Cannot be counted individually; no plural form. Examples: advice, information, knowledge, money, music, news, furniture.<br>
+        Article Rules:
+        <ul>
+          <li>Non-specific/general: zero article → "Information is valuable"</li>
+          <li>Specific: "the" → "The information you gave me was useful"</li>
+          <li>Never use "a" or "an" → ✗ "a music" ✓ "some music"</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">TOPIC 4: PREPOSITIONS</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S14</span>
+      <span class="q-text">Classify the following prepositions as "place," "time," or "movement": at, behind, across, during, into, above</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <ul>
+          <li><strong>Place:</strong> behind, above</li>
+          <li><strong>Time:</strong> at, during</li>
+          <li><strong>Movement:</strong> across, into</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S15</span>
+      <span class="q-text">Use these prepositions in sentences: under, about, without</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <ol>
+          <li>Under: "The cat is hiding under the bed"</li>
+          <li>About: "Let's talk about the project"</li>
+          <li>Without: "She completed the work without help"</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S16</span>
+      <span class="q-text">Explain complex prepositions. List 5 examples and provide sentences for two of them.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <strong>Complex Prepositions:</strong> Phrases of two or more words that function as single prepositions. They express relationships that single-word prepositions cannot convey easily.<br><br>
+        <strong>5 Examples:</strong>
+        <ol>
+          <li>According to</li>
+          <li>In spite of</li>
+          <li>In front of</li>
+          <li>Apart from</li>
+          <li>Due to</li>
+        </ol>
+        <strong>Example Sentences:</strong>
+        <ul>
+          <li>"According to the report, sales increased by 20%" — Indicating source of information</li>
+          <li>"In spite of the rain, we went for a walk" — Showing contrast/opposition</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">TOPIC 5: COMMUNICATION TYPES</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S17</span>
+      <span class="q-text">Define intrapersonal communication with one example.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">Intrapersonal communication is communication that occurs within an individual — the internal dialogue and self-talk. Example: Thinking about a decision before making it, or having a mental conversation with yourself.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S18</span>
+      <span class="q-text">What is interpersonal communication?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">Interpersonal communication is the exchange of messages and meaning between two or more people in direct, face-to-face or mediated settings.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S19</span>
+      <span class="q-text">Distinguish between verbal and nonverbal communication with examples of each.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <strong>Verbal Communication:</strong> Uses words (spoken or written) to convey messages.
+        <ul>
+          <li>Spoken: Face-to-face conversation, phone call, presentation</li>
+          <li>Written: Email, letter, text message, report</li>
+        </ul>
+        <strong>Nonverbal Communication:</strong> Uses signals other than words to convey messages.
+        <ul>
+          <li>Gestures: Pointing, waving</li>
+          <li>Facial expressions: Smiling, frowning</li>
+          <li>Body language: Posture, stance</li>
+          <li>Tone of voice: Pitch, volume, pace</li>
+        </ul>
+        <strong>Relationship:</strong> Nonverbal often complements or contradicts verbal communication. Example: Saying "I'm happy" while smiling (reinforces) vs. saying "I'm happy" while frowning (contradicts).
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S20</span>
+      <span class="q-text">Compare formal and informal communication in an organization.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <table>
+          <tr><th>Aspect</th><th>Formal</th><th>Informal</th></tr>
+          <tr><td>Channel</td><td>Official, prescribed</td><td>Natural, arises spontaneously</td></tr>
+          <tr><td>Documentation</td><td>Documented, recorded</td><td>Not documented</td></tr>
+          <tr><td>Speed</td><td>Slower, goes through hierarchy</td><td>Fast and direct</td></tr>
+          <tr><td>Structure</td><td>Follows chain of command</td><td>No fixed structure</td></tr>
+          <tr><td>Accuracy</td><td>High (documented, checked)</td><td>Lower (prone to distortion)</td></tr>
+          <tr><td>Example</td><td>Memo, official letter, notice</td><td>Casual chat, gossip</td></tr>
+        </table>
+        <strong>The Grapevine:</strong> Informal communication network that spreads information rapidly but can distort messages.
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">TOPIC 6: NONVERBAL COMMUNICATION</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S21</span>
+      <span class="q-text">Name five types of nonverbal communication.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <ol>
+          <li>Body language and gestures</li>
+          <li>Paralanguage (tone, pitch, volume)</li>
+          <li>Eye contact/oculesics</li>
+          <li>Proxemics (personal space)</li>
+          <li>Haptics (touch)</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S22</span>
+      <span class="q-text">What is paralanguage?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">Paralanguage refers to the non-verbal vocal elements of speech such as tone, pitch, volume, pace, pauses, and fillers (um, uh) that accompany words but are not words themselves.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S23</span>
+      <span class="q-text">Explain the four types of personal space in proxemics with distances.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <strong>Proxemics:</strong> Study of how personal space influences communication.<br><br>
+        <strong>Four Types of Personal Space:</strong>
+        <ol>
+          <li><strong>Intimate Space:</strong> 0-18 inches (0-0.45m) — Close personal relationships. Example: Hugging, whispering secrets.</li>
+          <li><strong>Personal Space:</strong> 1.5-4 feet (0.45-1.2m) — Close friends, casual acquaintances. Example: Casual conversation with friend.</li>
+          <li><strong>Social Space:</strong> 4-12 feet (1.2-3.6m) — Professional/formal interactions. Example: Office meeting.</li>
+          <li><strong>Public Space:</strong> 12 feet and beyond (3.6m+) — Large audiences. Example: Lecturer addressing a class.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S24</span>
+      <span class="q-text">Describe four types of gestures with their functions.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <ol>
+          <li><strong>Emblems:</strong> Culturally agreed-upon gestures that substitute for words. Function: Replace verbal communication. Example: Thumbs-up (good job), peace sign.</li>
+          <li><strong>Illustrators:</strong> Gestures that accompany and emphasize speech. Function: Reinforce verbal message. Example: Spreading arms to show "this big."</li>
+          <li><strong>Affect Displays:</strong> Spontaneous expressions of emotion. Function: Show emotional state. Example: Covering mouth in shock.</li>
+          <li><strong>Regulators:</strong> Gestures that control conversation flow. Function: Manage turn-taking. Example: Nodding to encourage speaker.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">TOPIC 7: COMMUNICATION BARRIERS</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S25</span>
+      <span class="q-text">Name five types of communication barriers.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <ol>
+          <li>Physical/Environmental barriers (noise, distance)</li>
+          <li>Semantic/Language barriers (jargon, ambiguity)</li>
+          <li>Psychological/Personal barriers (prejudice, emotion)</li>
+          <li>Cultural barriers (different norms)</li>
+          <li>Organizational barriers (hierarchy, filtering)</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S26</span>
+      <span class="q-text">What is a semantic barrier? Give one example.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">A semantic barrier is a communication obstacle related to language and meaning. It occurs when words have ambiguous meanings or when jargon is used.<br><br>Example: The word "right" has multiple meanings — "That's right" (correct), "Turn right" (direction), "You have the right" (entitlement). This ambiguity can cause misunderstanding.</div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num saq-num">S27</span>
+      <span class="q-text">Explain how psychological barriers affect communication with two examples.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label saq-lbl">ANSWER</div>
+      <div class="ans-text">
+        <strong>Psychological Barriers</strong> are obstacles arising from individual's mental state, attitudes, and perceptions.<br><br>
+        <strong>Example 1 — Selective Listening:</strong> Hearing only what one wants to hear. Important messages are missed. Scenario: A manager giving negative feedback is only heard as "you did something wrong" while missing constructive advice.<br><br>
+        <strong>Example 2 — Prejudice and Stereotyping:</strong> Pre-formed negative opinions about sender or receiver. Message is distorted by existing biases. Scenario: If you assume someone is unreliable, you may misinterpret their delayed response as carelessness rather than circumstantial delay.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= LONG SECTION ========================= -->
+<section id="long">
+  <div class="section-header">
+    <h2><span class="long-tag">▦</span> Long Questions</h2>
+    <p>8 questions — Detailed answers with examples.</p>
+  </div>
+
+  <div class="topic-divider">TOPIC 1: WORD FORMATION PROCESSES</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num long-num">L1</span>
+      <span class="q-text">Analyze the word formation process in "Workaholic", "Dictation", and "Television". Explain the difference in how they were created.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label long-lbl">DETAILED ANSWER</div>
+      <div class="ans-text">
+        <strong>Workaholic</strong> (Blending)<br>
+        Source words: "work" + "alcoholic"<br>
+        Process: Merging parts of two words; "work" (complete) + "aholic" (part of alcoholic)<br>
+        Meaning: Person addicted to work. Created through conscious, deliberate coining.<br><br>
+
+        <strong>Dictation</strong> (Affixation/Derivation)<br>
+        Source word: "dictate"<br>
+        Process: Adding suffix "-tion" to verb to create noun. Regular morphological process.<br><br>
+
+        <strong>Television</strong> (Compound + Back-formation potential)<br>
+        Source words: "tele-" (distant) + "vision" (sight)<br>
+        Process: Combining prefix + root. Can lead to back-formation: "televise" derived from "television". The suffix "-ion" is mistakenly analyzed as a morpheme, leading to back-formation.<br><br>
+
+        <strong>Key Difference:</strong> Workaholic is modern blending; Dictation is standard affixation; Television is a compound that enabled back-formation, showing how different processes interact.
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num long-num">L2</span>
+      <span class="q-text">Explain acronyms and their difference from initialisms. Why is this distinction important?</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label long-lbl">DETAILED ANSWER</div>
+      <div class="ans-text">
+        <strong>Acronym:</strong> An abbreviation formed from the initial letters of words that is pronounced as a single word. Examples: NASA, SCUBA, RADAR, LASER. Has achieved "word" status; written in small letters after adoption.<br><br>
+
+        <strong>Initialism:</strong> An abbreviation formed from the initial letters of words that is pronounced letter-by-letter. Examples: FBI, CIA, USA, TV, CEO. Remains as letters; typically capitalized.<br><br>
+
+        <strong>Importance of Distinction:</strong>
+        <ol>
+          <li><strong>Linguistic Classification:</strong> Acronyms are word-formation processes; initialisms are abbreviations</li>
+          <li><strong>Pronunciation:</strong> Different sounds affect how language evolves</li>
+          <li><strong>Grammatical Behavior:</strong> True acronyms undergo standard word-formation processes; initialisms don't</li>
+          <li><strong>Dictionary Status:</strong> Acronyms are listed as words; initialisms as abbreviations</li>
+          <li><strong>Educational Value:</strong> Understanding this helps identify how new words are created in English</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">TOPIC 2: VOCABULARY & ROOTS</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num long-num">L3</span>
+      <span class="q-text">Analyze the following word formation using multiple processes: "Unbelievable"</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label long-lbl">DETAILED ANSWER</div>
+      <div class="ans-text">
+        <strong>Structural Breakdown:</strong>
+        <ul>
+          <li>Prefix: "un-" (Latin origin, meaning "not")</li>
+          <li>Root: "believ" (from Latin "credere," meaning "to believe")</li>
+          <li>Suffix: "-able" (Latin origin, meaning "capable of")</li>
+        </ul>
+
+        <strong>Multiple Processes Involved:</strong>
+        <ol>
+          <li><strong>Affixation:</strong> The primary process — adding prefix "un-" to negate, adding suffix "-able" to create adjective</li>
+          <li><strong>Root Integration:</strong> Combining of Latin etymological elements across different word sources</li>
+          <li><strong>Morphological Stacking:</strong> Multiple morphemes stacked systematically — Base: "believe" → "believe" + "-able" = "believable" → "un-" + "believable" = "unbelievable"</li>
+        </ol>
+
+        <strong>Semantic Change:</strong>
+        <ul>
+          <li>Original: "believe" (verb — to accept as true)</li>
+          <li>Derivation 1: "believable" (adjective — worthy of belief)</li>
+          <li>Final: "unbelievable" (adjective — not worthy of belief/astonishing)</li>
+        </ul>
+
+        <strong>Historical Context:</strong> This demonstrates how Latin-derived affixes combine with Germanic roots (believe) to create new meanings, showing the rich etymological heritage of English vocabulary.
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">TOPIC 3: ARTICLES (A, AN, THE)</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num long-num">L4</span>
+      <span class="q-text">Analyze article usage in the following passage and explain the shifts from indefinite to definite articles: "There was a meeting yesterday. The meeting was about budget. A manager presented a proposal. The proposal contained three important points."</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label long-lbl">DETAILED ANSWER</div>
+      <div class="ans-text">
+        <strong>Sentence 1:</strong> "There was a meeting yesterday"
+        <ul>
+          <li>Article: "a"</li>
+          <li>Function: Introducing new, non-specific information</li>
+          <li>First mention: Meeting is unknown to reader</li>
+        </ul>
+
+        <strong>Sentence 2:</strong> "The meeting was about budget"
+        <ul>
+          <li>Article: "the"</li>
+          <li>Function: Referring back to the meeting mentioned above</li>
+          <li>Now specific: Both writer and reader know which meeting</li>
+        </ul>
+
+        <strong>Shift Explanation:</strong> From "a" to "the" because information is no longer new; reader is now familiar with it.<br><br>
+
+        <strong>Sentence 3:</strong> "A manager presented a proposal"
+        <ul>
+          <li>Articles: "a" (twice)</li>
+          <li>Function: Introducing new entities not yet mentioned</li>
+        </ul>
+
+        <strong>Sentence 4:</strong> "The proposal contained three important points"
+        <ul>
+          <li>Article: "the"</li>
+          <li>Function: Referring back to the proposal from previous sentence</li>
+        </ul>
+
+        <strong>Pattern Demonstrated:</strong>
+        <ol>
+          <li>Initial mention = indefinite article (a/an) = new, non-specific</li>
+          <li>Subsequent mentions = definite article (the) = known, specific</li>
+          <li>General statements = zero article = general category</li>
+        </ol>
+        This follows the "Given-New Distinction" principle: Old information takes definite article; new information takes indefinite article.
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">TOPIC 4: PREPOSITIONS</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num long-num">L5</span>
+      <span class="q-text">Differentiate between the prepositions "in", "at", and "on" by explaining their uses with examples for each time and place.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label long-lbl">DETAILED ANSWER</div>
+      <div class="ans-text">
+        <strong>"AT"</strong>
+        <ul>
+          <li><strong>Time:</strong> Specific point in time. Example: "Meet me at 6 PM"</li>
+          <li><strong>Place:</strong> Specific location/address. Example: "He is at school"</li>
+        </ul>
+
+        <strong>"IN"</strong>
+        <ul>
+          <li><strong>Time:</strong> Duration; period containing the point. Example: "I will return in one hour", "She was born in 1990"</li>
+          <li><strong>Place:</strong> Enclosed space; inside something. Example: "The book is in the drawer"</li>
+        </ul>
+
+        <strong>"ON"</strong>
+        <ul>
+          <li><strong>Time:</strong> Specific day or date. Example: "The meeting is on Monday"</li>
+          <li><strong>Place:</strong> Surface; touching a surface. Example: "The pen is on the desk"</li>
+        </ul>
+
+        <strong>Comparative Examples:</strong>
+        <ul>
+          <li>Time: "I'll see you at 5 PM" (exact moment) vs. "I'll see you in 5 minutes" (duration) vs. "I'll see you on Friday" (specific day)</li>
+          <li>Place: "Meet me at the station" (destination) vs. "The station is in the city" (within) vs. "The ticket office is on the platform" (surface)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">TOPIC 5: COMMUNICATION TYPES</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num long-num">L6</span>
+      <span class="q-text">Explain the concept of mass communication and contrast it with public communication.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label long-lbl">DETAILED ANSWER</div>
+      <div class="ans-text">
+        <strong>Mass Communication</strong>
+        <ul>
+          <li>Definition: Process by which messages are produced and distributed to large, anonymous, heterogeneous audiences through media channels</li>
+          <li>Technology-mediated (newspaper, TV, radio, internet)</li>
+          <li>Large, geographically dispersed audience</li>
+          <li>One-directional flow (sender → many receivers)</li>
+          <li>Delayed/limited feedback (letters to editor, comments, ratings)</li>
+          <li>Example: News broadcast on television reaches millions simultaneously</li>
+        </ul>
+
+        <strong>Public Communication</strong>
+        <ul>
+          <li>Definition: One person/small group addresses a large live audience in a relatively formal setting</li>
+          <li>Direct, face-to-face with audience</li>
+          <li>Immediate feedback possible (applause, questions)</li>
+          <li>Rhetorical intent (persuade, inspire, inform)</li>
+          <li>Example: Political rally, university lecture, TED Talk (live)</li>
+        </ul>
+
+        <strong>Key Differences:</strong>
+        <table>
+          <tr><th>Aspect</th><th>Mass</th><th>Public</th></tr>
+          <tr><td>Audience</td><td>Anonymous, millions</td><td>Known, present</td></tr>
+          <tr><td>Medium</td><td>Technology-mediated</td><td>Direct, live</td></tr>
+          <tr><td>Feedback</td><td>Delayed/indirect</td><td>Immediate</td></tr>
+          <tr><td>Time/Place</td><td>Separated</td><td>Co-present</td></tr>
+          <tr><td>Example</td><td>TV news</td><td>Live speech</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">TOPIC 6: NONVERBAL COMMUNICATION</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num long-num">L7</span>
+      <span class="q-text">Analyze how paralanguage elements can change the meaning of the same spoken words with specific examples.</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label long-lbl">DETAILED ANSWER</div>
+      <div class="ans-text">
+        <strong>Example Sentence: "That's really great."</strong><br><br>
+
+        <strong>Variation 1:</strong> Fast pace, high pitch, loud volume → Genuine excitement, enthusiasm, sincerity<br>
+        <strong>Variation 2:</strong> Slow pace, low pitch, soft volume → Sarcasm, criticism, disapproval<br>
+        <strong>Variation 3:</strong> Rising tone at end, hesitant pause → Uncertainty, questioning, lack of confidence<br>
+        <strong>Variation 4:</strong> Flat tone, monotone, neutral pace → Indifference, emotional detachment<br><br>
+
+        <strong>Detailed Analysis:</strong>
+        <table>
+          <tr><th>Element</th><th>High/Positive</th><th>Low/Negative</th></tr>
+          <tr><td>Pitch</td><td>Excitement</td><td>Authority, seriousness</td></tr>
+          <tr><td>Volume</td><td>Confidence</td><td>Intimacy, uncertainty</td></tr>
+          <tr><td>Pace</td><td>Anxiety, enthusiasm</td><td>Thoughtfulness, importance</td></tr>
+          <tr><td>Tone</td><td>Rising = question</td><td>Falling = certainty</td></tr>
+          <tr><td>Pauses</td><td>Strategic = emphasis</td><td>Frequent = hesitation</td></tr>
+        </table>
+
+        <strong>Real-world Application:</strong> In job interviews, the same answer "I completed the project on time" means differently — confident delivery (steady pace, clear pitch, strong volume) = Competent, reliable; hesitant delivery (slow pace, rising pitch, soft volume) = Unsure, lacking confidence. This demonstrates that how we say something is often more important than what we say.
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-divider">TOPIC 7: COMMUNICATION BARRIERS</div>
+
+  <div class="q-card" onclick="toggle(this)">
+    <div class="q-header">
+      <span class="q-num long-num">L8</span>
+      <span class="q-text">Analyze the following communication breakdown and identify the barriers involved. Suggest solutions. Scenario: In a multinational office, an Indian manager tells their American team: "We should think about this more." The American team immediately proceeds with their plan, considering the statement as hesitant agreement. Later, the manager is upset because "think about this more" meant "stop and reconsider completely."</span>
+      <span class="q-toggle">▾</span>
+    </div>
+    <div class="q-answer">
+      <div class="ans-label long-lbl">DETAILED ANSWER</div>
+      <div class="ans-text">
+        <strong>Barriers Identified:</strong>
+
+        <strong>1. Cultural Barrier</strong>
+        <ul>
+          <li>High-context (Indian) vs. Low-context (American) communication styles</li>
+          <li>High-context cultures (India, Japan) communicate indirectly; implied meanings are important</li>
+          <li>Low-context cultures (USA, Germany) prefer explicit, direct communication</li>
+          <li>Manager's indirect "We should think..." is understood as hesitation by direct-communication culture</li>
+        </ul>
+
+        <strong>2. Semantic/Language Barrier</strong>
+        <ul>
+          <li>Ambiguity in word choice</li>
+          <li>"Think about this more" is unclear — doesn't specify if it means "think for 5 minutes" or "reconsider entirely"</li>
+        </ul>
+
+        <strong>3. Organizational Barrier</strong>
+        <ul>
+          <li>Cross-cultural communication in multinational setting</li>
+          <li>No protocol for clarifying intent in cross-cultural communication</li>
+        </ul>
+
+        <strong>4. Psychological Barrier</strong>
+        <ul>
+          <li>Lack of awareness of cultural differences</li>
+          <li>Team assumes their communication style is universal</li>
+        </ul>
+
+        <strong>Solutions:</strong>
+        <ul>
+          <li><strong>Immediate:</strong> Manager should be more explicit. Team should ask clarifying questions.</li>
+          <li><strong>Short-term:</strong> Organizational training on cross-cultural communication. Establish team norms for clarity. Use written summaries after meetings.</li>
+          <li><strong>Long-term:</strong> Create organizational guidelines for communication in multicultural teams. Develop awareness that "clear communication" is culturally defined. Implement feedback systems.</li>
+        </ul>
+
+        <div class="highlight">Key Learning: Effective communication in multicultural contexts requires awareness that directness vs. indirectness is cultural, not universal.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  English Exam Question Bank · BCA · All questions sourced from course notes
+</footer>
+
+<script>
+  function toggle(card) {
+    card.classList.toggle('open');
+  }
+
+  function switchTab(tab) {
+    document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('nav button').forEach(b => {
+      b.className = '';
+    });
+    document.getElementById(tab).classList.add('active');
+    const btns = document.querySelectorAll('nav button');
+    if (tab === 'mcq') btns[0].className = 'active-mcq';
+    else if (tab === 'saq') btns[1].className = 'active-saq';
+    else btns[2].className = 'active-long';
+  }
+</script>
+</body>
+</html>

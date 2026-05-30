@@ -16,6 +16,7 @@
     --ai-color: #f472b6;
     --python-color: #3b82f6;
     --dbms-color: #f59e0b;
+    --english-color: #e11d48;
     --text: #e2e8f0;
     --text-dim: #64748b;
     --text-mid: #94a3b8;
@@ -143,6 +144,14 @@
     box-shadow: 0 8px 40px rgba(245,158,11,0.08);
   }
 
+  .card-english::before {
+    background: linear-gradient(90deg, var(--english-color), #fb7185);
+  }
+  .card-english:hover {
+    border-color: rgba(225,29,72,0.3);
+    box-shadow: 0 8px 40px rgba(225,29,72,0.08);
+  }
+
   .card-icon {
     font-size: 2rem;
     margin-bottom: 1rem;
@@ -158,6 +167,7 @@
   .card-ai h2 { color: var(--ai-color); }
   .card-python h2 { color: var(--python-color); }
   .card-dbms h2 { color: var(--dbms-color); }
+  .card-english h2 { color: var(--english-color); }
 
   .card p {
     color: var(--text-mid);
@@ -183,6 +193,7 @@
   .card-ai .card-arrow { color: var(--ai-color); }
   .card-python .card-arrow { color: var(--python-color); }
   .card-dbms .card-arrow { color: var(--dbms-color); }
+  .card-english .card-arrow { color: var(--english-color); }
   .card:hover .card-arrow { transform: translateX(4px); }
 
   footer {
@@ -275,6 +286,16 @@
       <p>Questions covering relational databases, SQL, normalization, ER diagrams, transactions, and indexing.</p>
       <div class="card-meta">
         <span>20 MCQ · 11 SAQ · 11 LONG</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="english.html" class="card card-english">
+      <div class="card-icon">▣</div>
+      <h2>English</h2>
+      <p>Questions covering Articles, Communication, Prepositions, Vocabulary Building, and Word Formation.</p>
+      <div class="card-meta">
+        <span>50 MCQ · 27 SAQ · 8 LONG</span>
         <span class="card-arrow">→</span>
       </div>
     </a>
